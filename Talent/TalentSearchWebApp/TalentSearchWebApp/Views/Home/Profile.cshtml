@@ -1,0 +1,377 @@
+﻿@model BusinessEntities.ViewModel.VmTalentEntity
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #banner {
+        display: none;
+    }
+
+    .wrapper.style1 {
+        background-color: whitesmoke;
+    }
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .modalbtn {
+        background: none!important;
+        border: none;
+        padding: 0!important;
+        font: inherit;
+        /*border is optional*/
+        border-bottom: 1px solid #444;
+        cursor: pointer;
+    }
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="~/Content/JS/ImageSlider.js"></script>
+<div class="container" style="background-color: whitesmoke;">
+    <div class="row">
+        <div class="12u" style="text-align: center;">
+            <section>
+                <h2>Profile</h2>
+                <h2><strong><u>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</u></strong></h2>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="6u">
+            <section>
+                <div id="demo" style="border: 2px solid gray">
+                    @{
+                        
+                        if (Model != null)
+                        {
+                            foreach (var element in Model.vmMedias)
+                            {
+                                if (element.MediaType == "Image")
+                                {
+                        @Html.Raw("<img src='" + element.MediaPath + "' alt='" + element.MediaName + "'/>");
+                                }
+                            }
+                        }
+                    }
+
+                </div>
+            </section>
+        </div>
+        <div class="6u">
+            <section class="profileSec">
+
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Age)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Age)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Ethnicity)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Ethnicity)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Gender)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Height)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Height)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.HairColor)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.HairColor)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.EyeColor)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.EyeColor)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Waist)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Waist)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        Chest/Bust Size              
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.ChestSize)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.HipSize)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.HipSize)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.RegionName)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.RegionName)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+
+                <div class="12u">
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayNameFor(model => model.Hobbies)
+                    </div>
+                    <div class="form-stronglabel 6u">
+                        @Html.DisplayFor(model => model.Hobbies)
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+                @{
+                    if (Model != null && Model.vmMainSkills != null)
+                    {
+                        foreach (var element in Model.vmMainSkills)
+                        {
+                    <fieldset>
+                        <legend>@Html.Raw(element.MainSkil)</legend>
+                        @if (element.Skills != null)
+                        {
+                            <ol>
+                                @foreach (var childelement in element.Skills)
+                                {
+                               
+                                    <li><strong>@Html.Raw(childelement.SkillName)</strong>
+                                    </li>
+                                    <ul>
+                                        <li>Description :  @Html.Raw(childelement.Description ?? "")
+                                        </li>
+                                    </ul>
+    
+                            
+                                }
+                            </ol>
+                        }
+                    </fieldset>
+                    <div style="clear: both"></div>
+                        }
+                    }
+                }
+                <div class="12u">
+
+                    <fieldset>
+                        <legend>Accents/Languages</legend>
+                        @{
+                            if (Model != null)
+                            {
+                                foreach (var element in Model.Languages)
+                                {
+                            @Html.Raw("<p>" + element + "</p>");
+                                }
+                            }
+                        }
+                    </fieldset>
+                </div>
+                <div style="clear: both"></div>
+                <div class="12u">
+                    <fieldset>
+                        <legend>Videos</legend>
+                        @{
+              
+       
+                            if (Model != null)
+                            {
+                                foreach (var element in Model.vmMedias)
+                                {
+                                    if (element.MediaType == "Video")
+                                    {
+                       
+                            @Html.Raw("<button onclick=Openpop('myModal" + element.MediaId + "') class='modalbtn'>" + element.MediaName + "</button><br/><br/>")
+                      
+                            @Html.Raw("<div id='myModal" + element.MediaId + "' class='modal'>")
+                            <div class="modal-content">
+                                @Html.Raw("<button class='close' onclick=closepop('" + element.MediaId + "')>&times;</button>")
+                                @Html.Raw("<video autoplay id='v" + element.MediaId + "' height='80%' width='80%' loop controls>  <source src='" + element.MediaPath + "' type='video/mp4'></video>")
+
+                            </div>
+                            @Html.Raw("</div>")
+                       
+                                    }
+                                }
+                            }
+                        }
+                    </fieldset>
+
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <fieldset>
+                        <legend>Contact Details</legend>
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.EmailId)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.EmailId)
+                            </div>
+                        </div>
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.AlternateEmailId)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.AlternateEmailId)
+                            </div>
+                        </div>
+
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.Mobile)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.Mobile)
+                            </div>
+                        </div>
+
+
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.Phone)
+                            </div>
+                        </div>
+
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.EmergencyName)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.EmergencyName)
+                            </div>
+                        </div>
+
+                        <div class="12u">
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayNameFor(model => model.EmergencyNumber)
+                            </div>
+                            <div class="form-stronglabel 6u">
+                                @Html.DisplayFor(model => model.EmergencyNumber)
+                            </div>
+                        </div>
+                    </fieldset>
+                }
+
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#slideshow > div:gt(0)").hide();
+
+    setInterval(function () {
+        $('#slideshow > div:first')
+          .fadeOut(1000)
+          .next()
+          .fadeIn(1000)
+          .end()
+          .appendTo('#slideshow');
+    }, 3000);
+
+
+    // When the user clicks on the button, open the modal 
+    function Openpop(modalid) {
+        var modal = document.getElementById(modalid);
+        modal.style.display = "block";
+    }
+
+    function closepop(Mediaid) {
+        $("#v" + Mediaid).trigger("pause");
+        var modal = document.getElementById("myModal" + Mediaid);
+        modal.style.display = "none";
+    }
+
+    $(function () {
+        $('legend').click(function () {
+            $(this).siblings().each(function () {
+                if (!$(this).hasClass("modal"))
+                    $(this).toggle();
+            });
+            return false;
+        });
+    });
+</script>

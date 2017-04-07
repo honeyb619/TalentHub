@@ -1,0 +1,143 @@
+﻿@model  List<BusinessEntities.Model.SubCategoryEntity>
+
+@{
+    ViewBag.Title = "Categories";
+    
+    <style type="text/css">
+        #banner {
+            display: none;
+        }
+    </style>  
+}
+<div class="container WhiteBack">
+    <div id='dialog'></div>
+
+    <h3>Categories List</h3>
+
+    <div style="padding: 7px 0;">
+        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Main Category" onclick="AddMainCategories();" />
+        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Sub Category" onclick="AddChildCategories();" />
+    </div>
+    <div style="clear: both"></div>
+    <div>
+        @{  
+            WebGrid grid = new WebGrid(Model);  
+            @grid.GetHtml(
+         tableStyle: "grid",
+         fillEmptyRows: false,
+         mode: WebGridPagerModes.All,
+         firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
+         columns: new[] {  
+         grid.Column("SubCategoryName",header: "Category Name"),  
+         grid.Column("ParentName",header: "Parent"),  
+         grid.Column("SubCategoryDescription", header: "Description"),  
+         grid.Column("SubCategoryValue",header: "Value"),
+         grid.Column("SubCategoryId", header: "Action", canSort:false,  
+           
+         format: @<text>
+            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+            </text>  
+        )  
+     })  
+        }
+    </div>
+</div>
+<script>
+    function EditCategories(P_ID) {
+        var ph = $("#dialog");
+        ph.load("/Admin/EditCategories?CategoryId=" + P_ID, function () {
+            $("#dialog").dialog({
+                modal: true,
+                width: 500,
+                height: 400,
+                title: "Edit Production Company",
+                resizable: false
+            });
+        });
+    }
+
+    function AddMainCategories() {
+        var ph = $("#dialog");
+        ph.load("/Admin/AddMainCategory", function () {
+            $("#dialog").dialog({
+                modal: true,
+                width: 500,
+                height: 400,
+                title: "Add Main Category",
+                resizable: false
+            });
+        });
+    }
+    function AddChildCategories() {
+        var ph = $("#dialog");
+        ph.load("/Admin/AddChildCategory", function () {
+            $("#dialog").dialog({
+                modal: true,
+                width: 500,
+                height: 400,
+                title: "Add Child Category",
+                resizable: false
+            });
+        });
+    }
+
+    function DeleteCategories(E_ID) {
+        if (confirm("Are You Sure Delete Selected Category and all associated child records?")) {
+            $.get('/Admin/DeleteCategories?CategoryId=' + E_ID,
+            function (data) {
+                if (data == true)
+                    location = location.href;
+                else
+                    alert("Not delete something Wrong");
+            });
+        }
+    }
+    function SaveCategory() {
+        var categoryObj = {};
+        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
+        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
+        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
+        categoryObj["SubCategoryId"] = $("#SubCategoryId").val();
+        $.post('/Admin/UpdateCategoryDetails', categoryObj,
+           function (data) {
+               if (data == true)
+                   location = location.href;
+               else
+                   alert("Not delete something Wrong");
+           });
+
+    }
+    function SaveMainCategory() {
+        var categoryObj = {};
+        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
+        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
+        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
+        $.post('/Admin/SaveMainCategory', categoryObj,
+           function (data) {
+               if (data == true)
+                   location = location.href;
+               else
+                   alert("Not delete something Wrong");
+           });
+    }
+
+    function SaveSubCategory() {
+        var categoryObj = {};
+        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
+        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
+        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
+        categoryObj["ParentId"] = $("#MainCategory").val();
+        $.post('/Admin/SaveChildCategory', categoryObj,
+           function (data) {
+               if (data == true)
+                   location = location.href;
+               else
+                   alert("Not delete something Wrong");
+           });
+    }
+
+</script>

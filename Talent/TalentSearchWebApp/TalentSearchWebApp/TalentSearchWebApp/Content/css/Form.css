@@ -1,0 +1,88 @@
+﻿.wufoo li.focused {
+    border-radius: 5px;
+    background: #E5F0FF;
+}
+
+.WhiteBack {
+    background-color: white;
+}
+
+.wufoo label.choice {
+    font-size: 1em;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #444444;
+}
+
+.wufoo input.text, .wufoo textarea.textarea, .wufoo input.file, .wufoo select.select {
+    font-style: normal;
+    font-weight: normal;
+    color: #333333;
+    font-size: 1em;
+}
+
+
+.wufoo input.text, .wufoo textarea.textarea, .wufoo input.file {
+    font-family: inherit;
+}
+
+.wufoo li div, .wufoo li span, .wufoo li div label, .wufoo li span label {
+    font-family: inherit;
+    color: #444444;
+}
+
+.safari .wufoo input.file {
+    font-size: 100%;
+    font-family: inherit;
+    color: #444444;
+}
+
+.wufoo .instruct small {
+    font-size: 80%;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #444444;
+}
+
+.altInstruct small, li.leftHalf small, li.rightHalf small, li.leftThird small, li.middleThird small, li.rightThird small, .iphone small {
+    color: #444444 !important;
+}
+
+.wufoo input.btTxt {
+}
+
+
+
+.wufoo ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.wufoo li legend {
+    padding: 0.2em 0.5em;
+    color: black;
+    display: inline-block;
+}
+
+.headerlegend {
+    text-align: center;
+    font-size: 1.5em;
+    display: inline-block;
+}
+
+.wufoo li fieldset {
+    border: 1px solid black;
+    padding: 0.2em 0.5em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+
+.wufoo section {
+    padding: 1em;
+    font-size: 1em;
+}
