@@ -1,0 +1,149 @@
+﻿@model BusinessEntities.Model.TalentEntity
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="background-color: whitesmoke;">
+
+    <div class="row">
+        <div class="6u">
+            <section>
+                <div id="slideshow">
+                    <div style="background: url(../Content/images/banner.jpg); background-size: 450px 600px; background-repeat: no-repeat;">
+                    </div>
+                    <div style="background: url(../Content/images/pic01.jpg); background-size: 450px 600px; background-repeat: no-repeat;">
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="6u">
+            <section>
+
+                <h2>@Html.DisplayFor(model => model.Name)</h2>
+
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Age)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Age)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Ethicity)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Ethicity)
+                </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Gender)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Gender)
+                </div>
+
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Height)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Height)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.HairColor)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.HairColor)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EyeColor)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EyeColor)
+                </div>
+
+
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Waist)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Waist)
+                </div>
+
+
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.ChestSize)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.ChestSize)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.HipSize)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.HipSize)
+                </div>
+
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Region)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Region)
+                </div>
+
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var element in Model.Skills)
+                        {
+                    <h2>
+                        @Html.Display(element.CategoryName)
+                    </h2>
+                    <div class="display-label">
+                        @Html.DisplayName(element.SubCategoryName)
+                    </div>
+                    <div class="display-field">
+                        @Html.Display(element.Description)
+                    </div>
+                        }
+                    }
+                }
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Hobbies)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Hobbies)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Acsent)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Acsent)
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+    $("#slideshow > div:gt(0)").hide();
+
+    setInterval(function () {
+        $('#slideshow > div:first')
+          .fadeOut(1000)
+          .next()
+          .fadeIn(1000)
+          .end()
+          .appendTo('#slideshow');
+    }, 3000);
+</script>

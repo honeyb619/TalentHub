@@ -1,0 +1,47 @@
+﻿@model BusinessEntities.Model.SubCategoryEntity
+
+@{
+    ViewBag.Title = "Add Main Category";
+}
+
+<fieldset>
+    <legend>Add Main Category</legend>
+
+    <div class="editor-label">
+        <label>Main Category Name</label>
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.SubCategoryName)
+        @Html.ValidationMessageFor(model => model.SubCategoryName)
+    </div>
+
+    <div class="editor-label">
+        <label>Main Category Value</label>
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.SubCategoryValue)
+        @Html.ValidationMessageFor(model => model.SubCategoryValue)
+    </div>
+
+    <div class="editor-label">
+        <label>Main Category Description</label>
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.SubCategoryDescription)
+        @Html.ValidationMessageFor(model => model.SubCategoryDescription)
+    </div>
+
+
+    <p>
+        <input type="button" value="Create" onclick="SaveMainCategory();" />
+    </p>
+</fieldset>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

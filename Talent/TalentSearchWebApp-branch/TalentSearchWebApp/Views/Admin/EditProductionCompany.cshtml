@@ -1,0 +1,80 @@
+﻿@model BusinessEntities.Model.ProductionCompanyEntitiy
+
+@using (Html.BeginForm()) {
+
+    <fieldset>
+        <legend>Production Company</legend>
+
+        <div class="editor-label">
+            Production Company Name
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductionCompanyName)
+        </div>
+
+        <div class="editor-label">
+           Contact Person
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ContactPerson)
+        </div>
+
+        <div class="editor-label">
+            Phone Number
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber)
+        </div>
+
+        <div class="editor-label">
+           Email
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EmailId)
+        </div>
+
+         <div class="editor-label">
+            Region
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
+                                                                    new { @id = "RegionField", @name = "RegionField" })
+        </div>
+
+        <div class="editor-label">
+            Description Notes
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DescriptionNotes)
+        </div>
+        <p>
+            <input type="button" value="Create" onclick="SaveProductionCompany()" />  
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Close", "ProductionCompany")
+</div>
+
+<script type="text/javascript">
+    function SaveProductionCompany() {
+        var ProductionCompanyName = $("#ProductionCompanyName").val();
+        var ContactPerson = $("#ContactPerson").val();
+        var PhoneNumber = $("#PhoneNumber").val();
+        var EmailId = $("#EmailId").val();
+        var RegionId = $("#RegionField").val();
+        var DescriptionNotes = $("#DescriptionNotes").val();
+
+        var ProductionCompany = {
+            "ProductionCompanyName": ProductionCompanyName, "ContactPerson": ContactPerson,
+            "PhoneNumber": PhoneNumber,
+            "EmailId": EmailId, "RegionId": RegionId,
+            "DescriptionNotes": DescriptionNotes,
+            "ProductionCompanyId": parseInt(@ViewBag.ProductionCompanyId)
+        };
+
+        $.post("/Admin/EditProductionCompany", ProductionCompany,
+        function (data) { if (data == 0) { location = location.href; } }, 'json');
+    }  
+</script>

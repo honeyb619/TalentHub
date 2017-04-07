@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "UploadFiles";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<style>
+    #banner {
+        display: none;
+    }
+
+    .fileinput-button {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter: 'alpha(opacity=0)';
+        font-size: 200px !important;
+        direction: ltr;
+        cursor: pointer;
+    }
+
+    div {
+        margin: 0 0 0.75em 0;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+        input[type="radio"] + label {
+            color: brown;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+            input[type="radio"] + label span {
+                display: inline-block;
+                width: 19px;
+                height: 19px;
+                margin: -1px 4px 0 0;
+                vertical-align: middle;
+                cursor: pointer;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+
+            input[type="radio"] + label span {
+                background-color: gray;
+            }
+
+        input[type="radio"]:checked + label span {
+            background-color: green;
+        }
+
+        input[type="radio"] + label span,
+        input[type="radio"]:checked + label span {
+            -webkit-transition: background-color 0.4s linear;
+            -o-transition: background-color 0.4s linear;
+            -moz-transition: background-color 0.4s linear;
+            transition: background-color 0.4s linear;
+        }
+</style>
+<div class="container WhiteBack">
+    <div class="row">
+        <div class="12u wufoo">
+            <h2 style="text-align: center">Upload Files</h2>
+            <section>
+                <ul>
+                    <li>
+                        <fieldset>
+                            <legend>Upload Files : </legend>
+                            <div style="text-align: center">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select files...</span>
+                                    <!-- The file input field used as target for the file upload widget -->
+                                    <input id="fileupload" type="file" name="files[]" multiple="">
+                                </span>
+                                <input type="button" class="btn-default" value="Submit" onclick="submitFiles()" />
+                            </div>
+                            <fieldset id="selectedFields" style="border: none; display: none;">
+                                <legend style="border: none">Selected Files : </legend>
+                                <div class="12u" style="padding-top: 1em;">
+                                    <strong><span>Please select the profile picture from uploads</span></strong>
+                                    <div id="selectedImages" class="12u"></div>
+                                    <strong><span>Below are the selected Videos</span></strong>
+                                    <div id="selectedVideos" class="12u"></div>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div class="12u" style="padding-top: 1em;">
+                                </div>
+                            </fieldset>
+                            <strong style="color: red;">Note : Only Images and Videos are allowed with size upto 10 MB.</strong>
+                        </fieldset>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+</div>
+<footer>
+    <script src="~/Content/JS/UploadFiles.js"></script>
+</footer>

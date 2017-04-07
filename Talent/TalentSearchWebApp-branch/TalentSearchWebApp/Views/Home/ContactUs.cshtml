@@ -1,0 +1,72 @@
+﻿@model TalentSearchWebApp.Models.ContactUsMail
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #banner {
+        display: none;
+    }
+</style>
+<header class="major">
+    <h2>Contact US</h2>
+</header>
+<div class="container" style="background-color: whitesmoke;">
+    <div class="row">
+        <div class="6u wufoo">
+            <section class="section">
+                <ul>
+                    <li>
+                        <p class="font_8" style="line-height: 1.4em;"><span class="color_26">JADE</span></p>
+                        <p class="font_8" style="line-height: 1.4em;">
+                            <span class="color_26">PO BOX 23-123<br />
+                                Mt Wellington, Auckland NZ 1060</span>
+                            <br />
+                            <br />
+                            <a class="icon fa-envelope auto-generated-link" data-auto-recognition="true" data-content="enquiries@jadetalent.co.nz" href="mailto:enquiries@jadetalent.co.nz" data-type="mail">&emsp;enquiries@jadetalent.co.nz</a>
+                            <br />
+                            <span class="icon fa-phone">&emsp;021 1855321</span>
+                        </p>
+
+                    </li>
+                    <li>
+                        <form>
+                            <fieldset>
+                                <legend>Send Queries </legend>
+                                <span>
+                                    <label for="EmailNameField">Name</label>
+                                    <input id="EmailNameField" name="EmailNameField" type="text" required = "" placeholder="Enter Name" class="field text fn" value="" size="8" tabindex="1">
+                                </span>
+                                <span>
+                                    <label for="EmailIDField">EMAIL</label>
+                                    @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "Enter Email Address", required = "", id = "emailid" })
+                                    @*<input id="EmailIDField" name="EmailIDField" type="text" class="field text fn" value="" size="8" tabindex="2">*@
+                                </span>
+                                <span>
+                                    <label for="SubjectField">SUBJECT</label>
+                                    @Html.TextBoxFor(Model => Model.Subject, new { placeholder = "Enter Subject", required = "", id = "subject" })
+                                    @*<input id="SubjectField" name="SubjectField" type="text" class="field text fn" value="" size="8" tabindex="3">*@
+                                </span>
+                                <span>
+                                    <label for="MessageField">Message</label>
+                                    @Html.TextAreaFor(Model => Model.Message, new { placeholder = "Enter Message", required = "", id = "message" })
+                                    @*<textarea id="MessageField" name="MessageField" class="field text ln" tabindex="4">
+                                            </textarea>*@
+                                </span>
+                                <br />
+                                <span>
+                                    <input type="submit" name="Save" value="SEND" class="btn btn-success" />
+                                </span>
+                            </fieldset>
+                        </form>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="6u wufoo">
+            <section class="section" style="background: url('../Images/image.jpg') no-repeat; height: 737px; background-position: center; margin: 1em 1em;">
+            </section>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,239 @@
+﻿@{
+    var MenuModel = ViewBag.MenuModel;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>JADE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/JS/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/JS/skel.min.js"></script>
+    <script src="~/Content/JS/skel-layers.min.js"></script>
+    <script src="~/Content/JS/init.js"></script>
+    <link href="~/Content/css/skel.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/style-xlarge.css" rel="stylesheet" />
+    <link href="~/Content/css/Form.css" rel="stylesheet" />
+    <style>
+        .clearfix:after {
+            display: block;
+            clear: both;
+        }
+
+        /*----- Menu Outline -----*/
+        .menu-wrap {
+            width: 100%;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            background: #3e3436;
+        }
+
+        .menu {
+            width: 1000px;
+            margin: 0px auto;
+        }
+
+            .menu li {
+                margin: 0px;
+                list-style: none;
+                font-family: 'Ek Mukta';
+            }
+
+            .menu a {
+                transition: all linear 0.15s;
+                color: #919191;
+            }
+
+            .menu li:hover > a, .menu .current-item > a {
+                text-decoration: none;
+                color: #be5b70;
+            }
+
+            .menu .arrow {
+                font-size: 11px;
+                line-height: 0%;
+            }
+
+            /*----- Top Level -----*/
+            .menu > ul > li {
+                float: left;
+                display: inline-block;
+                position: relative;
+            }
+
+                .menu > ul > li > a {
+                    padding: 0px 30px;
+                    display: inline-block;
+                    text-shadow: 0px 1px 0px rgba(0,0,0,0.4);
+                }
+
+                .menu > ul > li:hover > a, .menu > ul > .current-item > a {
+                    background: #2e2728;
+                }
+
+        /*----- Bottom Level -----*/
+        .primaryMenu:hover .sub-menu {
+            z-index: 1;
+            opacity: 1;
+            display: block;
+        }
+
+        .sub-menu {
+            width: 150%;
+            padding: 5px 0px;
+            position: absolute;
+            top: 100%;
+            left: 0px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity linear 0.15s;
+            box-shadow: 0px 2px 3px rgba(0,0,0,0.2);
+            background: #2e2728;
+            display: none;
+        }
+
+            .sub-menu li {
+                display: block;
+                font-size: 16px;
+            }
+
+                .sub-menu li a {
+                    /*padding: 10px 20px;*/
+                    display: block;
+                }
+
+                    .sub-menu li a:hover, .sub-menu .current-item a {
+                        background: #3e3436;
+                    }
+
+        #loading-image {
+            visibility: hidden;
+            background-color: rgba(255,255,255,0.7);
+            position: absolute;
+            z-index: +100 !important;
+            width: 100%;
+            height: 100%;
+        }
+
+            #loading-image img {
+                width: 600px;
+                height: 450px;
+                background: url(loading.gif) 50% no-repeat;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+
+        .inner h2 {
+            color: white;
+            font: bold 52px Helvetica, Arial, Sans-Serif;
+            position: relative;
+            top: -3px;
+            left: -3px;
+            text-shadow: 1px 1px #fe4902, 2px 2px #fe4902, 3px 3px #fe4902, 4px 4px #fe4902, 5px 5px #fe4902, 6px 6px #fe4902;
+        }
+
+        .wrapper {
+            background: WhiteSmoke!important;
+            color: black!Important;
+            font-family: Calibri;
+        }
+    </style>
+</head>
+<body id="top">
+
+    <!-- Header -->
+    <header id="header" class="skel-layers-fixed">
+
+        <h1>JADE</h1>
+        <div class="menu-wrap" style="text-align: left;">
+            <nav class="menu">
+                <ul class="clearfix">
+                    <li><a href="/Home/index">Home</a></li>
+                    <li><a href="/Home/RegisterTalent">Register</a></li>
+                    @{ foreach (var menu in MenuModel)
+                       {
+                           if (menu.Skills.Count > 0 && menu.MainSkil != "Admin")
+                           {
+                       
+                        <li class="primaryMenu">
+                            @Html.Raw("<a href='#'>" + menu.MainSkil + "</a>")
+
+                            <ul class="sub-menu">
+                                @{ foreach (var submenu in menu.Skills)
+                                   {
+                                    @Html.Raw("<li><a href='/Home/SearchCategory/" + menu.MainSkil + "/" + submenu.SkillName + "'>" + submenu.SkillName + "</a></li>")
+                                   }
+                                }
+
+
+                            </ul>
+                        </li> 
+                           }
+                           else if (menu.MainSkil == "Admin")
+                           {
+                        <li class="primaryMenu">
+                            @Html.Raw("<a href='#'>" + menu.MainSkil + "</a>")
+
+                            <ul class="sub-menu">
+                                @{ foreach (var submenu in menu.Skills)
+                                   {
+                                    @Html.Raw("<li><a href='/" + menu.MainSkil + "/" + submenu.SkillValue + "'>" + submenu.SkillName + "</a></li>")
+                                   }
+                                }
+                                <li><a href="/Admin/LogOut">Logout</a></li>
+
+                            </ul>
+                        </li> 
+                           }
+                           else
+                           {
+                        @Html.Raw("<li><a href='#'>" + menu.MainSkil + "</a></li>")
+                           }
+                       }
+                    }
+                    <li><a href="/Home/ContactUs">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <section id="banner">
+        <div class="inner">
+            <h2>JADE TALENT</h2>
+            <h2>Talent is a gift</h2>
+        </div>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style1">
+        <div id="loading-image">
+            <img src="~/Images/Loading.gif" class="img-responsive" />
+        </div>
+        @RenderBody()
+    </section>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+</body>
+<footer id="footer">
+    <div class="container">
+        <div class="row double">
+            <div class="6u">
+                <ul class="copyright" style="font-weight: bolder">
+                    <li>&copy; 2017 JADE TALENT. All rights reserved.</li>
+                    <li>Design: JADE</li>
+                    <li><a href="/Admin/LogOn">Admin</a><li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
