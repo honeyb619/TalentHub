@@ -29,12 +29,12 @@
 
                     </li>
                     <li>
-                        <form>
+                        <form name="Contactus">
                             <fieldset>
                                 <legend>Send Queries </legend>
                                 <span>
                                     <label for="EmailNameField">Name</label>
-                                    <input id="EmailNameField" name="EmailNameField" type="text" required = "" placeholder="Enter Name" class="field text fn" value="" size="8" tabindex="1">
+                                    <input id="EmailNameField" name="EmailNameField" type="text" required="" placeholder="Enter Name" class="field text fn" value="" size="8" tabindex="1">
                                 </span>
                                 <span>
                                     <label for="EmailIDField">EMAIL</label>
@@ -54,7 +54,8 @@
                                 </span>
                                 <br />
                                 <span>
-                                    <input type="submit" name="Save" value="SEND" class="btn btn-success" />
+                                    <input type="button" name="Send" onclick="getMessage()" value="SEND" class="btn btn-success" />
+                                    <input type="submit" style="display: none" id="formsubmit" />
                                 </span>
                             </fieldset>
                         </form>
@@ -69,4 +70,54 @@
         </div>
     </div>
 </div>
+<script>
+    function getMessage() {
+        var $myForm = $('#Contactus');
+        if (!$myForm.context.forms[0].checkValidity()) {
+            $("#formsubmit").click();
+            return;
+        }
+        var EnquiryObj = {};
+        EnquiryObj["Name"] = $("#EmailNameField").val();
+        EnquiryObj["EmailId"] = $("#emailid").val();
+        EnquiryObj["Subject"] = $("#subject").val();
+        EnquiryObj["Message"] = $("#message").val();
+        $.ajax({
+            url: '/Email/EnquiryFormEmail',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(EnquiryObj),
+            processData: false,
+            cache: false,
+            success: function (data) {
+                EnquiryObj["Message"] = data;
+                sendEnquiry(EnquiryObj).then(function () {
+                    window.location = "../Home/MessagePage?messageKey=EnquirySent";
+                }, function (error) {
+                    alert('Please try after some time.');
+                });
+            },
+            error: function (xhr) {
+                alert('Please try after some time.');
+            }
+        });
 
+    }
+    function sendEnquiry(messageObj) {
+        return $.ajax({
+            url: '/Home/ContactUs',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(messageObj),
+            processData: false,
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (xhr) {
+                alert('Please try after some time.');
+            }
+        });
+
+    }
+</script>

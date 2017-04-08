@@ -35,7 +35,8 @@ namespace TalentSearchWebApp.Common
             message.From = new MailAddress(emailObj.EmailId);
             message.Body = emailObj.Message;
             message.Subject = emailObj.Subject;
-            message.To.Add(new MailAddress("stacey@jadetalent.co.nz"));
+            message.To.Add(new MailAddress("honeybansal98@gmail.com"));
+            message.IsBodyHtml = true;
             JadeEmail.sendEmail(message);
         }
 

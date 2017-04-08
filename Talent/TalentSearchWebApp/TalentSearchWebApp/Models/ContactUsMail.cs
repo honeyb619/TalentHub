@@ -8,6 +8,7 @@ namespace TalentSearchWebApp.Models
 {
     public class ContactUsMail
     {
+        public string Name { get; set; }
         [Required]
         public string EmailId { get; set; }
         [Required]

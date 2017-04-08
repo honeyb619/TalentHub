@@ -129,6 +129,7 @@
     <Compile Include="AuthorizeWithSessionAttribute.cs" />
     <Compile Include="Common\JadeEmail.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -277,6 +278,7 @@
   <ItemGroup>
     <Folder Include="APIController\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Common\Templates\" />
     <Folder Include="Content\Files\Image\" />
     <Folder Include="Content\Files\Video\" />
   </ItemGroup>
@@ -317,6 +319,8 @@
     <Content Include="Views\Admin\EditCategories.cshtml" />
     <Content Include="Views\Admin\AddMainCategory.cshtml" />
     <Content Include="Views\Admin\AddChildCategory.cshtml" />
+    <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
+    <Content Include="Views\Email\EnquiryFormEmail.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

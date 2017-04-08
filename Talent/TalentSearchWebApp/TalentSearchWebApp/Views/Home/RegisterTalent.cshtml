@@ -158,7 +158,7 @@
                                     <span>
                                         <label for="RegionField">Region</label>
                                         @Html.DropDownListFor(model => model.RegionId, new SelectList(Model.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
-                                                                    new { @id = "RegionField", @name = "RegionField", @class = "field select addr", @tabindex = "11" })
+                                                                    new { @id = "RegionField", @name = "RegionField", @class = "field select addr", @tabindex = "11", required = "" })
                                     </span>
 
                                 </li>
@@ -179,7 +179,7 @@
                                         <legend>Appearance : </legend>
                                         <span>
                                             <label for="GenderField">Gender</label>
-                                            <select id="GenderField" name="GenderField" class="field select addr" tabindex="12">
+                                            <select id="GenderField" name="GenderField" required class="field select addr" tabindex="12">
                                                 <option value="">--Please Select--</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -225,7 +225,7 @@
                                     <span>
                                         <label for="AccentField">Accents/Languages</label>
                                         @Html.DropDownListFor(model => model.LanguageIds, new MultiSelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Language"), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                                 new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "AccentField", @name = "AccentField", @class = "field select addr multiselect", @tabindex = "21" })
+                                                                                                                 new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "AccentField", @name = "AccentField", @class = "field select addr multiselect", @tabindex = "21", required = "" })
 
                                         @* <input id="AccentField" name="AccentField" type="text" class="field text ln" value="" size="14" tabindex="22">*@
                                     </span>
@@ -255,7 +255,7 @@
                                         <span>
                                             <label for="skill1NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                      new { @id = "skill1NameField", @name = "skill1NameField", @class = "field select addr", @tabindex = "26" })
+                                                                                      new { @id = "skill1NameField", @name = "skill1NameField", @class = "field select addr", @tabindex = "26", required = "" })
 
 
                                         </span>
@@ -271,7 +271,7 @@
                                         <span>
                                             <label for="skill2NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                        new { @id = "skill2NameField", @name = "skill2NameField", @class = "field select addr", @tabindex = "28" })
+                                                                                                        new { @id = "skill2NameField", @name = "skill2NameField", @class = "field select addr", @tabindex = "28", required = "" })
 
 
                                         </span>
@@ -288,7 +288,7 @@
                                         <span>
                                             <label for="skill3NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30" })
+                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30", required = "" })
 
 
                                         </span>

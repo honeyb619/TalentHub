@@ -98,7 +98,7 @@ namespace JADE_TALENT.Controllers
             if (ModelState.IsValid)
             {
                 JadeEmail.SendEnquiryMessage(emailObj);
-                return RedirectToAction("MessagePage", "Home", new { messageKey = "EnquirySent" });
+                Json(true, JsonRequestBehavior.AllowGet);
             }
             return View();
         }
