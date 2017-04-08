@@ -19,7 +19,7 @@ namespace TalentSearchWebApp.Controllers
 
         public AdminController()
         {
-
+            
         }
 
         protected override void Initialize(RequestContext requestContext)
