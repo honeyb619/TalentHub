@@ -7,75 +7,12 @@
         display: none;
     }
 </style>
-<script>
-
-    //$(document).ready(function () {
-    //    var current = 1;
-
-    //    widget = $(".step");
-    //    btnnext = $(".next");
-    //    btnback = $(".back");
-    //    btnsubmit = $(".submit");
-
-    //    // Init buttons and UI
-    //    widget.not(':eq(0)').hide();
-    //    hideButtons(current);
-    //    setProgress(current);
-
-    //    // Next button click action
-    //    btnnext.click(function () {
-    //        if (current < widget.length) {
-    //            widget.show();
-    //            widget.not(':eq(' + (current++) + ')').hide();
-    //            setProgress(current);
-    //        }
-    //        hideButtons(current);
-    //    })
-    //    // Back button click action 	
-    //    btnback.click(function () {
-    //        if (current > 1) {
-    //            current = current - 2;
-    //            btnnext.trigger('click');
-    //        }
-    //        hideButtons(current);
-    //    })
-    //});
-
-    //// Change progress bar action
-    //setProgress = function (currstep) {
-    //    var percent = parseFloat(100 / widget.length) * currstep;
-    //    percent = percent.toFixed();
-    //    $(".progress-bar")
-    //        .css("width", percent + "%")
-    //        .html(percent + "%");
-    //}
-
-    //// Hide buttons according to the current step
-    //hideButtons = function (current) {
-    //    var limit = parseInt(widget.length);
-
-    //    $(".action").hide();
-
-    //    if (current < limit) btnnext.show(); if (current > 1) btnback.show();
-    //    if (current == limit) { btnnext.hide(); btnsubmit.show(); }
-    //}
-</script>
 <header class="major">
     <h2>Fill out your details</h2>
 </header>
 <form name="Talentform">
     <div class="container WhiteBack">
-        <div class="row" style="font-weight: bolder;">
-            <div class="12u wufoo">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-            @*  <div class="12u wufoo" style="text-align: center;">
-                <input type="button" class="action back btn btn-info" value="Previous Step" />
-                <input type="button" class="action next btn btn-info" value="Next Step" />
-               
-            </div>*@
+        <div class="row" style="font-weight: bolder;">           
             <div class="4u wufoo">
                 <section class="section">
                     <div class="step well">
@@ -261,7 +198,7 @@
                                         </span>
                                         <span>
                                             <label for="skill1DescField">Share your experiences</label>
-                                            <textarea id="skill1DescField" placeholder="Share your Experience..." required name="skill1DescField" class="field text ln" tabindex="27">
+                                            <textarea id="skill1DescField"  required name="skill1DescField" class="field text ln" tabindex="27">
                                             </textarea>
                                         </span>
 
@@ -271,13 +208,13 @@
                                         <span>
                                             <label for="skill2NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                        new { @id = "skill2NameField", @name = "skill2NameField", @class = "field select addr", @tabindex = "28", required = "" })
+                                                                                                        new { @id = "skill2NameField", @name = "skill2NameField", @class = "field select addr", @tabindex = "28" })
 
 
                                         </span>
                                         <span>
                                             <label for="skill2DescField">Share your experiences</label>
-                                            <textarea id="skill2DescField" placeholder="Share your Experience..." name="skill2DescField" class="field text ln" tabindex="29">
+                                            <textarea id="skill2DescField"  name="skill2DescField" class="field text ln" tabindex="29">
                                             </textarea>
 
                                         </span>
@@ -288,13 +225,13 @@
                                         <span>
                                             <label for="skill3NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30", required = "" })
+                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30"})
 
 
                                         </span>
                                         <span>
                                             <label for="skill3DescField">Share your experiences</label>
-                                            <textarea id="skill3DescField" placeholder="Share your Experience..." name="skill3DescField" class="field text ln" tabindex="31">
+                                            <textarea id="skill3DescField"  name="skill3DescField" class="field text ln" tabindex="31">
                                             </textarea>
                                         </span>
 

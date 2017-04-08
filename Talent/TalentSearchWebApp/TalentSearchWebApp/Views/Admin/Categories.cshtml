@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "Categories";
-    
-    <style type="text/css">
-        #banner {
-            display: none;
-        }
-    </style>  
 }
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
 <div class="container WhiteBack">
     <div id='dialog'></div>
 
@@ -47,42 +46,22 @@
     </div>
 </div>
 <script>
-    function EditCategories(P_ID) {
-        var ph = $("#dialog");
-        ph.load("/Admin/EditCategories?CategoryId=" + P_ID, function () {
-            $("#dialog").dialog({
-                modal: true,
-                width: 500,
-                height: 400,
-                title: "Edit Production Company",
-                resizable: false
-            });
+
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false
         });
+    });
+    function EditCategories(P_ID) {
+        window.location = "/Admin/EditCategories?CategoryId=" + P_ID;
     }
 
     function AddMainCategories() {
-        var ph = $("#dialog");
-        ph.load("/Admin/AddMainCategory", function () {
-            $("#dialog").dialog({
-                modal: true,
-                width: 500,
-                height: 400,
-                title: "Add Main Category",
-                resizable: false
-            });
-        });
+        window.location = "/Admin/AddMainCategory";
     }
     function AddChildCategories() {
-        var ph = $("#dialog");
-        ph.load("/Admin/AddChildCategory", function () {
-            $("#dialog").dialog({
-                modal: true,
-                width: 500,
-                height: 400,
-                title: "Add Child Category",
-                resizable: false
-            });
-        });
+        window.location = "/Admin/AddChildCategory";
+
     }
 
     function DeleteCategories(E_ID) {
@@ -96,48 +75,6 @@
             });
         }
     }
-    function SaveCategory() {
-        var categoryObj = {};
-        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
-        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
-        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
-        categoryObj["SubCategoryId"] = $("#SubCategoryId").val();
-        $.post('/Admin/UpdateCategoryDetails', categoryObj,
-           function (data) {
-               if (data == true)
-                   location = location.href;
-               else
-                   alert("Not delete something Wrong");
-           });
 
-    }
-    function SaveMainCategory() {
-        var categoryObj = {};
-        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
-        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
-        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
-        $.post('/Admin/SaveMainCategory', categoryObj,
-           function (data) {
-               if (data == true)
-                   location = location.href;
-               else
-                   alert("Not delete something Wrong");
-           });
-    }
-
-    function SaveSubCategory() {
-        var categoryObj = {};
-        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
-        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
-        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
-        categoryObj["ParentId"] = $("#MainCategory").val();
-        $.post('/Admin/SaveChildCategory', categoryObj,
-           function (data) {
-               if (data == true)
-                   location = location.href;
-               else
-                   alert("Not delete something Wrong");
-           });
-    }
 
 </script>

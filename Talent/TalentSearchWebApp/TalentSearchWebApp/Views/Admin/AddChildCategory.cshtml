@@ -3,57 +3,93 @@
     ViewBag.Title = "AddChildCategory";
 }
 
-<h2>Add Child Category</h2>
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
+<div style="margin-left: 20%; margin-right: 20%">
+    <h2>Add Child Category</h2>
 
 
-<fieldset>
-    <legend>Add Child Category</legend>
-    <div class="editor-label">
-        <label>Main Category</label>
-    </div>
-    <div class="editor-field">
-        <select id="MainCategory">
-            <option value="">---Please Select---</option>
-            @{
-                foreach (var pair in ViewBag.AvaiableEnums)
-                {
-                @Html.Raw("<option value='" + pair.Value + "'>" + pair.Text + "</option>");
-                }
-            }
-        </select>
-    </div>
+    <form name="Talentform">
+        <fieldset>
+            <legend style="display: none;">Add Child Category</legend>
+            <div class="editor-label">
+                <label>Main Category</label>
+            </div>
+            <div class="editor-field">
+                <select id="MainCategory" required>
+                    <option value="">---Please Select---</option>
+                    @{
+                        foreach (var pair in ViewBag.AvaiableEnums)
+                        {
+                        @Html.Raw("<option value='" + pair.Value + "'>" + pair.Text + "</option>");
+                        }
+                    }
+                </select>
+            </div>
 
-    <div class="editor-label">
-        <label>SubCategory Name</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" id="SubCategoryName" />
-    </div>
+            <div class="editor-label">
+                <label>SubCategory Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SubCategoryName, new { required = "" })
+                @Html.ValidationMessageFor(model => model.SubCategoryName)
+            </div>
 
-    <div class="editor-label">
-        <label>SubCategory Value</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" id="SubCategoryValue" />
-    </div>
+            <div class="editor-label">
+                <label>SubCategory Value</label>
+            </div>
+            <div class="editor-field">
+
+                @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "" })
+                @Html.ValidationMessageFor(model => model.SubCategoryValue)
+            </div>
 
 
-    <div class="editor-label">
-        <label>Description</label>
-    </div>
-    <div class="editor-field">
-        <input type="text" id="SubCategoryDescription" />
-    </div>
+            <div class="editor-label">
+                <label>Description</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SubCategoryDescription, new { required = "" })
+                @Html.ValidationMessageFor(model => model.SubCategoryDescription)
 
-    <p>
-        <input type="button" value="Create" onclick="SaveSubCategory()" />
-    </p>
-</fieldset>
+            </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+            <p>
+                <br />
+                <input type="button" value="Create" onclick="SaveSubCategory()" />
+                <input type="submit" id="formsubmit" style="display: none" />
+            </p>
+        </fieldset>
+    </form>
+
+    <div>
+        @Html.ActionLink("Back to List", "Categories")
+    </div>
 </div>
-
+<script>
+    function SaveSubCategory() {
+        var $myForm = $('#Talentform');
+        if (!$myForm.context.forms[0].checkValidity()) {
+            $("#formsubmit").click();
+            return;
+        }
+        var categoryObj = {};
+        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
+        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
+        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
+        categoryObj["ParentId"] = $("#MainCategory").val();
+        $.post('/Admin/SaveChildCategory', categoryObj,
+           function (data) {
+               if (data == true)
+                   location = "/Admin/Categories";
+               else
+                   alert("Not delete something Wrong");
+           });
+    }
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

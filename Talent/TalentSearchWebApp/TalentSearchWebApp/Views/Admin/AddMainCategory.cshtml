@@ -4,43 +4,75 @@
     ViewBag.Title = "Add Main Category";
 }
 
-<fieldset>
-    <legend>Add Main Category</legend>
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
+<div style="margin-left: 20%; margin-right: 20%">
+    <h2>Add Main Category</h2>
+    <form name="Talentform">
+        <fieldset>
+            <legend style="display: none;">Add Main Category</legend>
 
-    <div class="editor-label">
-        <label>Main Category Name</label>
+            <div class="editor-label">
+                <label>Main Category Name</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SubCategoryName, new { required = "" })
+                 @Html.ValidationMessageFor(model => model.SubCategoryName)
+            </div>
+
+            <div class="editor-label">
+                <label>Main Category Value</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "" })
+                 @Html.ValidationMessageFor(model => model.SubCategoryValue)
+            </div>
+
+            <div class="editor-label">
+                <label>Main Category Description</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SubCategoryDescription, new { required = "" })
+                 @Html.ValidationMessageFor(model => model.SubCategoryDescription)
+            </div>
+
+
+            <p>
+                <br />
+                <input type="button" value="Create" onclick="SaveMainCategory();" />
+                <input type="submit" value="Submit" style="display:none" id="formsubmit" />
+            </p>
+        </fieldset>
+    </form>
+
+    <div>
+        @Html.ActionLink("Back to List", "Categories")
     </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.SubCategoryName)
-        @Html.ValidationMessageFor(model => model.SubCategoryName)
-    </div>
-
-    <div class="editor-label">
-        <label>Main Category Value</label>
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.SubCategoryValue)
-        @Html.ValidationMessageFor(model => model.SubCategoryValue)
-    </div>
-
-    <div class="editor-label">
-        <label>Main Category Description</label>
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.SubCategoryDescription)
-        @Html.ValidationMessageFor(model => model.SubCategoryDescription)
-    </div>
-
-
-    <p>
-        <input type="button" value="Create" onclick="SaveMainCategory();" />
-    </p>
-</fieldset>
-
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+
+    function SaveMainCategory() {
+        var $myForm = $('#Talentform');
+        if (!$myForm.context.forms[0].checkValidity()) {
+            $("#formsubmit").click();
+            return;
+        }
+        var categoryObj = {};
+        categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
+        categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
+        categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
+        $.post('/Admin/SaveMainCategory', categoryObj,
+           function (data) {
+               if (data == true)
+                   location = "/Admin/Categories";
+               else
+                   alert("Not delete something Wrong");
+           });
+    }
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
