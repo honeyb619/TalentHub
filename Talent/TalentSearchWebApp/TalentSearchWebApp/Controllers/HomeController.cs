@@ -27,7 +27,7 @@ namespace JADE_TALENT.Controllers
         {
             base.Initialize(requestContext);
 
-            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            if (requestContext.HttpContext.User.Identity.IsAuthenticated && Session["UserInfo"] != null)
             {
                 AdminMenu();
             }
