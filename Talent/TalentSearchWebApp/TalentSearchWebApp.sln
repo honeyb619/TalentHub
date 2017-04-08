@@ -11,10 +11,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessServices", "Busines
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://honeybansaltalent98.visualstudio.com/
 		SccLocalPath0 = .
+		SccProjectUniqueName1 = TalentSearchWebApp\\TalentSearchWebApp.csproj
+		SccProjectName1 = TalentSearchWebApp
+		SccLocalPath1 = TalentSearchWebApp
+		SccProjectUniqueName2 = DataModel\\DataModel.csproj
+		SccProjectName2 = DataModel
+		SccLocalPath2 = DataModel
+		SccProjectUniqueName3 = BusinessEntities\\BusinessEntities.csproj
+		SccProjectName3 = BusinessEntities
+		SccLocalPath3 = BusinessEntities
+		SccProjectUniqueName4 = BusinessServices\\BusinessServices.csproj
+		SccProjectName4 = BusinessServices
+		SccLocalPath4 = BusinessServices
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
