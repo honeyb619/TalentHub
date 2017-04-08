@@ -1,61 +1,70 @@
 ﻿@model BusinessEntities.Model.ProductionCompanyEntitiy
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    <div style="margin-right: 20%; margin-left: 20%">
+        <fieldset>
+            <h2>Edit Production Company</h2>
+            <legend style="display: none;">Production Company</legend>
 
-@using (Html.BeginForm()) {
+            <div class="editor-label">
+                Production Company Name
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.ProductionCompanyName, new { required = "" })
+            </div>
 
-    <fieldset>
-        <legend>Production Company</legend>
+            <div class="editor-label">
+                Contact Person
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.ContactPerson, new { required = "" })
+            </div>
 
-        <div class="editor-label">
-            Production Company Name
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductionCompanyName)
-        </div>
+            <div class="editor-label">
+                Phone Number
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.PhoneNumber, new { required = "" })
+            </div>
 
-        <div class="editor-label">
-           Contact Person
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ContactPerson)
-        </div>
+            <div class="editor-label">
+                Email
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.EmailId, new { required = "" })
+            </div>
 
-        <div class="editor-label">
-            Phone Number
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNumber)
-        </div>
+            <div class="editor-label">
+                Region
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
+                                                                    new { @id = "RegionField", @name = "RegionField", required = "" })
+            </div>
 
-        <div class="editor-label">
-           Email
+            <div class="editor-label">
+                Description Notes
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.DescriptionNotes, new { required = "" })
+            </div>
+            <p>
+                <input type="button" value="Update" onclick="UpdateProductionCompany()" />
+                <input type="submit" value="Submit" style="display: none" id="formsubmit" />
+            </p>
+        </fieldset>
+        <div>
+            @Html.ActionLink("Back to List", "ProductionCompany")
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EmailId)
-        </div>
-
-         <div class="editor-label">
-            Region
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
-                                                                    new { @id = "RegionField", @name = "RegionField" })
-        </div>
-
-        <div class="editor-label">
-            Description Notes
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DescriptionNotes)
-        </div>
-        <p>
-            <input type="button" value="Update" onclick="UpdateProductionCompany()" />  
-        </p>
-    </fieldset>
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Close", "ProductionCompany")
-</div>
+
 
 <script type="text/javascript">
     var productionCompanyId = @ViewBag.ProductionCompanyId;

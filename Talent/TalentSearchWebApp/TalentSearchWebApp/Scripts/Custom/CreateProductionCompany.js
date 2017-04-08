@@ -1,4 +1,9 @@
 ﻿function CreateProductionCompany() {
+    var $myForm = $('#Talentform');
+    if (!$myForm.context.forms[0].checkValidity()) {
+        $("#formsubmit").click();
+        return;
+    }
     var ProductionCompanyName = $("#ProductionCompanyName").val();
     var ContactPerson = $("#ContactPerson").val();
     var PhoneNumber = $("#PhoneNumber").val();
@@ -17,7 +22,7 @@
         function (data) {
             if (data == 0) { location = location.href; }
             else {
-                alert("Production Company Created successfull");            
+                alert("Production Company Created successfull");
             }
         }, 'json');
-} 
+}

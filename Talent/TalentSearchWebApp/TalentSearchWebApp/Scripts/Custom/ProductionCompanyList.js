@@ -61,29 +61,31 @@ function PageSortProductionCompanyData(param) {
 }
 
 function CreateProductionCompany() {
-    var div = $("#dialog");
-    div.load("/Admin/CreateProductionCompany", function () {
-        div.dialog({
-            modal: true,
-            width: 500,
-            height: 400,
-            title: "Add New Production Company",
-            resizable: false
-        });
-    });
+    //var div = $("#dialog");
+    //div.load("/Admin/CreateProductionCompany", function () {
+    //    div.dialog({
+    //        modal: true,
+    //        width: 500,
+    //        height: 400,
+    //        title: "Add New Production Company",
+    //        resizable: false
+    //    });
+    //});
+    window.location = "/Admin/CreateProductionCompany";
 }
 
 function EditProductionCompany(P_ID) {
-    var ph = $("#dialog");
-    ph.load("/Admin/EditProductionCompany?productionCompanyId=" + P_ID, function () {
-        $("#dialog").dialog({
-            modal: true,
-            width: 500,
-            height: 400,
-            title: "Edit Production Company",
-            resizable: false
-        });
-    });
+    window.location = "/Admin/EditProductionCompany?productionCompanyId=" + P_ID;
+    //var ph = $("#dialog");
+    //ph.load("/Admin/EditProductionCompany?productionCompanyId=" + P_ID, function () {
+    //    $("#dialog").dialog({
+    //        modal: true,
+    //        width: 500,
+    //        height: 400,
+    //        title: "Edit Production Company",
+    //        resizable: false
+    //    });
+    //});
 }
 
 function DeleteProductionCompany(P_ID) {

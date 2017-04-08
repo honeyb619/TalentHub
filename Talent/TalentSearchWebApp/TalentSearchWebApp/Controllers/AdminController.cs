@@ -257,11 +257,11 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
-        public PartialViewResult CreateProductionCompany()   //Insert PartialView  
+        public ViewResult CreateProductionCompany()   //Insert PartialView  
         {
             IRegion objRegion = new RegionServices();
             ViewBag.RegionEntities = objRegion.GetAllRegions().ToList();
-            return PartialView(new ProductionCompanyEntitiy());
+            return View(new ProductionCompanyEntitiy());
         }
 
         [AuthorizeWithSessionAttribute]
@@ -275,13 +275,13 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
-        public PartialViewResult EditProductionCompany(long productionCompanyId)  // Update PartialView  
+        public ViewResult EditProductionCompany(long productionCompanyId)  // Update PartialView  
         {
             IRegion objRegion = new RegionServices();
             ViewBag.RegionEntities = objRegion.GetAllRegions().ToList();
             ViewBag.ProductionCompanyId = productionCompanyId;
             IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
-            return PartialView(objProductionCompanyServices.GetProductById(productionCompanyId));
+            return View(objProductionCompanyServices.GetProductById(productionCompanyId));
         }
 
         [AuthorizeWithSessionAttribute]

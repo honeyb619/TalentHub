@@ -1,59 +1,75 @@
 ﻿@model BusinessEntities.Model.ProductionCompanyEntitiy
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    <div style="margin-left: 20%; margin-right: 20%">
+        <h2>Production Company</h2>
+        <fieldset>
+            <legend style="display: none;">Production Company</legend>
 
-@using (Html.BeginForm()) {
+            <div class="editor-label">
+                Production Company Name
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.ProductionCompanyName, new { required = "" })
+                @Html.ValidationMessageFor(model => model.ProductionCompanyName)
+            </div>
 
-    <fieldset>
-        <legend>Production Company</legend>
+            <div class="editor-label">
+                Contact Person
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.ContactPerson, new { required = "" })
+                @Html.ValidationMessageFor(model => model.ContactPerson)
+            </div>
 
-        <div class="editor-label">
-            Production Company Name
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductionCompanyName)
-        </div>
+            <div class="editor-label">
+                Phone Number
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.PhoneNumber, new { required = "" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
 
-        <div class="editor-label">
-           Contact Person
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ContactPerson)
-        </div>
+            <div class="editor-label">
+                Email
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.EmailId, new { required = "" })
+                @Html.ValidationMessageFor(model => model.EmailId)
+            </div>
 
-        <div class="editor-label">
-            Phone Number
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNumber)
-        </div>
+            <div class="editor-label">
+                Region
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
+                                                                    new { @id = "RegionField", @name = "RegionField", required = "" })
+                @Html.ValidationMessageFor(model => model.RegionId)
+            </div>
 
-        <div class="editor-label">
-           Email
+            <div class="editor-label">
+                Description Notes
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.DescriptionNotes, new { required = "" })
+                @Html.ValidationMessageFor(model => model.DescriptionNotes)
+            </div>
+            <p>
+                <br />
+                <input type="button" value="Create" onclick="CreateProductionCompany()" />
+                <input type="submit" value="Submit" style="display: none" id="formsubmit" />
+            </p>
+        </fieldset>
+        <div>
+            @Html.ActionLink("Back to List", "ProductionCompany")
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EmailId)
-        </div>
-
-         <div class="editor-label">
-            Region
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
-                                                                    new { @id = "RegionField", @name = "RegionField" })
-        </div>
-
-        <div class="editor-label">
-            Description Notes
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DescriptionNotes)
-        </div>
-        <p>
-            <input type="button" value="Create" onclick="CreateProductionCompany()" />  
-        </p>
-    </fieldset>
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Close", "ProductionCompany")
-</div>
+
 <script src="~/Scripts/Custom/CreateProductionCompany.js" type="text/javascript"></script>

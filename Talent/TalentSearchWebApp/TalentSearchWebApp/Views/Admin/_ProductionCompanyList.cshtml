@@ -3,7 +3,6 @@
                 var grid = new WebGrid(rowsPerPage: Model.PageSize);
                 grid.Bind(Model.ListProductionCompanyEntitiy, autoSortAndPage: false,  rowCount: Model.TotalRecord);
             }
- 
                 @grid.GetHtml(
                 tableStyle:"gridtable",
                 columns: new[] {  

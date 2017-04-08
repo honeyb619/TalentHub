@@ -1,4 +1,9 @@
 ﻿function UpdateProductionCompany() {
+    var $myForm = $('#Talentform');
+    if (!$myForm.context.forms[0].checkValidity()) {
+        $("#formsubmit").click();
+        return;
+    }
     var ProductionCompanyName = $("#ProductionCompanyName").val();
     var ContactPerson = $("#ContactPerson").val();
     var PhoneNumber = $("#PhoneNumber").val();
