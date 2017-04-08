@@ -6,6 +6,11 @@ $(document).ready(function () {
 });
 
 function SubmitTalent() {
+    var $myForm = $('#Talentform');
+    if (!$myForm.context.forms[0].checkValidity()) {
+        $("#formsubmit").click();
+        return;
+    }
 
     var objVmInsertTalent = {};
     objVmInsertTalent.FirstName = $("#FirstNameFileld").val();
@@ -34,7 +39,7 @@ function SubmitTalent() {
 
     objVmInsertTalent.HipSize = $("#HipSizeField").val();
 
-    if ($("#profilePublicField").length>0) {
+    if ($("#profilePublicField").length > 0) {
         if ($("#profilePublicField").is(":checked")) {
             objVmInsertTalent.IsPublic = true;
         }
