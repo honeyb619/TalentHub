@@ -17,11 +17,13 @@ namespace DataModel
         public SubCategory()
         {
             this.ContactUs = new HashSet<ContactU>();
+            this.Jobs = new HashSet<Job>();
+            this.JobTalentAssociations = new HashSet<JobTalentAssociation>();
             this.JobTalentCategories = new HashSet<JobTalentCategory>();
             this.JobTalentLanguages = new HashSet<JobTalentLanguage>();
             this.JobTalentSkills = new HashSet<JobTalentSkill>();
-            this.JobTalentStatus = new HashSet<JobTalentStatu>();
             this.Talents = new HashSet<Talent>();
+            this.Talents1 = new HashSet<Talent>();
         }
     
         public long SubCategoryId { get; set; }
@@ -38,10 +40,12 @@ namespace DataModel
     
         public virtual Category Category { get; set; }
         public virtual ICollection<ContactU> ContactUs { get; set; }
+        public virtual ICollection<Job> Jobs { get; set; }
+        public virtual ICollection<JobTalentAssociation> JobTalentAssociations { get; set; }
         public virtual ICollection<JobTalentCategory> JobTalentCategories { get; set; }
         public virtual ICollection<JobTalentLanguage> JobTalentLanguages { get; set; }
         public virtual ICollection<JobTalentSkill> JobTalentSkills { get; set; }
-        public virtual ICollection<JobTalentStatu> JobTalentStatus { get; set; }
         public virtual ICollection<Talent> Talents { get; set; }
+        public virtual ICollection<Talent> Talents1 { get; set; }
     }
 }

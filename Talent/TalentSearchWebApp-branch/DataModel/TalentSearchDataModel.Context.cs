@@ -31,10 +31,10 @@ namespace DataModel
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContactU> ContactUs { get; set; }
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobTalentAssociation> JobTalentAssociations { get; set; }
         public DbSet<JobTalentCategory> JobTalentCategories { get; set; }
         public DbSet<JobTalentLanguage> JobTalentLanguages { get; set; }
         public DbSet<JobTalentSkill> JobTalentSkills { get; set; }
-        public DbSet<JobTalentStatu> JobTalentStatus { get; set; }
         public DbSet<MasterCategory> MasterCategories { get; set; }
         public DbSet<Medium> Media { get; set; }
         public DbSet<ProductionCompany> ProductionCompanies { get; set; }

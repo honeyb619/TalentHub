@@ -50,6 +50,12 @@
         border-top-right-radius: 0;
     }
 </style>
+<script>
+    function login() {
+
+    }
+
+</script>
 <div class="wrapper">
     <form class="form-signin">
         <h2 class="form-signin-heading">Admin login</h2>
@@ -57,7 +63,5 @@
         <br />
         @Html.PasswordFor(user => user.Password, new { placeholder = "Enter Password" })
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" />
-        <br />
-        @Html.ActionLink("Forgot Password", "ForgotPassword")
     </form>
 </div>

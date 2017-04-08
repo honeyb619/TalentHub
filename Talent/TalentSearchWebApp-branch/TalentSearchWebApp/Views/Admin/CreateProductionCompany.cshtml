@@ -48,7 +48,7 @@
             @Html.EditorFor(model => model.DescriptionNotes)
         </div>
         <p>
-            <input type="button" value="Create" onclick="SaveProductionCompany()" />  
+            <input type="button" value="Create" onclick="CreateProductionCompany()" />  
         </p>
     </fieldset>
 }
@@ -56,26 +56,4 @@
 <div>
     @Html.ActionLink("Close", "ProductionCompany")
 </div>
-
-
-<script type="text/javascript">
-    function SaveProductionCompany() {
-        var ProductionCompanyName = $("#ProductionCompanyName").val();
-        var ContactPerson = $("#ContactPerson").val();
-        var PhoneNumber = $("#PhoneNumber").val();
-        var EmailId = $("#EmailId").val();
-        var RegionId = $("#RegionField").val();
-        var DescriptionNotes = $("#DescriptionNotes").val();
-
-        var ProductionCompany = {
-            "ProductionCompanyName": ProductionCompanyName, "ContactPerson": ContactPerson,
-            "PhoneNumber": PhoneNumber,
-            "EmailId": EmailId, "RegionId": RegionId,
-            "DescriptionNotes": DescriptionNotes
-        };
-
-        $.post("/Admin/CreateProductionCompany", ProductionCompany,
-        function (data) { if (data == 0) { location = location.href; } }, 'json');
-    }  
-</script>
-
+<script src="~/Scripts/Custom/CreateProductionCompany.js" type="text/javascript"></script>

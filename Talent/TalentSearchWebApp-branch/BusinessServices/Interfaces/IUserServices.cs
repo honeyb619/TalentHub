@@ -11,7 +11,6 @@ namespace BusinessServices.Interfaces
     {
         UserEntity GetUsers(string UserName);
         UserEntity UpdateUsers(UserEntity model);
-        UserEntity GetUsersbyEmail(string Email);
-
+        
     }
 }

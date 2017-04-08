@@ -29,14 +29,6 @@ namespace BusinessServices.Services
             return adminEntity;
         }
 
-        public UserEntity GetUsersbyEmail(string Email)
-        {
-            var adminUser = _unitOfWork.UserRepository.GetWithInclude(user => user.Email == Email).FirstOrDefault();
-            Mapper.CreateMap<User, UserEntity>();
-            var adminEntity = Mapper.Map<User, UserEntity>(adminUser);
-            return adminEntity;
-        }
-
         public UserEntity UpdateUsers(UserEntity model)
         {
             var adminUser = _unitOfWork.UserRepository.GetWithInclude(user => user.UserName == model.UserName).FirstOrDefault();

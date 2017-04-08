@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BusinessEntities.Model;
+using BusinessEntities.GridVm;
 
 namespace BusinessServices.Interfaces
 {
     public interface IProductionCompanyServices
     {
         ProductionCompanyEntitiy GetProductById(long productionCompanyId);
-        IEnumerable<ProductionCompanyEntitiy> GetAllProducts();
+        GridVmProductionCompanyList GetAllProducts(int page, string sort, string sortdir, ProductionCompanyEntitiy productEntity);
         long CreateProduct(ProductionCompanyEntitiy productEntity);
         bool UpdateProduct(ProductionCompanyEntitiy productEntity);
-        bool DeleteProduct(long productionCompanyId, long deletedBy);
+        bool DeleteProduct(long productionCompanyId);
     }
 }

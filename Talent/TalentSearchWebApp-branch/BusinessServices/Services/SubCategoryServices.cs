@@ -25,14 +25,7 @@ namespace BusinessServices.Services
 
         public BusinessEntities.Model.SubCategoryEntity GetSubCategoryById(long subCategoryId)
         {
-            var subCategory = _unitOfWork.SubCategoryRepository.GetByID(subCategoryId);
-            if (subCategory.IsDeleted == false || subCategory.IsDeleted == null)
-            {
-                Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<SubCategory, SubCategoryEntity>(subCategory);
-                return subCategoriesModel;
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetAllSubCategories()
@@ -43,61 +36,13 @@ namespace BusinessServices.Services
         public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetSubCategoriesWithWhere(string[] categoryNames, string[] masterCategoryNames)
         {
             var subCategories = _unitOfWork.SubCategoryRepository.GetWithInclude(x => masterCategoryNames.Contains(x.Category.MasterCategoryName)
-                && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false, "Category").OrderBy(x => x.SubCategoryValue).ToList();
+                && categoryNames.Contains(x.Category.CategoryName), "Category").OrderBy(x => x.SubCategoryValue).ToList();
 
             if (subCategories.Any())
             {
                 Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
                 var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories);
                 return subCategoriesModel;
-            }
-            return null;
-        }
-
-        public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetParentCategories(string[] categoryNames, string[] masterCategoryNames)
-        {
-            var subCategories = _unitOfWork.SubCategoryRepository.GetWithInclude(x => masterCategoryNames.Contains(x.Category.MasterCategoryName)
-                && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false && x.ParentId == null, "Category").OrderBy(x => x.SubCategoryValue).ToList();
-
-            if (subCategories.Any())
-            {
-                Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories);
-                return subCategoriesModel;
-            }
-            return null;
-        }
-
-
-        public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetSubCategoriesWithWhere1(string[] categoryNames, string[] masterCategoryNames)
-        {
-            var subCategories = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.IsDeleted == false).OrderBy(x => x.SubCategoryName).ToList();
-
-            var result = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => masterCategoryNames.Contains(x.Category.MasterCategoryName)
-                && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false).Join(_unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.IsDeleted == false || x.IsDeleted == null), par => par.SubCategoryId,
-                child => child.ParentId,
-                (par, child) => new SubCategoryEntity
-                {
-                    ParentName = par.SubCategoryName,
-                    SubCategoryName = child.SubCategoryName,
-                    SubCategoryValue = child.SubCategoryValue,
-                    SubCategoryDescription = child.SubCategoryDescription,
-                    SubCategoryId = child.SubCategoryId
-                }).ToList();
-            var masteresult = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => masterCategoryNames.Contains(x.Category.MasterCategoryName)
-                && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false && x.ParentId == null).Select(x => new SubCategoryEntity
-                {
-                    ParentName = x.SubCategoryName,
-                    SubCategoryName = x.SubCategoryName,
-                    SubCategoryValue = x.SubCategoryValue,
-                    SubCategoryDescription = x.SubCategoryDescription,
-                    SubCategoryId = x.SubCategoryId
-                }).ToList();
-            result.AddRange(masteresult);
-
-            if (result.Any())
-            {
-                return result;
             }
             return null;
         }
@@ -109,72 +54,19 @@ namespace BusinessServices.Services
 
         public bool UpdateSubCategory(long subCategoryId, BusinessEntities.Model.SubCategoryEntity subCategoryEntity)
         {
-            try
-            {
-                var Category = _unitOfWork.SubCategoryRepository.GetByID(subCategoryId);
-                Category.SubCategoryName = subCategoryEntity.SubCategoryName;
-                Category.SubCategoryValue = subCategoryEntity.SubCategoryValue;
-                Category.SubCategoryDescription = subCategoryEntity.SubCategoryDescription;
-                Category.ModifiedDate = DateTime.Now;
-                _unitOfWork.SubCategoryRepository.Update(Category);
-                _unitOfWork.Save();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
+            throw new NotImplementedException();
         }
 
         public bool DeleteSubCategory(long subCategoryId, long deletedBy)
         {
-            try
-            {
-                var ParentSubCategory = _unitOfWork.SubCategoryRepository.GetByID(subCategoryId);
-                if (ParentSubCategory.ParentId != null)
-                {
-                    DeleteSkills(ParentSubCategory);
-                    ParentSubCategory.IsDeleted = true;
-                    _unitOfWork.SubCategoryRepository.Update(ParentSubCategory);
-                    _unitOfWork.Save();
-                }
-                else
-                {
-                    var ChildCategories = _unitOfWork.SubCategoryRepository.GetMany(x => x.ParentId == ParentSubCategory.SubCategoryId);
-                    foreach (var category in ChildCategories)
-                    {
-                        DeleteSkills(category);
-                        category.IsDeleted = true;
-                        _unitOfWork.SubCategoryRepository.Update(category);
-                    }
-                    ParentSubCategory.IsDeleted = true;
-                    _unitOfWork.SubCategoryRepository.Update(ParentSubCategory);
-                    _unitOfWork.Save();
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private void DeleteSkills(SubCategory category)
-        {
-            var ChildSkills = _unitOfWork.JobTalentSkillRepository.GetMany(x => x.SkillId == category.SubCategoryId);
-            foreach (var skill in ChildSkills)
-            {
-                skill.IsDeleted = true;
-                _unitOfWork.JobTalentSkillRepository.Update(skill);
-            }
+            throw new NotImplementedException();
         }
 
 
         public List<BusinessEntities.ViewModel.VmMainSkills> GetParentChildCategoriesWithWhere()
         {
             var subCategories = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.Category.MasterCategoryName == "CATEGORY"
-                && x.Category.CategoryName == "Category" && x.Category.CategoryName == "Category" && x.IsDeleted == false)
+                && x.Category.CategoryName == "Category" && x.Category.CategoryName == "Category")
                 .ToList();
 
             List<BusinessEntities.ViewModel.VmMainSkills> objListVmMainSkills = new List<VmMainSkills>();
@@ -204,9 +96,9 @@ namespace BusinessServices.Services
 
         public List<BusinessEntities.ViewModel.VmMainSkills> GetParentChildAdminCategoriesWithWhere()
         {
-            var subCategories = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.Category.MasterCategoryName == "CATEGORY" && x.Category.CategoryName == "Category" && x.IsDeleted == false)
+            var subCategories = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.Category.MasterCategoryName == "CATEGORY" && x.Category.CategoryName == "Category")
                 .ToList();
-            subCategories.AddRange(_unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.Category.MasterCategoryName == "ADMIN" && x.Category.CategoryName == "Admin" && x.IsDeleted == false));
+            subCategories.AddRange(_unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.Category.MasterCategoryName == "ADMIN" && x.Category.CategoryName == "Admin"));
             List<BusinessEntities.ViewModel.VmMainSkills> objListVmMainSkills = new List<VmMainSkills>();
 
             foreach (var a in subCategories.Where(x => x.ParentId == null))
@@ -232,52 +124,5 @@ namespace BusinessServices.Services
             return objListVmMainSkills;
         }
 
-        public bool AddMainCategory(SubCategoryEntity entity)
-        {
-            try
-            {
-                Mapper.CreateMap<SubCategoryEntity, SubCategory>();
-                var subCategoriesModel = Mapper.Map<SubCategoryEntity, SubCategory>(entity);
-                var mainCategory = _unitOfWork.CategoryRepository.GetMany(x => x.CategoryName == "CATEGORY").First();
-                subCategoriesModel.CategoryId = mainCategory.CategoryId;
-                subCategoriesModel.ParentId = null;
-                subCategoriesModel.CreatedBy = 1;
-                subCategoriesModel.CreatedDate = DateTime.Now;
-                subCategoriesModel.ModifiedDate = DateTime.Now;
-                subCategoriesModel.modifiedBy = 1;
-                subCategoriesModel.IsDeleted = false;
-                _unitOfWork.SubCategoryRepository.Insert(subCategoriesModel);
-                _unitOfWork.Save();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool AddChildCategory(SubCategoryEntity entity)
-        {
-            try
-            {
-                Mapper.CreateMap<SubCategoryEntity, SubCategory>();
-                var subCategoriesModel = Mapper.Map<SubCategoryEntity, SubCategory>(entity);
-                var mainCategory = _unitOfWork.CategoryRepository.GetMany(x => x.CategoryName == "CATEGORY").First();
-                subCategoriesModel.CategoryId = mainCategory.CategoryId;
-                subCategoriesModel.CreatedBy = 1;
-                subCategoriesModel.CreatedDate = DateTime.Now;
-                subCategoriesModel.ModifiedDate = DateTime.Now;
-                subCategoriesModel.modifiedBy = 1;
-                subCategoriesModel.IsDeleted = false;
-                _unitOfWork.SubCategoryRepository.Insert(subCategoriesModel);
-                _unitOfWork.Save();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
     }
 }

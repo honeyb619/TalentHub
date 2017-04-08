@@ -9,6 +9,9 @@ using BusinessEntities.Model;
 using DataModel;
 using AutoMapper;
 using System.Transactions;
+using System.Data.SqlClient;
+using System.Linq.Dynamic;
+using BusinessEntities.GridVm;
 
 namespace BusinessServices.Services
 {
@@ -45,16 +48,47 @@ namespace BusinessServices.Services
         /// Fetches all the production companies.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProductionCompanyEntitiy> GetAllProducts()
+        public GridVmProductionCompanyList GetAllProducts(int page, string sort, string sortdir, ProductionCompanyEntitiy productEntity)
         {
-            var products = _unitOfWork.ProductionCompanyRepository.GetWithInclude(x => x.IsDeleted == false, "Region").ToList();
+            GridVmProductionCompanyList objProductionCompanyList = new GridVmProductionCompanyList();
+            objProductionCompanyList.PageSize = 3;
+            string strWhere = "IsDeleted = false";
+            string strSort = string.Empty;
+
+            if (productEntity!= null)
+            {
+                if (!string.IsNullOrEmpty(strWhere) && !string.IsNullOrEmpty(productEntity.ProductionCompanyName))
+                {
+                    strWhere += " And ";
+                    strWhere += "ProductionCompanyName = \"" + productEntity.ProductionCompanyName + "\"";
+                }
+            }
+
+            if (sort == "RegionName")
+            {
+                strSort = "Region.RegionName " + sortdir;
+            }
+            else {
+                strSort = sort + " " + sortdir;
+            }
+
+                var products = _unitOfWork.ProductionCompanyRepository.GetManyQueryable(null)
+                    .Where(strWhere)
+                    .OrderBy(strSort)
+                    .Skip((page - 1) * objProductionCompanyList.PageSize).Take(objProductionCompanyList.PageSize)
+                    .ToList();
+
+                objProductionCompanyList.TotalRecord = _unitOfWork.ProductionCompanyRepository.DynamicQuery().Where(strWhere).Count();
+                objProductionCompanyList.NoOfPages = (objProductionCompanyList.TotalRecord / objProductionCompanyList.PageSize)
+                                                        + ((objProductionCompanyList.TotalRecord % objProductionCompanyList.PageSize) > 0 ? 1 : 0);
+
             if (products.Any())
             {
                 Mapper.CreateMap<ProductionCompany, ProductionCompanyEntitiy>().ForMember(x => x.RegionName, opt => opt.MapFrom(src => src.Region.RegionName));
-                var productionCompanyModel = Mapper.Map<List<ProductionCompany>, List<ProductionCompanyEntitiy>>(products);
-                return productionCompanyModel;
+                objProductionCompanyList.ListProductionCompanyEntitiy = Mapper.Map<List<ProductionCompany>, List<ProductionCompanyEntitiy>>(products);
             }
-            return null;
+
+            return objProductionCompanyList;
         }
 
         /// <summary>
@@ -76,6 +110,7 @@ namespace BusinessServices.Services
                     RegionId = productionCompanyEntitiy.RegionId,
                     CreatedBy = ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId,
                     CreatedDate = DateTime.UtcNow,
+                    ModifiedDate = DateTime.UtcNow,
                     IsDeleted = false
                 };
                 _unitOfWork.ProductionCompanyRepository.Insert(productionCompany);
@@ -123,26 +158,21 @@ namespace BusinessServices.Services
         /// </summary>
         /// <param name="productionCompanyId"></param>
         /// <returns></returns>
-        public bool DeleteProduct(long productionCompanyId, long deletedBy)
+        public bool DeleteProduct(long productionCompanyId)
         {
             var success = false;
             if (productionCompanyId > 0)
             {
-                using (var scope = new TransactionScope())
+                var productionCompanyIdToDelete = new SqlParameter("@ProductionCompanyId", productionCompanyId);
+                var userId = new SqlParameter("@UserId", ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId);
+
+                var IsDeleted = _unitOfWork.DeleteUsingProc.GetWithRawSql("exec usp_DeleteProductionCompany @ProductionCompanyId, @UserId", productionCompanyIdToDelete, userId).FirstOrDefault();
+                if (IsDeleted == "Success")
                 {
-                    var productionCompany = _unitOfWork.ProductionCompanyRepository.GetByID(productionCompanyId);
-                    if (productionCompany != null)
-                    {
-                        productionCompany.modifiedBy = deletedBy;
-                        productionCompany.ModifiedDate = DateTime.UtcNow;
-                        productionCompany.IsDeleted = true;
-                        _unitOfWork.ProductionCompanyRepository.Update(productionCompany);
-                        _unitOfWork.Save();
-                        scope.Complete();
-                        success = true;
-                    }
+                    success = true;
                 }
             }
+
             return success;
         }
     }

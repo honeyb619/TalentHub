@@ -14,7 +14,6 @@ namespace BusinessEntities.Model
         public string SubCategoryValue { get; set; }
         public string SubCategoryDescription { get; set; }
         public Nullable<long> ParentId { get; set; }
-        public string ParentName { get; set; }
         public long CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> modifiedBy { get; set; }
