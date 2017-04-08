@@ -27,6 +27,8 @@ namespace DataModel.UnitOfWork
         private GenericRepository<JobTalentSkill> _jobTalentSkillRepository;
         private GenericRepository<Medium> _mediaRepository;
         private GenericRepository<usp_GetPublicTalent_Result> _usp_GetPublicTalent_ResultRepository;
+        private GenericRepository<Job> _jobRepository;
+        private GenericRepository<string> _usp_Delete_ResultRepository;
 
         #endregion
 
@@ -62,7 +64,6 @@ namespace DataModel.UnitOfWork
                 return _usp_GetPublicTalent_ResultRepository;
             }
         }
-
         /// <summary>
         /// Get/Set Property for usp_GetPublicTalent_Result repository.
         /// </summary>
@@ -75,7 +76,6 @@ namespace DataModel.UnitOfWork
                 return _categoryRepository;
             }
         }
-
         /// <summary>
         /// Get/Set Property for JobTalentCategory repository.
         /// </summary>
@@ -177,6 +177,32 @@ namespace DataModel.UnitOfWork
                 if (this._subCategoryRepository == null)
                     this._subCategoryRepository = new GenericRepository<SubCategory>(_context);
                 return _subCategoryRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for job repository.
+        /// </summary>
+        public GenericRepository<Job> JobRepository
+        {
+            get
+            {
+                if (this._jobRepository == null)
+                    this._jobRepository = new GenericRepository<Job>(_context);
+                return _jobRepository;
+            }
+        }
+
+        /// <summary>
+        /// Delete using procedure.
+        /// </summary>
+        public GenericRepository<string> DeleteUsingProc
+        {
+            get
+            {
+                if (this._usp_Delete_ResultRepository == null)
+                    this._usp_Delete_ResultRepository = new GenericRepository<string>(_context);
+                return _usp_Delete_ResultRepository;
             }
         }
         #endregion

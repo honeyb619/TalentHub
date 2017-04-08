@@ -16,19 +16,28 @@ namespace DataModel
     {
         public Job()
         {
+            this.JobTalentAssociations = new HashSet<JobTalentAssociation>();
             this.JobTalentCategories = new HashSet<JobTalentCategory>();
             this.JobTalentLanguages = new HashSet<JobTalentLanguage>();
             this.JobTalentSkills = new HashSet<JobTalentSkill>();
-            this.JobTalentStatus = new HashSet<JobTalentStatu>();
             this.Media = new HashSet<Medium>();
         }
     
         public long JobId { get; set; }
         public string JobName { get; set; }
         public long ProductionCompanyId { get; set; }
+        public Nullable<long> StatusId { get; set; }
+        public Nullable<long> RegionId { get; set; }
+        public string JobDescription { get; set; }
         public string Gender { get; set; }
         public long MinAge { get; set; }
         public long MaxAge { get; set; }
+        public string EyeColor { get; set; }
+        public Nullable<long> Height { get; set; }
+        public Nullable<long> Waist { get; set; }
+        public string HairColor { get; set; }
+        public Nullable<long> ChestSize { get; set; }
+        public Nullable<long> HipSize { get; set; }
         public string Ethicity { get; set; }
         public string Pay { get; set; }
         public Nullable<long> NumberOfDays { get; set; }
@@ -39,10 +48,12 @@ namespace DataModel
         public Nullable<bool> IsDeleted { get; set; }
     
         public virtual ProductionCompany ProductionCompany { get; set; }
+        public virtual Region Region { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
+        public virtual ICollection<JobTalentAssociation> JobTalentAssociations { get; set; }
         public virtual ICollection<JobTalentCategory> JobTalentCategories { get; set; }
         public virtual ICollection<JobTalentLanguage> JobTalentLanguages { get; set; }
         public virtual ICollection<JobTalentSkill> JobTalentSkills { get; set; }
-        public virtual ICollection<JobTalentStatu> JobTalentStatus { get; set; }
         public virtual ICollection<Medium> Media { get; set; }
     }
 }

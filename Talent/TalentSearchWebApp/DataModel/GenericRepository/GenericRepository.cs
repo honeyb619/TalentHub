@@ -5,6 +5,8 @@ using System.Text;
 using System.Data.Entity;
 using System.Data;
 using System.Linq.Expressions;
+using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace DataModel.GenericRepository
 {
@@ -100,7 +102,7 @@ namespace DataModel.GenericRepository
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
-        public virtual IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where, 
+        public virtual IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where,
                     Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = DbSet;
@@ -116,6 +118,37 @@ namespace DataModel.GenericRepository
             }
         }
 
+        public virtual IQueryable<TEntity> DynamicQuery()
+        {
+            IQueryable<TEntity> query = DbSet;
+            return query.AsQueryable();
+        }
+
+        public virtual T ExecuteReader<T>(Func<DbDataReader, T> mapEntities, string exec, params object[] parameters)
+        {
+            using (var conn = new SqlConnection(Context.Database.Connection.ConnectionString))
+            {
+                using (var command = new SqlCommand(exec, conn))
+                {
+                    conn.Open();
+                    command.Parameters.AddRange(parameters);
+                    command.CommandType = CommandType.StoredProcedure;
+                    try
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            T data = mapEntities(reader);
+                            return data;
+                        }
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// generic method to get many record on the basis of a condition but query able.
         /// </summary>
@@ -124,7 +157,11 @@ namespace DataModel.GenericRepository
         public virtual IQueryable<TEntity> GetManyQueryable(Expression<Func<TEntity, bool>> where, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = DbSet;
-            query = query.Where(where);
+
+            if (where != null)
+            {
+                query = query.Where(where);
+            }
 
             if (orderBy != null)
             {

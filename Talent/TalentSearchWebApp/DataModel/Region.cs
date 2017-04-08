@@ -16,6 +16,7 @@ namespace DataModel
     {
         public Region()
         {
+            this.Jobs = new HashSet<Job>();
             this.ProductionCompanies = new HashSet<ProductionCompany>();
             this.Talents = new HashSet<Talent>();
         }
@@ -24,6 +25,7 @@ namespace DataModel
         public string RegionName { get; set; }
         public string RegionCode { get; set; }
     
+        public virtual ICollection<Job> Jobs { get; set; }
         public virtual ICollection<ProductionCompany> ProductionCompanies { get; set; }
         public virtual ICollection<Talent> Talents { get; set; }
     }

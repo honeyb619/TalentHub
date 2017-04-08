@@ -11,6 +11,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using TalentSearchWebApp.Common;
 
+
 namespace TalentSearchWebApp.Controllers
 {
     public class AdminController : Controller
@@ -26,7 +27,7 @@ namespace TalentSearchWebApp.Controllers
         {
             base.Initialize(requestContext);
 
-            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            if (requestContext.HttpContext.User.Identity.IsAuthenticated && Session["UserInfo"] != null)
             {
                 AdminMenu();
             }
@@ -45,7 +46,6 @@ namespace TalentSearchWebApp.Controllers
             this.ViewData["MenuModel"] = this.MenuModel;
         }
 
-        [AuthorizeWithSessionAttribute]
         private void AdminMenu()
         {
             ISubCategory subcatService = new SubCategoryServices();
@@ -53,8 +53,7 @@ namespace TalentSearchWebApp.Controllers
             this.ViewData["MenuModel"] = this.MenuModel;
         }
 
-
-        [AuthorizeWithSessionAttribute]
+         [AuthorizeWithSessionAttribute]
         public ActionResult Index()
         {
             return View();
@@ -62,7 +61,7 @@ namespace TalentSearchWebApp.Controllers
 
         public ActionResult LogOn(UserEntity model)
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && Session["UserInfo"] != null)
             {
                 return Redirect(Url.Action("Index", "Admin"));
             }
@@ -100,7 +99,7 @@ namespace TalentSearchWebApp.Controllers
         }
 
 
-        [AuthorizeWithSessionAttribute]
+         [AuthorizeWithSessionAttribute]
         public ActionResult ChangePassword(UserEntity model)
         {
             model.UserName = ((UserEntity)Session["UserInfo"]).UserName;
@@ -127,32 +126,133 @@ namespace TalentSearchWebApp.Controllers
         }
 
 
-        public ActionResult ForgotPassword(UserEntity user)
-        {
-            if (ModelState.IsValid && !string.IsNullOrEmpty(user.Email))
-            {
-                IUserServices userServicObj = new UserServices();
-                var userInfo = userServicObj.GetUsersbyEmail(user.Email);
-                if (user != null)
-                {
-                    JadeEmail.SendForgotPassword(userInfo.Email, userInfo.Password);
-                    return RedirectToAction("MessagePage", "Home", new { messageKey = "ForgotPasswordSent" });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Incorrect Email Address.");
-                }
+         public ActionResult ForgotPassword(UserEntity user)
+         {
+             if (ModelState.IsValid && !string.IsNullOrEmpty(user.Email))
+             {
+                 IUserServices userServicObj = new UserServices();
+                 var userInfo = userServicObj.GetUsersbyEmail(user.Email);
+                 if (user != null)
+                 {
+                     JadeEmail.SendForgotPassword(userInfo.Email, userInfo.Password);
+                     return RedirectToAction("MessagePage", "Home", new { messageKey = "ForgotPasswordSent" });
+                 }
+                 else
+                 {
+                     ModelState.AddModelError("", "Incorrect Email Address.");
+                 }
 
-            }
-            return View();
-        }
+             }
+             return View();
+         }
+
+         //public JsonResult Delete(Int32 empid)  
+         //{  
+         //    EmployeeData emp = db.EmployeeDatas.Where(x => x.EmpID == empid).FirstOrDefault();  
+         //    db.EmployeeDatas.DeleteOnSubmit(emp);  
+         //    db.SubmitChanges();  
+         //    return Json(true, JsonRequestBehavior.AllowGet);  
+         //}  
+
+         [AuthorizeWithSessionAttribute]
+         public ActionResult Categories()
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             List<SubCategoryEntity> categoryentities = categoryObj.GetSubCategoriesWithWhere1(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+             return View(categoryentities);
+         }
+
+         [AuthorizeWithSessionAttribute]
+         public ActionResult DeleteCategories(Int32 CategoryId)
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             categoryObj.DeleteSubCategory(CategoryId, 1);
+             return Json(true, JsonRequestBehavior.AllowGet);
+         }
+
+
+         [AuthorizeWithSessionAttribute]
+         public ActionResult EditCategories(Int32 CategoryId)
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             var category = categoryObj.GetSubCategoryById(CategoryId);
+             return View(category);
+         }
+
+         [AuthorizeWithSession]
+         [HttpPost]
+         public ActionResult UpdateCategoryDetails(SubCategoryEntity entity)
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             categoryObj.UpdateSubCategory(entity.SubCategoryId, entity);
+             return Json(true, JsonRequestBehavior.AllowGet);
+         }
+
+         [AuthorizeWithSession]
+         public ActionResult AddMainCategory()
+         {
+             return View();
+         }
+
+         [AuthorizeWithSession]
+         [HttpPost]
+         public ActionResult SaveMainCategory(SubCategoryEntity entity)
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             categoryObj.AddMainCategory(entity);
+             return Json(true, JsonRequestBehavior.AllowGet);
+         }
+
+         [AuthorizeWithSession]
+         public ActionResult AddChildCategory()
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             List<SubCategoryEntity> categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+             ViewBag.AvaiableEnums = categoryentities.Select(x =>
+                                     new SelectListItem()
+                                     {
+                                         Text = x.SubCategoryName,
+                                         Value = x.SubCategoryId.ToString()
+                                     });
+             return View();
+         }
+
+         [AuthorizeWithSession]
+         [HttpPost]
+         public ActionResult SaveChildCategory(SubCategoryEntity entity)
+         {
+             ISubCategory categoryObj = new SubCategoryServices();
+             categoryObj.AddChildCategory(entity);
+             return Json(true, JsonRequestBehavior.AllowGet);
+         }
 
 
         [AuthorizeWithSessionAttribute]
         public ActionResult ProductionCompany() //Record Select  
         {
+            return View();
+        }
+
+        [AuthorizeWithSessionAttribute]
+        public PartialViewResult GetProductionCompanyData(int page = 1, string sort = "ModifiedDate", string sortdir = "DESC")
+        {
+            ProductionCompanyEntitiy objProductionCompanyEntitiy = null;
+
+            if (Request.IsAjaxRequest())
+            {
+                objProductionCompanyEntitiy = TempData.Peek("ProductionCompanyEntitiy") as ProductionCompanyEntitiy;
+            }
             IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
-            return View(objProductionCompanyServices.GetAllProducts().OrderByDescending(x => x.CreatedDate).ToList());
+            return PartialView("_ProductionCompanyList", objProductionCompanyServices.GetAllProducts(page, sort, sortdir, objProductionCompanyEntitiy));
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpPost]
+        public PartialViewResult GetProductionCompanyData(ProductionCompanyEntitiy productionCompanyEntitiy)
+        {
+            TempData["ProductionCompanyEntitiy"] = productionCompanyEntitiy;
+            IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
+            return PartialView("_ProductionCompanyList", objProductionCompanyServices.GetAllProducts(1, "ModifiedDate", "DESC", productionCompanyEntitiy));
         }
 
         [AuthorizeWithSessionAttribute]
@@ -193,86 +293,59 @@ namespace TalentSearchWebApp.Controllers
             return Json(objProductionCompanyEntitiy, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult Delete(Int32 empid)  
-        //{  
-        //    EmployeeData emp = db.EmployeeDatas.Where(x => x.EmpID == empid).FirstOrDefault();  
-        //    db.EmployeeDatas.DeleteOnSubmit(emp);  
-        //    db.SubmitChanges();  
-        //    return Json(true, JsonRequestBehavior.AllowGet);  
-        //}  
-
         [AuthorizeWithSessionAttribute]
-        public ActionResult Categories()
+        public JsonResult Delete(long productionCompanyId) // Delete Production Company
         {
-            ISubCategory categoryObj = new SubCategoryServices();
-            List<SubCategoryEntity> categoryentities = categoryObj.GetSubCategoriesWithWhere1(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
-            return View(categoryentities);
+            IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
+            return Json(objProductionCompanyServices.DeleteProduct(productionCompanyId), JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult DeleteCategories(Int32 CategoryId)
-        {
-            ISubCategory categoryObj = new SubCategoryServices();
-            categoryObj.DeleteSubCategory(CategoryId, 1);
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
-
-        [AuthorizeWithSessionAttribute]
-        public ActionResult EditCategories(Int32 CategoryId)
-        {
-            ISubCategory categoryObj = new SubCategoryServices();
-            var category = categoryObj.GetSubCategoryById(CategoryId);
-            return View(category);
-        }
-
-        [AuthorizeWithSession]
-        [HttpPost]
-        public ActionResult UpdateCategoryDetails(SubCategoryEntity entity)
-        {
-            ISubCategory categoryObj = new SubCategoryServices();
-            categoryObj.UpdateSubCategory(entity.SubCategoryId, entity);
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
-        [AuthorizeWithSession]
-        public ActionResult AddMainCategory()
+        public ActionResult Jobs() //Record Select  
         {
             return View();
         }
 
-        [AuthorizeWithSession]
+        [AuthorizeWithSessionAttribute]
+        public PartialViewResult GetJobsData(int page = 1, string sort = "ModifiedDate", string sortdir = "DESC")
+        {
+            JobEntity objJobEntitiy = TempData.Peek("JobEntity") as JobEntity;
+            IJobs objJobServices = new JobServices();
+            return PartialView("_JobList", objJobServices.GetAllJobs(page, sort, sortdir, objJobEntitiy));
+        }
+
+        [AuthorizeWithSessionAttribute]
         [HttpPost]
-        public ActionResult SaveMainCategory(SubCategoryEntity entity)
+        public PartialViewResult GetJobsData(JobEntity jobEntitiy)
         {
-            ISubCategory categoryObj = new SubCategoryServices();
-            categoryObj.AddMainCategory(entity);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            TempData["JobEntity"] = jobEntitiy;
+            IJobs objJobServices = new JobServices();
+            return PartialView("_JobList", objJobServices.GetAllJobs(1, "ModifiedDate", "DESC", jobEntitiy));
         }
 
-        [AuthorizeWithSession]
-        public ActionResult AddChildCategory()
+        [AuthorizeWithSessionAttribute]
+        [HttpGet]
+        public ActionResult CreateJob()   //Insert Job  
         {
-            ISubCategory categoryObj = new SubCategoryServices();
-            List<SubCategoryEntity> categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
-            ViewBag.AvaiableEnums = categoryentities.Select(x =>
-                                    new SelectListItem()
-                                    {
-                                        Text = x.SubCategoryName,
-                                        Value = x.SubCategoryId.ToString()
-                                    });
-            return View();
+            IRegion objRegion = new RegionServices();
+            ViewBag.RegionEntities = objRegion.GetAllRegions().ToList();
+            return View(new VmInsertJob());
         }
 
-        [AuthorizeWithSession]
+        [AuthorizeWithSessionAttribute]
         [HttpPost]
-        public ActionResult SaveChildCategory(SubCategoryEntity entity)
+        public ActionResult CreateJob(VmInsertJob objVmInsertJob) // Record Insert  
         {
-            ISubCategory categoryObj = new SubCategoryServices();
-            categoryObj.AddChildCategory(entity);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            //IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
+            //objProductionCompanyServices.CreateProduct(objProductionCompanyEntitiy);
+            return Json(objVmInsertJob, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthorizeWithSessionAttribute]
+        public JsonResult DeleteJob(long jobId)
+        {
+            IJobs objJobServices = new JobServices();
+            return Json(objJobServices.DeleteJob(jobId), JsonRequestBehavior.AllowGet);
+        }
     }
 }

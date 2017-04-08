@@ -12,6 +12,10 @@
     <AssemblyName>DataModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,8 +57,14 @@
     <Compile Include="ContactU.cs">
       <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ErrorTracer.cs">
+      <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="Job.cs">
+      <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobTalentAssociation.cs">
       <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobTalentCategory.cs">
@@ -64,9 +74,6 @@
       <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobTalentSkill.cs">
-      <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="JobTalentStatu.cs">
       <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MasterCategory.cs">
@@ -136,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\EntityFramework.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

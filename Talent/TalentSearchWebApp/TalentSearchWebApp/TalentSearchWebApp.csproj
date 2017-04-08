@@ -20,6 +20,10 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +72,7 @@
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -129,7 +134,6 @@
     <Compile Include="AuthorizeWithSessionAttribute.cs" />
     <Compile Include="Common\JadeEmail.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,7 +235,17 @@
     <Content Include="Images\image.jpg" />
     <Content Include="Images\Loading.gif" />
     <Content Include="Images\TalentBack.png" />
+    <Content Include="lib\Antlr3.Runtime.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\System.Web.Optimization.dll" />
+    <Content Include="lib\System.Web.Providers.dll" />
+    <Content Include="lib\WebGrease.dll" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\Custom\CreateJob.js" />
+    <Content Include="Scripts\Custom\CreateProductionCompany.js" />
+    <Content Include="Scripts\Custom\EditProductionCompany.js" />
+    <Content Include="Scripts\Custom\JobList.js" />
+    <Content Include="Scripts\Custom\ProductionCompanyList.js" />
     <Content Include="Scripts\Custom\RegisterTalent.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -278,7 +292,6 @@
   <ItemGroup>
     <Folder Include="APIController\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Common\Templates\" />
     <Folder Include="Content\Files\Image\" />
     <Folder Include="Content\Files\Video\" />
   </ItemGroup>
@@ -319,8 +332,10 @@
     <Content Include="Views\Admin\EditCategories.cshtml" />
     <Content Include="Views\Admin\AddMainCategory.cshtml" />
     <Content Include="Views\Admin\AddChildCategory.cshtml" />
-    <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
-    <Content Include="Views\Email\EnquiryFormEmail.cshtml" />
+    <Content Include="Views\Admin\CreateJob.cshtml" />
+    <Content Include="Views\Admin\Jobs.cshtml" />
+    <Content Include="Views\Admin\_JobList.cshtml" />
+    <Content Include="Views\Admin\_ProductionCompanyList.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

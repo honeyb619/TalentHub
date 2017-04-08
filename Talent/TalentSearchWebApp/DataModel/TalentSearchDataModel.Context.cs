@@ -31,10 +31,10 @@ namespace DataModel
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContactU> ContactUs { get; set; }
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobTalentAssociation> JobTalentAssociations { get; set; }
         public DbSet<JobTalentCategory> JobTalentCategories { get; set; }
         public DbSet<JobTalentLanguage> JobTalentLanguages { get; set; }
         public DbSet<JobTalentSkill> JobTalentSkills { get; set; }
-        public DbSet<JobTalentStatu> JobTalentStatus { get; set; }
         public DbSet<MasterCategory> MasterCategories { get; set; }
         public DbSet<Medium> Media { get; set; }
         public DbSet<ProductionCompany> ProductionCompanies { get; set; }
@@ -43,6 +43,7 @@ namespace DataModel
         public DbSet<Talent> Talents { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ErrorTracer> ErrorTracers { get; set; }
     
         public virtual ObjectResult<usp_GetPublicTalent_Result> usp_GetPublicTalent(string category, string subCategory, Nullable<bool> isAdmin)
         {
@@ -59,6 +60,11 @@ namespace DataModel
                 new ObjectParameter("isAdmin", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPublicTalent_Result>("usp_GetPublicTalent", categoryParameter, subCategoryParameter, isAdminParameter);
+        }
+    
+        public virtual int Proc_InsertErrorDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Proc_InsertErrorDetails");
         }
     }
 }

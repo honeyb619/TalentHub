@@ -12,6 +12,10 @@
     <AssemblyName>BusinessEntities</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridVm\GridVmJobsList.cs" />
+    <Compile Include="GridVm\GridVmProductionCompanyList.cs" />
     <Compile Include="Model\CategoryEntity.cs" />
     <Compile Include="Model\JobEntity.cs" />
     <Compile Include="Model\JobTalentCategoryEntity.cs" />
@@ -56,6 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TokenEntity.cs" />
     <Compile Include="Model\UserEntity.cs" />
+    <Compile Include="ViewModel\VmInsertJob.cs" />
     <Compile Include="ViewModel\VmPublicTalent.cs" />
     <Compile Include="ViewModel\VmInsertTalent.cs" />
     <Compile Include="ViewModel\VmMedias.cs" />

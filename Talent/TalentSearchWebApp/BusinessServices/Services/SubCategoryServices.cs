@@ -43,7 +43,7 @@ namespace BusinessServices.Services
         public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetSubCategoriesWithWhere(string[] categoryNames, string[] masterCategoryNames)
         {
             var subCategories = _unitOfWork.SubCategoryRepository.GetWithInclude(x => masterCategoryNames.Contains(x.Category.MasterCategoryName)
-                && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false, "Category").OrderBy(x => x.SubCategoryValue).ToList();
+                  && categoryNames.Contains(x.Category.CategoryName) && x.IsDeleted == false, "Category").OrderBy(x => x.SubCategoryValue).ToList();
 
             if (subCategories.Any())
             {

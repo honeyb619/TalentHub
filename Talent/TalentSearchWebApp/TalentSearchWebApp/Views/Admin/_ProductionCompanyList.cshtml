@@ -1,0 +1,27 @@
+﻿@model  BusinessEntities.GridVm.GridVmProductionCompanyList
+            @{
+                var grid = new WebGrid(rowsPerPage: Model.PageSize);
+                grid.Bind(Model.ListProductionCompanyEntitiy, autoSortAndPage: false,  rowCount: Model.TotalRecord);
+            }
+ 
+                @grid.GetHtml(
+                tableStyle:"gridtable",
+                columns: new[] {  
+         grid.Column("ProductionCompanyName",header: "Name"),  
+         grid.Column("ContactPerson",header: "Contact Person"),  
+         grid.Column("PhoneNumber", header: "Phone Number"),  
+         grid.Column("EmailId",header: "Email"),
+         grid.Column("RegionName",header: "Region Name"),
+         grid.Column("DescriptionNotes",header: "Description Notes"),
+          grid.Column("ProductionCompanyId", header: "Action", canSort:false,  
+           
+         format: @<text>
+            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
+            </text>  
+        )  
+                }
+                        )
+ 
+        
+            
