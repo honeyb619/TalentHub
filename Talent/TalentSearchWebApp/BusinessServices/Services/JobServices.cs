@@ -13,6 +13,8 @@ using BusinessEntities.GridVm;
 using System.Linq.Dynamic;
 using BusinessEntities.ViewModel;
 using System.Transactions;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace BusinessServices.Services
 {
@@ -187,96 +189,26 @@ namespace BusinessServices.Services
 
         public bool UpdateJob(VmInsertJob vmInsertJob)
         {
+            var success = false;
+
             if (vmInsertJob != null)
             {
-                DateTime currentDate = DateTime.Now;
-                int userId = ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId;
+                StringBuilder sbData = new StringBuilder();
+                var stringwriter = new StringWriter(sbData);
+                var serializer = new XmlSerializer(typeof(VmInsertJob));
+                serializer.Serialize(stringwriter, vmInsertJob);
 
-                vmInsertJob.CreatedBy = userId;
-                vmInsertJob.CreatedDate = currentDate;
-                vmInsertJob.modifiedBy = userId;
-                vmInsertJob.ModifiedDate = currentDate;
-                vmInsertJob.IsDeleted = false;
+                var updateXmlData = new SqlParameter("@UpdateXmlData", sbData.ToString());
+                var userId = new SqlParameter("@UserId", ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId);
 
-                Mapper.CreateMap<VmInsertJob, Job>();
-                var jobModel = Mapper.Map<VmInsertJob, Job>(vmInsertJob);
-
-                if (vmInsertJob.LanguageIds != null)
+                var IsUpdated = _unitOfWork.DeleteUsingProc.GetWithRawSql("exec UpdateJobFromXML @UpdateXmlData, @UserId", updateXmlData, userId).FirstOrDefault();
+                if (IsUpdated == "Success")
                 {
-                    foreach (var job in vmInsertJob.LanguageIds)
-                    {
-                        JobTalentLanguage objJobTalentLanguage = new JobTalentLanguage();
-                        objJobTalentLanguage.LanguageId = job;
-                        objJobTalentLanguage.CreatedBy = userId;
-                        objJobTalentLanguage.CreatedDate = currentDate;
-                        objJobTalentLanguage.modifiedBy = userId;
-                        objJobTalentLanguage.ModifiedDate = currentDate;
-                        objJobTalentLanguage.IsDeleted = false;
-                        jobModel.JobTalentLanguages.Add(objJobTalentLanguage);
-                    }
-                }
-
-                using (var scope = new TransactionScope())
-                {
-
-                    _unitOfWork.JobRepository.Update(jobModel);
-                    _unitOfWork.Save();
-
-                    if (vmInsertJob.Skills != null)
-                    {
-                        long[] childIds = vmInsertJob.Skills.Select(x => x.SkillId).ToArray();
-                        var parentCategoryIds = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => childIds.Contains(x.SubCategoryId)).Select(x => new { x.ParentId, x.SubCategoryId }).Distinct().ToArray();
-
-                        foreach (var childCategory in vmInsertJob.Skills)
-                        {
-                            childCategory.ParentId = parentCategoryIds.Where(x => x.SubCategoryId == childCategory.SkillId).Select(x => x.ParentId).FirstOrDefault();
-                        }
-
-                        long parentId = 0;
-
-                        foreach (var parentCategory in parentCategoryIds)
-                        {
-                            if (parentId != (long)parentCategory.ParentId)
-                            {
-                                JobTalentCategory objJobTalentCategory = new JobTalentCategory();
-
-                                objJobTalentCategory.JobId = jobModel.JobId;
-                                objJobTalentCategory.CategoryId = (long)parentCategory.ParentId;
-                                objJobTalentCategory.CreatedBy = userId;
-                                objJobTalentCategory.CreatedDate = currentDate;
-                                objJobTalentCategory.modifiedBy = userId;
-                                objJobTalentCategory.ModifiedDate = currentDate;
-                                objJobTalentCategory.IsDeleted = false;
-
-                                foreach (var childCategory in vmInsertJob.Skills.Where(x => x.ParentId == parentCategory.ParentId))
-                                {
-                                    JobTalentSkill objJobTalentSkill = new JobTalentSkill();
-                                    objJobTalentSkill.JobId = jobModel.JobId;
-                                    objJobTalentSkill.ParentCategoryId = (long)parentCategory.ParentId;
-                                    objJobTalentSkill.SkillId = childCategory.SkillId;
-                                    objJobTalentSkill.Description = childCategory.Description;
-                                    objJobTalentSkill.CreatedBy = userId;
-                                    objJobTalentSkill.CreatedDate = currentDate;
-                                    objJobTalentSkill.modifiedBy = userId;
-                                    objJobTalentSkill.ModifiedDate = currentDate;
-                                    objJobTalentSkill.IsDeleted = false;
-                                    objJobTalentCategory.JobTalentSkills.Add(objJobTalentSkill);
-                                }
-
-                                parentId = (long)parentCategory.ParentId;
-                                _unitOfWork.JobTalentCategoryRepository.Update(objJobTalentCategory);
-                                _unitOfWork.Save();
-                            }
-                        }
-
-                    }
-
-                    scope.Complete();
-                    return true;
+                    success = true;
                 }
             }
 
-            return false;
+            return success;
         }
 
         public bool DeleteJob(long jobId)

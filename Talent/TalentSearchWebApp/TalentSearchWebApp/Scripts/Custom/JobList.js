@@ -67,7 +67,7 @@ function DeleteJob(J_ID) {
         $.post('/Admin/DeleteJob', data,
             function (data) {
                 if (data == true)
-                    location = location.href;
+                    SearchJob();
                 else
                     alert("Not delete something Wrong");
             });

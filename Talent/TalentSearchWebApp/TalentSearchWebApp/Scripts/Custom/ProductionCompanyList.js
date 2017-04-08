@@ -94,9 +94,9 @@ function DeleteProductionCompany(P_ID) {
         $.post('/Admin/Delete', data,
             function (data) {
                 if (data == true)
-                    location = location.href;
+                    SearchProductionCompany();
                 else
-                    alert("Not delete something Wrong");
+                    alert("Not deleted something Wrong");
             });
     }
 }

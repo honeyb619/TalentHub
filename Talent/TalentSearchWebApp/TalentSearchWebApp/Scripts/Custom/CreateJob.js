@@ -6,8 +6,8 @@ $(document).ready(function () {
 });
 
 function Success(data) {
-    if (data != 0) {
-        if (confirm("Do you want to submit another Job?")) {
+    if (data != 0 && data != true && data != false) {
+        if (confirm("Job created successfully. Do you want to submit another Job?")) {
             location = location.href;
         }
         else {
@@ -16,6 +16,9 @@ function Success(data) {
             $("#lgdJob").html("Update Job"); 
         }
     }
+    else if (data == true) {
+        alert("Job Updated Successfully.");
+    } 
     else {
         alert("Something went wrong. Try after some time!");
     }
