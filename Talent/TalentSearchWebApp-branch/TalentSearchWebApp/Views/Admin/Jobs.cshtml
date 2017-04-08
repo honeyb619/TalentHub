@@ -10,7 +10,8 @@
             <h3>Job List</h3>
 
     <div style="padding: 7px 0;">
-        <input type="button" style="float: right; margin-bottom: 2%;" value="Add New Job" onclick="CreateJob()" />
+        <input type="button" style="float: right; margin-bottom: 2%;" value="Add New Job" 
+            onclick="@("window.location.href='" + @Url.Action("CreateJob", "Admin") + "'");" />
     </div>
     <div style="clear: both"></div>
 

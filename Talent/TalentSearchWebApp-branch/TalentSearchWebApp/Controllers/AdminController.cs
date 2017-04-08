@@ -221,6 +221,24 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
+        [HttpGet]
+        public ActionResult CreateJob()   //Insert Job  
+        {
+            IRegion objRegion = new RegionServices();
+            ViewBag.RegionEntities = objRegion.GetAllRegions().ToList();
+            return View(new VmInsertJob());
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpPost]
+        public ActionResult CreateJob(VmInsertJob objVmInsertJob) // Record Insert  
+        {
+            //IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
+            //objProductionCompanyServices.CreateProduct(objProductionCompanyEntitiy);
+            return Json(objVmInsertJob, JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeWithSessionAttribute]
         public JsonResult DeleteJob(long jobId)
         {
             IJobs objJobServices = new JobServices();

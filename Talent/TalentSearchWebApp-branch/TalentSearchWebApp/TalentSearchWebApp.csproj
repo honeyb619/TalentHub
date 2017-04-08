@@ -241,6 +241,7 @@
     <Content Include="lib\System.Web.Providers.dll" />
     <Content Include="lib\WebGrease.dll" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\Custom\CreateJob.js" />
     <Content Include="Scripts\Custom\CreateProductionCompany.js" />
     <Content Include="Scripts\Custom\EditProductionCompany.js" />
     <Content Include="Scripts\Custom\JobList.js" />
