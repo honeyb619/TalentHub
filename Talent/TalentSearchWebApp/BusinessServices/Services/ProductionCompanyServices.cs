@@ -12,6 +12,7 @@ using System.Transactions;
 using System.Data.SqlClient;
 using System.Linq.Dynamic;
 using BusinessEntities.GridVm;
+using BusinessEntities.ViewModel;
 
 namespace BusinessServices.Services
 {
@@ -89,6 +90,20 @@ namespace BusinessServices.Services
             }
 
             return objProductionCompanyList;
+        }
+
+        public List<VmSelectListItem> GetProductionCompanyDropdown(string[] categoryNames, string[] masterCategoryNames)
+        {
+            var productionCompanies = _unitOfWork.ProductionCompanyRepository.GetManyQueryable(x=>x.IsDeleted == false).OrderBy(x => x.ProductionCompanyName).ToList();
+
+            if (productionCompanies.Any())
+            {
+                Mapper.CreateMap<ProductionCompany, VmSelectListItem>().ForMember(d => d.Id, o => o.MapFrom(s => s.ProductionCompanyId))
+                    .ForMember(d => d.Name, o => o.MapFrom(s => s.ProductionCompanyName));
+                var productionCompaniesModel = Mapper.Map<List<ProductionCompany>, List<VmSelectListItem>>(productionCompanies);
+                return productionCompaniesModel;
+            }
+            return null;
         }
 
         /// <summary>

@@ -53,8 +53,6 @@ namespace JADE_TALENT.Controllers
             this.ViewData["MenuModel"] = this.MenuModel;
         }
 
-
-
         public ActionResult Index()
         {
             return View();
@@ -63,8 +61,6 @@ namespace JADE_TALENT.Controllers
         [HttpGet]
         public ActionResult RegisterTalent()
         {
-            ViewBag.Role = "Admin";
-
             string[] categoryNames = { "New Zealand Language", "Category" };
             string[] masterCategoryNames = { "LANGUAGE", "CATEGORY" };
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BusinessEntities.Model;
 using BusinessEntities.GridVm;
+using BusinessEntities.ViewModel;
 
 namespace BusinessServices.Interfaces
 {
@@ -14,5 +15,6 @@ namespace BusinessServices.Interfaces
         long CreateProduct(ProductionCompanyEntitiy productEntity);
         bool UpdateProduct(ProductionCompanyEntitiy productEntity);
         bool DeleteProduct(long productionCompanyId);
+        List<VmSelectListItem> GetProductionCompanyDropdown();
     }
 }

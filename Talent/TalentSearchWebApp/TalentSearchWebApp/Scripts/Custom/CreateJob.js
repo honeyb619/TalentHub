@@ -5,6 +5,10 @@ $(document).ready(function () {
 
 });
 
+function Success(data) {
+    alert(data);
+}
+
 function SubmitJob() {
 
     var objVmInsertTalent = {};

@@ -12,6 +12,7 @@ namespace BusinessEntities.ViewModel
         {
             this.RegionEntities = new List<RegionEntity>();
             this.SubCategoryEntities = new List<SubCategoryEntity>();
+            this.Skills = new List<VmSkills>();
         }
 
         public long JobId { get; set; }
@@ -38,6 +39,7 @@ namespace BusinessEntities.ViewModel
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
 
+        public List<VmSelectListItem> ProductionCompanyList { get; set; }
         public List<int> LanguageIds { get; set; }
         public List<VmSkills> Skills { get; set; }
         public List<RegionEntity> RegionEntities { get; set; }

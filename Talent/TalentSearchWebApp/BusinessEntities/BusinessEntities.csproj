@@ -67,6 +67,7 @@
     <Compile Include="ViewModel\VmInsertTalent.cs" />
     <Compile Include="ViewModel\VmMedias.cs" />
     <Compile Include="ViewModel\VmMainSkills.cs" />
+    <Compile Include="ViewModel\VmSelectListItem.cs" />
     <Compile Include="ViewModel\VmSkills.cs" />
     <Compile Include="ViewModel\VmTalentEntity.cs" />
   </ItemGroup>
