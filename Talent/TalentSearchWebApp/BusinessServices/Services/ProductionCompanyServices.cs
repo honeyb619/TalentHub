@@ -92,7 +92,7 @@ namespace BusinessServices.Services
             return objProductionCompanyList;
         }
 
-        public List<VmSelectListItem> GetProductionCompanyDropdown(string[] categoryNames, string[] masterCategoryNames)
+        public List<VmSelectListItem> GetProductionCompanyDropdown()
         {
             var productionCompanies = _unitOfWork.ProductionCompanyRepository.GetManyQueryable(x=>x.IsDeleted == false).OrderBy(x => x.ProductionCompanyName).ToList();
 
