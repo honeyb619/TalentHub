@@ -1,0 +1,28 @@
+﻿@model  BusinessEntities.GridVm.GridVmJobsList
+            @{
+                var grid = new WebGrid(rowsPerPage: Model.PageSize);
+                grid.Bind(Model.ListJobEntity, autoSortAndPage: false,  rowCount: Model.TotalRecord);
+            }
+ 
+                @grid.GetHtml(
+                tableStyle:"gridtable",
+                columns: new[] {  
+                grid.Column("JobName",header: "Job Title"),  
+                grid.Column("ProductionCompanyName",header: "Production Company Name"),  
+                grid.Column("NumberOfDays", header: "Number Of Days"),  
+                grid.Column("Pay",header: "Pay"),
+                grid.Column("Gender",header: "Required Gender"),
+                grid.Column("RegionName",header: "Region Name"),
+                grid.Column("JobStatus",header: "Job Status"),  
+                grid.Column("JobId", header: "Action", canSort:false,  
+           
+         format: @<text>
+            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditJob(" + item.JobId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteJob(" + item.JobId + ")' ></i>")
+            </text>  
+        )  
+                }
+                        )
+ 
+        
+            
