@@ -68,6 +68,8 @@ namespace BusinessServices.Services
                 DateTime currentDate = DateTime.Now;
                 talentEntity.CreatedBy = 1;
                 talentEntity.CreatedDate = currentDate;
+                talentEntity.modifiedBy = 1;
+                talentEntity.ModifiedDate = currentDate;
                 talentEntity.IsDeleted = false;
 
                 Mapper.CreateMap<VmInsertTalent, Talent>();
@@ -81,6 +83,8 @@ namespace BusinessServices.Services
                         objJobTalentLanguage.LanguageId = talent;
                         objJobTalentLanguage.CreatedBy = 1;
                         objJobTalentLanguage.CreatedDate = currentDate;
+                        objJobTalentLanguage.modifiedBy = 1;
+                        objJobTalentLanguage.ModifiedDate = currentDate;
                         objJobTalentLanguage.IsDeleted = false;
                         talentModel.JobTalentLanguages.Add(objJobTalentLanguage);
                     }
@@ -117,6 +121,8 @@ namespace BusinessServices.Services
                                 objJobTalentCategory.CategoryId = (long)parentCategory.ParentId;
                                 objJobTalentCategory.CreatedBy = 1;
                                 objJobTalentCategory.CreatedDate = currentDate;
+                                objJobTalentCategory.modifiedBy = 1;
+                                objJobTalentCategory.ModifiedDate = currentDate;
                                 objJobTalentCategory.IsDeleted = false;
 
                                 foreach (var childCategory in talentEntity.Skills.Where(x => x.ParentId == parentCategory.ParentId))
@@ -128,6 +134,8 @@ namespace BusinessServices.Services
                                     objJobTalentSkill.Description = childCategory.Description;
                                     objJobTalentSkill.CreatedBy = 1;
                                     objJobTalentSkill.CreatedDate = currentDate;
+                                    objJobTalentSkill.modifiedBy = 1;
+                                    objJobTalentSkill.ModifiedDate = currentDate;
                                     objJobTalentSkill.IsDeleted = false;
                                     objJobTalentCategory.JobTalentSkills.Add(objJobTalentSkill);
                                 }

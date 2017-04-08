@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BusinessEntities.Model;
 using BusinessEntities.GridVm;
+using BusinessEntities.ViewModel;
 
 namespace BusinessServices.Interfaces
 {
@@ -11,8 +12,8 @@ namespace BusinessServices.Interfaces
     {
         JobEntity GetJobById(long jobId);
         GridVmJobsList GetAllJobs(int page, string sort, string sortdir, JobEntity jobEntity);
-        long CreateJob (JobEntity jobEntity);
-        bool UpdateJob(JobEntity jobEntity);
+        long CreateJob(VmInsertJob vmInsertJob);
+        bool UpdateJob(VmInsertJob vmInsertJob);
         bool DeleteJob(long jobId);
     }
 }

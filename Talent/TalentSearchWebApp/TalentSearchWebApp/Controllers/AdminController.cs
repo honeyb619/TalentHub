@@ -309,7 +309,12 @@ namespace TalentSearchWebApp.Controllers
         [AuthorizeWithSessionAttribute]
         public PartialViewResult GetJobsData(int page = 1, string sort = "ModifiedDate", string sortdir = "DESC")
         {
-            JobEntity objJobEntitiy = TempData.Peek("JobEntity") as JobEntity;
+            JobEntity objJobEntitiy = null;
+
+            if (Request.IsAjaxRequest())
+            {
+                objJobEntitiy = TempData.Peek("JobEntity") as JobEntity;
+            }
             IJobs objJobServices = new JobServices();
             return PartialView("_JobList", objJobServices.GetAllJobs(page, sort, sortdir, objJobEntitiy));
         }
@@ -328,8 +333,8 @@ namespace TalentSearchWebApp.Controllers
         public ActionResult CreateJob()   //Insert Job  
         {
 
-            string[] categoryNames = { "New Zealand Language", "Category" };
-            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY" };
+            string[] categoryNames = { "New Zealand Language", "Category", "Job Status" };
+            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY", "STATUS" };
 
             VmInsertJob objVmInsertJob = new VmInsertJob();
             objVmInsertJob.Skills.Add(new VmSkills());
@@ -350,9 +355,11 @@ namespace TalentSearchWebApp.Controllers
         [HttpPost]
         public ActionResult CreateJob(VmInsertJob objVmInsertJob) // Record Insert  
         {
-            //IProductionCompanyServices objProductionCompanyServices = new ProductionCompanyServices();
-            //objProductionCompanyServices.CreateProduct(objProductionCompanyEntitiy);
-            return Json(objVmInsertJob, JsonRequestBehavior.AllowGet);
+            IJobs objJobServices = new JobServices();
+            if(objVmInsertJob.JobId == 0)
+                return Json(objJobServices.CreateJob(objVmInsertJob), JsonRequestBehavior.AllowGet);
+            else
+                return Json(objJobServices.UpdateJob(objVmInsertJob), JsonRequestBehavior.AllowGet);
         }
 
         [AuthorizeWithSessionAttribute]
