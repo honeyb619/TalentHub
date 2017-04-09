@@ -94,11 +94,10 @@ namespace JADE_TALENT.Controllers
             if (ModelState.IsValid)
             {
                 JadeEmail.SendEnquiryMessage(emailObj);
-                Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
             return View();
         }
-
         public ActionResult Profile(long ProfileId = 1000)
         {
             ITalentServices obj = new TalentServices();

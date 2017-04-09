@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using TalentSearchWebApp.Common;
+using TalentSearchWebApp.Models;
 
 
 namespace TalentSearchWebApp.Controllers
@@ -53,7 +54,7 @@ namespace TalentSearchWebApp.Controllers
             this.ViewData["MenuModel"] = this.MenuModel;
         }
 
-         [AuthorizeWithSessionAttribute]
+        [AuthorizeWithSessionAttribute]
         public ActionResult Index()
         {
             return View();
@@ -99,7 +100,7 @@ namespace TalentSearchWebApp.Controllers
         }
 
 
-         [AuthorizeWithSessionAttribute]
+        [AuthorizeWithSessionAttribute]
         public ActionResult ChangePassword(UserEntity model)
         {
             model.UserName = ((UserEntity)Session["UserInfo"]).UserName;
@@ -126,105 +127,99 @@ namespace TalentSearchWebApp.Controllers
         }
 
 
-         public ActionResult ForgotPassword(UserEntity user)
-         {
-             if (ModelState.IsValid && !string.IsNullOrEmpty(user.Email))
-             {
-                 IUserServices userServicObj = new UserServices();
-                 var userInfo = userServicObj.GetUsersbyEmail(user.Email);
-                 if (userInfo != null)
-                 {
-                     JadeEmail.SendForgotPassword(userInfo.Email, userInfo.Password);
-                     return RedirectToAction("MessagePage", "Home", new { messageKey = "ForgotPasswordSent" });
-                 }
-                 else
-                 {
-                     ModelState.AddModelError("", "Incorrect Email Address.");
-                 }
+        public ActionResult ForgotPassword(ContactUsMail user)
+        {
+            if (!string.IsNullOrEmpty(user.EmailId))
+            {
+                if (!String.IsNullOrEmpty(user.Message))
+                {
+                    JadeEmail.SendForgotPassword(user.EmailId, user.Message);
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
 
-             }
-             return View();
-         }
+            }
+            return View();
+        }
 
-         //public JsonResult Delete(Int32 empid)  
-         //{  
-         //    EmployeeData emp = db.EmployeeDatas.Where(x => x.EmpID == empid).FirstOrDefault();  
-         //    db.EmployeeDatas.DeleteOnSubmit(emp);  
-         //    db.SubmitChanges();  
-         //    return Json(true, JsonRequestBehavior.AllowGet);  
-         //}  
+        //public JsonResult Delete(Int32 empid)  
+        //{  
+        //    EmployeeData emp = db.EmployeeDatas.Where(x => x.EmpID == empid).FirstOrDefault();  
+        //    db.EmployeeDatas.DeleteOnSubmit(emp);  
+        //    db.SubmitChanges();  
+        //    return Json(true, JsonRequestBehavior.AllowGet);  
+        //}  
 
-         [AuthorizeWithSessionAttribute]
-         public ActionResult Categories()
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             List<SubCategoryEntity> categoryentities = categoryObj.GetSubCategoriesWithWhere1(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
-             return View(categoryentities);
-         }
+        [AuthorizeWithSessionAttribute]
+        public ActionResult Categories()
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetSubCategoriesWithWhere1(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+            return View(categoryentities);
+        }
 
-         [AuthorizeWithSessionAttribute]
-         public ActionResult DeleteCategories(Int32 CategoryId)
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             categoryObj.DeleteSubCategory(CategoryId, 1);
-             return Json(true, JsonRequestBehavior.AllowGet);
-         }
+        [AuthorizeWithSessionAttribute]
+        public ActionResult DeleteCategories(Int32 CategoryId)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            categoryObj.DeleteSubCategory(CategoryId, 1);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
 
-         [AuthorizeWithSessionAttribute]
-         public ActionResult EditCategories(Int32 CategoryId)
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             var category = categoryObj.GetSubCategoryById(CategoryId);
-             return View(category);
-         }
+        [AuthorizeWithSessionAttribute]
+        public ActionResult EditCategories(Int32 CategoryId)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            var category = categoryObj.GetSubCategoryById(CategoryId);
+            return View(category);
+        }
 
-         [AuthorizeWithSession]
-         [HttpPost]
-         public ActionResult UpdateCategoryDetails(SubCategoryEntity entity)
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             categoryObj.UpdateSubCategory(entity.SubCategoryId, entity);
-             return Json(true, JsonRequestBehavior.AllowGet);
-         }
+        [AuthorizeWithSession]
+        [HttpPost]
+        public ActionResult UpdateCategoryDetails(SubCategoryEntity entity)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            categoryObj.UpdateSubCategory(entity.SubCategoryId, entity);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
-         [AuthorizeWithSession]
-         public ActionResult AddMainCategory()
-         {
-             return View();
-         }
+        [AuthorizeWithSession]
+        public ActionResult AddMainCategory()
+        {
+            return View();
+        }
 
-         [AuthorizeWithSession]
-         [HttpPost]
-         public ActionResult SaveMainCategory(SubCategoryEntity entity)
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             categoryObj.AddMainCategory(entity);
-             return Json(true, JsonRequestBehavior.AllowGet);
-         }
+        [AuthorizeWithSession]
+        [HttpPost]
+        public ActionResult SaveMainCategory(SubCategoryEntity entity)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            categoryObj.AddMainCategory(entity);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
-         [AuthorizeWithSession]
-         public ActionResult AddChildCategory()
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             List<SubCategoryEntity> categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
-             ViewBag.AvaiableEnums = categoryentities.Select(x =>
-                                     new SelectListItem()
-                                     {
-                                         Text = x.SubCategoryName,
-                                         Value = x.SubCategoryId.ToString()
-                                     });
-             return View();
-         }
+        [AuthorizeWithSession]
+        public ActionResult AddChildCategory()
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+            ViewBag.AvaiableEnums = categoryentities.Select(x =>
+                                    new SelectListItem()
+                                    {
+                                        Text = x.SubCategoryName,
+                                        Value = x.SubCategoryId.ToString()
+                                    });
+            return View();
+        }
 
-         [AuthorizeWithSession]
-         [HttpPost]
-         public ActionResult SaveChildCategory(SubCategoryEntity entity)
-         {
-             ISubCategory categoryObj = new SubCategoryServices();
-             categoryObj.AddChildCategory(entity);
-             return Json(true, JsonRequestBehavior.AllowGet);
-         }
+        [AuthorizeWithSession]
+        [HttpPost]
+        public ActionResult SaveChildCategory(SubCategoryEntity entity)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            categoryObj.AddChildCategory(entity);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
 
         [AuthorizeWithSessionAttribute]
@@ -366,7 +361,7 @@ namespace TalentSearchWebApp.Controllers
         public ActionResult CreateJob(VmInsertJob objVmInsertJob) // Record Insert  
         {
             IJobs objJobServices = new JobServices();
-            if(objVmInsertJob.JobId == 0)
+            if (objVmInsertJob.JobId == 0)
                 return Json(objJobServices.CreateJob(objVmInsertJob), JsonRequestBehavior.AllowGet);
             else
                 return Json(objJobServices.UpdateJob(objVmInsertJob), JsonRequestBehavior.AllowGet);
@@ -380,7 +375,8 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents() {
+        public ActionResult Talents()
+        {
             ITalentServices talentObj = new TalentServices();
             var talents = talentObj.GetAllTalents();
             return View(talents);

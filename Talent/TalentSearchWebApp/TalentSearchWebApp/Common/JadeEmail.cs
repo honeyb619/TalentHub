@@ -40,12 +40,13 @@ namespace TalentSearchWebApp.Common
             JadeEmail.sendEmail(message);
         }
 
-        public static void SendForgotPassword(string emailaddress, string password)
+        public static void SendForgotPassword(string emailaddress,string messageBody)
         {
             MailMessage message = new MailMessage();
             message.From = new MailAddress("info@jadetalent.co.nz");
             message.To.Add(new MailAddress(emailaddress));
-            message.Body = "Your password is :" + password;
+            message.Body = messageBody;
+            message.IsBodyHtml = true;
             message.Subject = "Admin Password";
             JadeEmail.sendEmail(message);
         }

@@ -1,4 +1,6 @@
 ﻿using BusinessEntities.Model;
+using BusinessServices.Interfaces;
+using BusinessServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,15 @@ namespace TalentSearchWebApp.Controllers
         // GET: /Email/
 
         [HttpPost]
-        public ActionResult ForgotPasswordEmail(UserEntity user)
+        public ActionResult ForgotPasswordEmail(ContactUsMail user)
         {
-            return View(user);
+            IUserServices userServicObj = new UserServices();
+            var userInfo = userServicObj.GetUsersbyEmail(user.EmailId);
+            if (userInfo != null)
+            {
+                return View(userInfo);
+            }
+            return null;
         }
 
         [HttpPost]

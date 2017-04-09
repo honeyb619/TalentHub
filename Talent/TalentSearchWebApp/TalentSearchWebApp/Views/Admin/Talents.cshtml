@@ -33,11 +33,11 @@
              var media = (talentModel.vmMedias).Where(x => x.isProfilePic == true);
              if (media.Count() >0)
     {
-        return @Html.Raw("<img src='" + media.FirstOrDefault().MediaPath + "' alt='Image' style='height:50px;width:50px' />");
+        return @Html.Raw("<img src='" + media.FirstOrDefault().MediaPath + "' alt='Image' style='height:80px;width:80px' />");
     }
     else
     {
-           return @Html.Raw("<img src='/Images/blank-profile-picture.png' alt='Image' style='height:50px;width:50px' />");
+           return @Html.Raw("<img src='/Images/blank-profile-picture.png' alt='Image' style='height:80px;width:80px' />");
     }
         }),  
          grid.Column("Name",format:(item)=> string.Format("{0} {1}",item.FirstName,item.LastName)),  
