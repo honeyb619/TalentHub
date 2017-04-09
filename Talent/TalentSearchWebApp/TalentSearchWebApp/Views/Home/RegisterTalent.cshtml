@@ -12,7 +12,7 @@
 </header>
 <form name="Talentform">
     <div class="container WhiteBack">
-        <div class="row" style="font-weight: bolder;">           
+        <div class="row" style="font-weight: bolder;">
             <div class="4u wufoo">
                 <section class="section">
                     <div class="step well">
@@ -198,7 +198,7 @@
                                         </span>
                                         <span>
                                             <label for="skill1DescField">Share your experiences</label>
-                                            <textarea id="skill1DescField"  required name="skill1DescField" class="field text ln" tabindex="27">
+                                            <textarea id="skill1DescField" required name="skill1DescField" class="field text ln" tabindex="27">
                                             </textarea>
                                         </span>
 
@@ -214,7 +214,7 @@
                                         </span>
                                         <span>
                                             <label for="skill2DescField">Share your experiences</label>
-                                            <textarea id="skill2DescField"  name="skill2DescField" class="field text ln" tabindex="29">
+                                            <textarea id="skill2DescField" name="skill2DescField" class="field text ln" tabindex="29">
                                             </textarea>
 
                                         </span>
@@ -225,13 +225,13 @@
                                         <span>
                                             <label for="skill3NameField">Area of Expertise</label>
                                             @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30"})
+                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30" })
 
 
                                         </span>
                                         <span>
                                             <label for="skill3DescField">Share your experiences</label>
-                                            <textarea id="skill3DescField"  name="skill3DescField" class="field text ln" tabindex="31">
+                                            <textarea id="skill3DescField" name="skill3DescField" class="field text ln" tabindex="31">
                                             </textarea>
                                         </span>
 
@@ -257,9 +257,23 @@
                                     }
                                 }
                                 <li>
-                                    <input type="button" class="action submit btn btn-success" onclick="SubmitTalent()" value="Submit" />
+                                    <input type="button" class="action submit btn btn-success" onclick="SubmitTalent()" value="Next" />
                                     <input type="submit" id="formsubmit" style="display: none" />
                                 </li>
+
+                                @{
+                                    if (User != null)
+                                    {
+                                        if (User.Identity.IsAuthenticated)
+                                        {
+                                    <li>
+                                        <br />
+                                       @Html.ActionLink("Back To List", "../Admin/Talents")
+                                    </li>
+                                        }
+                                    }
+                                }
+
                             </ul>
                         </fieldset>
                     </div>
