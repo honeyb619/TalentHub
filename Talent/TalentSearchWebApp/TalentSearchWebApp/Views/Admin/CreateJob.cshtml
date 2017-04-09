@@ -35,7 +35,7 @@
                                        @class = "field text ln",
                                        @tabindex = "1",
                                        @id = "JobNameField",
-                                       @name = "JobNameField"
+                                       @name = "JobNameField",required=""
                                    })
                                     </span>
                                     <span>
@@ -45,7 +45,7 @@
                                        @class = "field text ln",
                                        @tabindex = "2",
                                        @id = "JobDescriptionField",
-                                       @name = "JobDescriptionField"
+                                       @name = "JobDescriptionField",required=""
                                    })
                                     </span>
                                     <span>
@@ -61,11 +61,11 @@
                                     <span>
                                         <label for="JobStatusField">Job Status</label>
                                          @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Job Status"), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                    new { @id = "JobStatusField", @name = "JobStatusField", @class = "field select addr multiselect", @tabindex = "5" })
+                                                                    new { @id = "JobStatusField", @name = "JobStatusField", @class = "field select addr multiselect", @tabindex = "5",required="" })
                                     </span>
                                     <span>
                                         <label for="GenderField">Gender</label>
-                                        <select id="GenderField" name="Gender" class="field select addr" value="" tabindex="6">
+                                        <select id="GenderField" name="Gender"  class="field select addr" value="" tabindex="6">
                                             <option value="">--Please Select--</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -172,12 +172,12 @@
                                 <span>
                                         <label for="skill1NameField">Area of Expertise</label>
                                         @Html.DropDownListFor(model => model.Skills[0].SkillId, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                      new { @id = "skill1NameField", @name = "Skills[0].SkillId", @class = "field select addr", @tabindex = "17" })
+                                                                                      new { @id = "skill1NameField", @name = "Skills[0].SkillId", @class = "field select addr", @tabindex = "17",required="" })
 
 
                                     </span>
                                     <span>
-                                        <label for="skill1DescField">Share your experiences</label>
+                                        <label for="skill1DescField">Desired Skills Description</label>
                                          @Html.TextAreaFor(model => model.Skills[0].Description, new
                                    {
                                        @class = "field text ln",

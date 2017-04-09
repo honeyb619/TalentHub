@@ -132,7 +132,7 @@ namespace TalentSearchWebApp.Controllers
              {
                  IUserServices userServicObj = new UserServices();
                  var userInfo = userServicObj.GetUsersbyEmail(user.Email);
-                 if (user != null)
+                 if (userInfo != null)
                  {
                      JadeEmail.SendForgotPassword(userInfo.Email, userInfo.Password);
                      return RedirectToAction("MessagePage", "Home", new { messageKey = "ForgotPasswordSent" });
