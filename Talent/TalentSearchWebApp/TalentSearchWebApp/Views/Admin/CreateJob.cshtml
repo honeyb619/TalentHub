@@ -15,27 +15,34 @@
     OnFailure = "Failure"
 }))
 {
-<header class="major">
+    <header class="major">
     <h2>Fill out job details</h2>
 </header>
-<div class="container WhiteBack">
-    <div class="row" style="font-weight: bolder;">
-        <div class="12u wufoo">
-            <section class="section">
+    <div class="container WhiteBack">
+        <div class="row" style="font-weight: bolder;">
+            <div class="12u wufoo">
+                <section class="section">
                 <div class="step well">
                 <fieldset>
+                @if (ViewBag.PageAction == "Update")
+                {
+                        <legend id="lgdJob" class="headerlegend">Update Job</legend>
+                }
+                else
+                {
                         <legend id="lgdJob" class="headerlegend">Create Job</legend>
+                }
                         <ul>
                             <li>
                             <span>
-                            @Html.HiddenFor(model=>model.JobId)
+                            @Html.HiddenFor(model => model.JobId)
                                         <label for="JobNameField">Job Title</label>
                                         @Html.TextBoxFor(model => model.JobName, new
                                    {
                                        @class = "field text ln",
                                        @tabindex = "1",
                                        @id = "JobNameField",
-                                       @name = "JobNameField",required=""
+                                       @name = "JobNameField"
                                    })
                                     </span>
                                     <span>
@@ -45,7 +52,7 @@
                                        @class = "field text ln",
                                        @tabindex = "2",
                                        @id = "JobDescriptionField",
-                                       @name = "JobDescriptionField",required=""
+                                       @name = "JobDescriptionField"
                                    })
                                     </span>
                                     <span>
@@ -61,11 +68,11 @@
                                     <span>
                                         <label for="JobStatusField">Job Status</label>
                                          @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Job Status"), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                    new { @id = "JobStatusField", @name = "JobStatusField", @class = "field select addr multiselect", @tabindex = "5",required="" })
+                                                                    new { @id = "JobStatusField", @name = "JobStatusField", @class = "field select addr multiselect", @tabindex = "5" })
                                     </span>
                                     <span>
                                         <label for="GenderField">Gender</label>
-                                        <select id="GenderField" name="Gender"  class="field select addr" value="" tabindex="6">
+                                        <select id="GenderField" name="Gender" class="field select addr" value="" tabindex="6">
                                             <option value="">--Please Select--</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -172,19 +179,20 @@
                                 <span>
                                         <label for="skill1NameField">Area of Expertise</label>
                                         @Html.DropDownListFor(model => model.Skills[0].SkillId, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                      new { @id = "skill1NameField", @name = "Skills[0].SkillId", @class = "field select addr", @tabindex = "17",required="" })
+                                                       new { @id = "skill1NameField", @name = "Skills[0].SkillId", @class = "field select addr", @tabindex = "17", required = "" })
 
 
                                     </span>
                                     <span>
-                                        <label for="skill1DescField">Desired Skills Description</label>
+                                        <label for="skill1DescField">Share your experiences</label>
                                          @Html.TextAreaFor(model => model.Skills[0].Description, new
-                                   {
-                                       @class = "field text ln",
-                                       @tabindex = "17",
-                                       @id = "skill1DescField",
-                                       @name = "Skills[0].Description"
-                                   })
+                                    {
+                                        @class = "field text ln",
+                                        @tabindex = "17",
+                                        @id = "skill1DescField",
+                                        @name = "Skills[0].Description",
+                                        required = ""
+                                    })
                                     </span>
                                     <span>
                                         <label for="PayField">Pay</label>
@@ -200,21 +208,28 @@
                                         <label for="NumberOfDaysField">Number Of Days</label>
                                         @Html.TextBoxFor(model => model.NumberOfDays
                                         , new
-                                   {
-                                       @class = "field text ln",
-                                       @tabindex = "19",
-                                       @id = "NumberOfDaysField",
-                                       @name = "NumberOfDays"
-                                   })
+                                        {
+                                            @class = "field text ln",
+                                            @tabindex = "19",
+                                            @id = "NumberOfDaysField",
+                                            @name = "NumberOfDays"
+                                        })
                                     </span>
                             </li>
                             </ul>
                             </fieldset>
-                            <input type="submit" value="Create Job" id="btnJobSubmit" />
+                            @if (ViewBag.PageAction == "Update")
+                            {
+                                <input type="submit" value="Update Job" id="btnJobSubmit" />
+                            }
+                            else
+                            { 
+                                <input type="submit" value="Create Job" id="btnJobSubmit" />
+                            }
                 </div>
                 </section>
+            </div>
         </div>
     </div>
-</div>
 }
 <script src="~/Scripts/Custom/CreateJob.js" type="text/javascript"></script>

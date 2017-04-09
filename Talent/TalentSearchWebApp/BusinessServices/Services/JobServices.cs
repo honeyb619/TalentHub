@@ -30,9 +30,18 @@ namespace BusinessServices.Services
             _unitOfWork = new UnitOfWork();
         }
 
-        public BusinessEntities.Model.JobEntity GetJobById(long jobId)
+        public VmInsertJob GetJobById(long jobId)
         {
-            throw new NotImplementedException();
+            VmInsertJob objVmInsertJob = new VmInsertJob();
+
+            //var job = _unitOfWork.JobRepository.GetByID(jobId);
+            //if (job != null)
+            //{
+            //    Mapper.CreateMap<ProductionCompany, ProductionCompanyEntitiy>();
+            //    var productionCompanyModel = Mapper.Map<ProductionCompany, ProductionCompanyEntitiy>(productionCompany);
+            //    return productionCompanyModel;
+            //}
+            return objVmInsertJob;
         }
 
         public GridVmJobsList GetAllJobs(int page, string sort, string sortdir, JobEntity jobEntity)

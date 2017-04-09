@@ -330,14 +330,24 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
-        public ActionResult CreateJob()   //Insert Job  
+        public ActionResult CreateJob(long JobId = 0)  //Insert Job  
         {
-
             string[] categoryNames = { "New Zealand Language", "Category", "Job Status" };
             string[] masterCategoryNames = { "LANGUAGE", "CATEGORY", "STATUS" };
 
             VmInsertJob objVmInsertJob = new VmInsertJob();
-            objVmInsertJob.Skills.Add(new VmSkills());
+
+            if (JobId != 0)
+            {
+                ViewBag.PageAction = "Update";
+                IJobs objJobServices = new JobServices();
+                objVmInsertJob = objJobServices.GetJobById(JobId);
+            }
+            else
+            {
+                ViewBag.PageAction = "Create";
+                objVmInsertJob.Skills.Add(new VmSkills());
+            }
 
             ISubCategory objSubCategory = new SubCategoryServices();
             objVmInsertJob.SubCategoryEntities = objSubCategory.GetSubCategoriesWithWhere(categoryNames, masterCategoryNames).ToList();

@@ -17,7 +17,9 @@
                 grid.Column("JobId", header: "Action", canSort:false,  
            
          format: @<text>
-            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditJob(" + item.JobId + ")' ></i>")
+            @Html.ActionLink(" ", "CreateJob", "Admin", new { JobId = item.JobId }, new { aria_hidden = "true", @class = "fa fa-pencil",
+                                                                                          @style = "text-decoration:none;color: inherit"
+       })
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteJob(" + item.JobId + ")' ></i>")
             </text>  
         )  

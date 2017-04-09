@@ -22,6 +22,11 @@ namespace TalentSearchWebApp
            "RegisterRoute",
            "Home/SearchCategory/{category}/{subCategory}",
            new { controller = "Home", action = "SearchCategory" });
+
+            routes.MapRoute(
+           "UpdateJobRoute",
+           "Admin/CreateJob/{JobId}",
+           new { controller = "Admin", action = "CreateJob" });
         }
     }
 }
