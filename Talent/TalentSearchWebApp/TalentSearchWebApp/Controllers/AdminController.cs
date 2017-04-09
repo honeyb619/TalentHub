@@ -378,5 +378,12 @@ namespace TalentSearchWebApp.Controllers
             IJobs objJobServices = new JobServices();
             return Json(objJobServices.DeleteJob(jobId), JsonRequestBehavior.AllowGet);
         }
+
+        [AuthorizeWithSessionAttribute]
+        public ActionResult Talents() {
+            ITalentServices talentObj = new TalentServices();
+            var talents = talentObj.GetAllTalents();
+            return View(talents);
+        }
     }
 }

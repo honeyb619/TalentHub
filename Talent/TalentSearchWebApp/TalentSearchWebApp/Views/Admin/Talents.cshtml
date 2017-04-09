@@ -1,0 +1,75 @@
+﻿@model List<BusinessEntities.ViewModel.VmTalentEntity>
+@{
+    ViewBag.Title = "Talents";
+}
+<style type="text/css">
+    #banner {
+        display: none;
+    }
+</style>
+<div class="container WhiteBack">
+    <div id='dialog'></div>
+
+    <h3>Talents</h3>
+
+    <div style="padding: 7px 0;">
+        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
+    </div>
+    <div style="clear: both"></div>
+    <div>
+        @{  
+            WebGrid grid = new WebGrid(Model);  
+            @grid.GetHtml(
+         tableStyle: "grid",
+         fillEmptyRows: false,
+         mode: WebGridPagerModes.All,
+         firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
+         columns: new[] {  
+         grid.Column(format: (item) =>{
+             var talentModel = Model.Where(x => x.TalentId == item.TalentId).FirstOrDefault();
+             var media = (talentModel.vmMedias).Where(x => x.isProfilePic == true);
+             if (media.Count() >0)
+    {
+        return @Html.Raw("<img src='" + media.FirstOrDefault().MediaPath + "' alt='Image' style='height:50px;width:50px' />");
+    }
+    else
+    {
+           return @Html.Raw("<img src='/Images/blank-profile-picture.png' alt='Image' style='height:50px;width:50px' />");
+    }
+        }),  
+         grid.Column("Name",format:(item)=> string.Format("{0} {1}",item.FirstName,item.LastName)),  
+         grid.Column("EmailId",header: "Email"),  
+         grid.Column("Gender", header: "Gender"),  
+         grid.Column("Age",header: "Age"),
+         grid.Column("Mobile", header: "Mobile"),
+          grid.Column("RegionName", header: "Region"),
+          grid.Column("TalentId", header: "Action", canSort:false,  
+           
+         format: @<text>
+            @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
+
+            </text>  
+        )  
+         //, canSort:false,  
+           
+        /* format: @<text>
+            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+            </text>  
+        )  */
+     })  
+        }
+    </div>
+</div>
+<script>
+    function AddTalent() {
+        window.location = "/Home/RegisterTalent";
+    }
+
+    function ViewTalent(TalentId) {
+        window.location = "/Home/Profile?ProfileId="+TalentId;
+    }
+</script>

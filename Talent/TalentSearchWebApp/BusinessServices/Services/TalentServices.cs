@@ -55,9 +55,31 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public IEnumerable<BusinessEntities.Model.TalentEntity> GetAllTalents()
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents()
         {
-            throw new NotImplementedException();
+            var talent = _unitOfWork.TalentRepository.Get().ToList();
+
+            if (talent != null)
+            {
+                Mapper.CreateMap<Talent, VmTalentEntity>().ForMember(d => d.RegionName, o => o.MapFrom(s => s.Region.RegionName))
+                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Select(a =>
+                        new VmMainSkills
+                        {
+                            MainSkil = a.SubCategory.SubCategoryValue,
+                            Skills = a.JobTalentSkills.Select(x => new VmSkills { Description = x.Description, SkillName = x.SubCategory.SubCategoryValue }).ToList()
+                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Select(a => new VmMedias
+                        {
+                            MediaId = a.MediaId,
+                            MediaPath = a.FilePath,
+                            MediaType = a.MediaType,
+                            isProfilePic = a.IsProfilePic,
+                            MediaName = a.FileName
+                        }))).ForMember(d => d.Languages, o => o.MapFrom(s => s.JobTalentLanguages.Select(a => a.SubCategory.SubCategoryValue)));
+
+                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent);
+                return talentModel;
+            }
+            return null;
         }
 
         public long CreateTalent(BusinessEntities.ViewModel.VmInsertTalent talentEntity)
