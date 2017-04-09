@@ -338,6 +338,8 @@
     <Content Include="Views\Admin\_JobList.cshtml" />
     <Content Include="Views\Admin\_ProductionCompanyList.cshtml" />
     <Content Include="Views\Admin\Talents.cshtml" />
+    <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
+    <Content Include="Views\Email\EnquiryFormEmail.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

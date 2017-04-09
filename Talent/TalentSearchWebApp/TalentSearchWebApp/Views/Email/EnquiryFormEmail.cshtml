@@ -1,0 +1,48 @@
+﻿@model TalentSearchWebApp.Models.ContactUsMail
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EnquiryFormEmail</title>
+</head>
+<body>
+
+    <table>
+
+        <tr>
+
+            <td>
+
+                <img src="http://jadetalent.co.nz/Images/TalentBack.png" width="90%" height="200px" />
+                <br />
+                <br />
+
+                <div style="border-top: 3px solid #22BCE5"></div>
+
+                <span style="font-family: Arial; font-size: 10pt">Hello Admin<b>
+                   
+                </b>,<br />
+                    <br />
+
+                    <span>@Model.Subject</span><br />
+                    @Model.Message
+                    <br />
+                    <br />
+
+                    Thanks<br />
+
+                    @Model.Name
+
+                </span></td>
+
+        </tr>
+
+    </table>
+
+</body>
+</html>
