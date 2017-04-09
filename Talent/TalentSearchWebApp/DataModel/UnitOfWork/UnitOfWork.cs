@@ -28,6 +28,7 @@ namespace DataModel.UnitOfWork
         private GenericRepository<Medium> _mediaRepository;
         private GenericRepository<usp_GetPublicTalent_Result> _usp_GetPublicTalent_ResultRepository;
         private GenericRepository<Job> _jobRepository;
+        private GenericRepository<JobTalentLanguage> _jobTalentLanguageRepository;
         private GenericRepository<string> _usp_Delete_ResultRepository;
 
         #endregion
@@ -203,6 +204,19 @@ namespace DataModel.UnitOfWork
                 if (this._usp_Delete_ResultRepository == null)
                     this._usp_Delete_ResultRepository = new GenericRepository<string>(_context);
                 return _usp_Delete_ResultRepository;
+            }
+        }
+
+        /// <summary>
+        /// JobTalentLanguage.
+        /// </summary>
+        public GenericRepository<JobTalentLanguage> JobTalentLanguageRepository
+        {
+            get
+            {
+                if (this._jobTalentLanguageRepository == null)
+                    this._jobTalentLanguageRepository = new GenericRepository<JobTalentLanguage>(_context);
+                return _jobTalentLanguageRepository;
             }
         }
         #endregion

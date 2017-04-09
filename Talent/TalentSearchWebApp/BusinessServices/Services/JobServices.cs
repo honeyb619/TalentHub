@@ -34,13 +34,40 @@ namespace BusinessServices.Services
         {
             VmInsertJob objVmInsertJob = new VmInsertJob();
 
-            //var job = _unitOfWork.JobRepository.GetByID(jobId);
-            //if (job != null)
-            //{
-            //    Mapper.CreateMap<ProductionCompany, ProductionCompanyEntitiy>();
-            //    var productionCompanyModel = Mapper.Map<ProductionCompany, ProductionCompanyEntitiy>(productionCompany);
-            //    return productionCompanyModel;
-            //}
+            var job = _unitOfWork.JobRepository.Get(x => x.IsDeleted == false && x.JobId == jobId);
+
+            if (job != null)
+            {
+                Mapper.CreateMap<Job, VmInsertJob>();
+                objVmInsertJob = Mapper.Map<Job, VmInsertJob>(job);
+
+                var jobLanguages = _unitOfWork.JobTalentLanguageRepository.GetManyQueryable(x => x.IsDeleted == false &&
+                                    x.JobId == jobId && x.TalentId == null).ToList();
+                if (jobLanguages.Any())
+                {
+                    objVmInsertJob.LanguageIds = new List<int>();
+                    foreach (var item in jobLanguages)
+                    {
+                        objVmInsertJob.LanguageIds.Add((Int32)item.LanguageId);
+                    }
+                }
+
+                var jobTalentSkills = _unitOfWork.JobTalentSkillRepository.Get(x => x.IsDeleted == false && x.JobId == jobId && x.TalentId == null);
+                VmSkills objVmSkills = new VmSkills();
+                if (jobTalentSkills != null)
+                {
+                    objVmSkills.SkillId = jobTalentSkills.SkillId;
+                    objVmSkills.Description = jobTalentSkills.Description;
+                    objVmInsertJob.Skills.Add(objVmSkills);
+                }
+                else
+                {
+                    objVmInsertJob.Skills.Add(objVmSkills);
+                }
+
+                return objVmInsertJob;
+            }
+
             return objVmInsertJob;
         }
 

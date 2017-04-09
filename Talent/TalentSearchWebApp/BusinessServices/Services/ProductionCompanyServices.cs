@@ -35,7 +35,7 @@ namespace BusinessServices.Services
         /// <returns></returns>
         public ProductionCompanyEntitiy GetProductById(long productionCompanyId)
         {
-            var productionCompany = _unitOfWork.ProductionCompanyRepository.Get(x=>x.IsDeleted == false, null);
+            var productionCompany = _unitOfWork.ProductionCompanyRepository.Get(x => x.IsDeleted == false && x.ProductionCompanyId == productionCompanyId, null);
             if (productionCompany != null)
             {
                 Mapper.CreateMap<ProductionCompany, ProductionCompanyEntitiy>();

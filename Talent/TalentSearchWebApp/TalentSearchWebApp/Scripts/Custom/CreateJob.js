@@ -1,9 +1,5 @@
 ﻿/// <reference path="/_references.js" />
-$(document).ready(function () {
 
-
-
-});
 
 function Success(data) {
     if (data != 0 && data != true && data != false) {
