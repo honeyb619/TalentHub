@@ -12,7 +12,7 @@ namespace BusinessServices.Interfaces
         VmTalentEntity GetTalentById(long talentId);
         List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents();
         long CreateTalent(VmInsertTalent talentEntity);
-        bool UpdateTalent(long talentId, TalentEntity talentEntity);
+        long UpdateTalent(VmInsertTalent talentEntity);
         bool DeleteTalent(long talentId);
         List<VmPublicTalent> GetPublicTalents(string category, string subCategory,bool isAdmin=false);
     }

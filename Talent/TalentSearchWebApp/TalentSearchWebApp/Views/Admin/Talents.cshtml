@@ -51,6 +51,7 @@
          format: @<text>
             @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
+         @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
             </text>  
         )  
          //, canSort:false,  
@@ -71,6 +72,10 @@
 
     function ViewTalent(TalentId) {
         window.location = "/Home/Profile?ProfileId=" + TalentId;
+    }
+
+    function EditTalent(TalentId) {
+        window.location = "/Admin/EditTalent?TalentId=" + TalentId;
     }
 
     function DeleteTalent(TalentId) {

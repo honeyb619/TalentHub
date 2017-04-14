@@ -53,12 +53,17 @@ function handleFileSelect(e) {
         }
         $(button).parent().hide();
     });
+
 }
 
 function submitFiles() {
     if (profile) {
+        var url = "/Home/RegisterTalent";
+        if (JSON.parse(profile).TalentId) {
+            url = "/Admin/UpdateTalent";
+        }
         $.ajax({
-            url: '/Home/RegisterTalent',
+            url: url,
             dataType: "json",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
@@ -159,6 +164,43 @@ function FileSubmit(formData, postUrl) {
 }
 
 $(document).ready(function () {
+    if (JSON.parse(profile).TalentId) {
+        var AlreadyUploadedFiles = document.querySelector("#AlreadyUploadedFiles");
+        var originalProfile = JSON.parse(localStorage.getItem("originalProfile"));
+        for (var i in originalProfile.vmMedias) {
+            if (originalProfile.vmMedias[i].MediaType == "Image") {
+                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
+            }
+            else {
+                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
+            }
+
+            $('.deleteMedia').click(function () {
+                var button = $(this);
+                var MediaId = $(this).attr("data-label");
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/DeleteMedia?MediaId=" + MediaId,
+                    contentType: 'application/json',
+                    success: function (data, textStatus, jQxhr) {
+                        $(button).parent().hide();
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+
+                //$.get("/Admin/DeleteMedia?MediaId=" + MediaId, function (data) {
+                //    $(button).parent().hide();
+                //}, function (error) { console.log(error); });
+
+            });
+        }
+        $("#AlreadyUploadedFiles").show();
+    }
+    else {
+        $("#AlreadyUploadedFiles").hide();
+    }
     $('#loading-image').bind('ajaxStart', function () {
         $(this).show();
     }).bind('ajaxStop', function () {

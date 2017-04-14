@@ -13,6 +13,6 @@ namespace BusinessServices.Interfaces
         IEnumerable<MediaEntity> GetAllMedias();
         long CreateMedia(VmMedias mediaEntity);
         bool UpdateMedia(long mediaId, MediaEntity talentEntity);
-        bool DeleteMedia(long mediaId, long deletedBy);
+        bool DeleteMedia(long mediaId);
     }
 }

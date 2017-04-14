@@ -375,6 +375,14 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
+        public ActionResult Talents()
+        {
+            ITalentServices talentObj = new TalentServices();
+            var talents = talentObj.GetAllTalents();
+            return View(talents);
+        }
+
+        [AuthorizeWithSessionAttribute]
         public JsonResult DeleteTalent(long TalentId)
         {
             ITalentServices objJobServices = new TalentServices();
@@ -382,11 +390,43 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents()
+        public JsonResult DeleteMedia(long MediaId)
         {
-            ITalentServices talentObj = new TalentServices();
-            var talents = talentObj.GetAllTalents();
-            return View(talents);
+            IMediaServices objJobServices = new MediaServices();
+            return Json(objJobServices.DeleteMedia(MediaId), JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeWithSessionAttribute]
+        public ActionResult EditTalent(long TalentId)
+        {
+            ITalentServices objJobServices = new TalentServices();
+            var talent = objJobServices.GetTalentById(TalentId);
+            ViewBag.talent = talent;
+            string[] categoryNames = { "New Zealand Language", "Category" };
+            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY" };
+            VmInsertTalent objVmInsertTalent = new VmInsertTalent();
+            ISubCategory objSubCategory = new SubCategoryServices();
+            objVmInsertTalent.SubCategoryEntities = objSubCategory.GetSubCategoriesWithWhere(categoryNames, masterCategoryNames).ToList();
+
+            IRegion objRegion = new RegionServices();
+            objVmInsertTalent.RegionEntities = objRegion.GetAllRegions().ToList();
+
+            return View(objVmInsertTalent);
+
+        }
+
+        [HttpPost]
+        public JsonResult UpdateTalent(VmInsertTalent objVmInsertTalent)
+        {
+            if (objVmInsertTalent.LanguageIds != null)
+            {
+                objVmInsertTalent.LanguageIds.Remove(0);
+            }
+
+            ITalentServices objTalentServices = new TalentServices();
+            long talentId = objTalentServices.UpdateTalent(objVmInsertTalent);
+
+            return Json(talentId);
         }
     }
 }

@@ -71,9 +71,18 @@ namespace BusinessServices.Services
             throw new NotImplementedException();
         }
 
-        public bool DeleteMedia(long mediaId, long deletedBy)
+        public bool DeleteMedia(long mediaId)
         {
-            throw new NotImplementedException();
+            if (mediaId > 0)
+            {
+                var media = _unitOfWork.MediaRepository.GetMany(x => x.MediaId == mediaId).FirstOrDefault();
+                media.IsDeleted = true;
+                _unitOfWork.MediaRepository.Update(media);
+                _unitOfWork.Save();
+                return true;
+            }
+
+            return false;
         }
     }
 }

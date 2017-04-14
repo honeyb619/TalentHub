@@ -36,12 +36,12 @@ namespace BusinessServices.Services
             if (talent != null)
             {
                 Mapper.CreateMap<Talent, VmTalentEntity>().ForMember(d => d.RegionName, o => o.MapFrom(s => s.Region.RegionName))
-                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Select(a =>
+                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Where(x => !(x.IsDeleted == true)).Select(a =>
                         new VmMainSkills
                         {
                             MainSkil = a.SubCategory.SubCategoryValue,
                             Skills = a.JobTalentSkills.Select(x => new VmSkills { Description = x.Description, SkillName = x.SubCategory.SubCategoryValue }).ToList()
-                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Select(a => new VmMedias
+                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Where(x => !(x.IsDeleted == true)).Select(a => new VmMedias
                         {
                             MediaId = a.MediaId,
                             MediaPath = a.FilePath,
@@ -63,12 +63,12 @@ namespace BusinessServices.Services
             if (talent != null)
             {
                 Mapper.CreateMap<Talent, VmTalentEntity>().ForMember(d => d.RegionName, o => o.MapFrom(s => s.Region.RegionName))
-                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Select(a =>
+                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Where(x => !(x.IsDeleted == true)).Select(a =>
                         new VmMainSkills
                         {
                             MainSkil = a.SubCategory.SubCategoryValue,
                             Skills = a.JobTalentSkills.Select(x => new VmSkills { Description = x.Description, SkillName = x.SubCategory.SubCategoryValue }).ToList()
-                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Select(a => new VmMedias
+                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Where(x => !(x.IsDeleted == true)).Select(a => new VmMedias
                         {
                             MediaId = a.MediaId,
                             MediaPath = a.FilePath,
@@ -179,9 +179,143 @@ namespace BusinessServices.Services
             return 0;
         }
 
-        public bool UpdateTalent(long talentId, BusinessEntities.Model.TalentEntity talentEntity)
+        public long UpdateTalent(VmInsertTalent talentEntity)
         {
-            throw new NotImplementedException();
+            if (talentEntity != null)
+            {
+
+                DateTime currentDate = DateTime.Now;
+                Mapper.CreateMap<VmInsertTalent, Talent>();
+                var talentModel = Mapper.Map<VmInsertTalent, Talent>(talentEntity);
+                talentModel.ModifiedDate = currentDate;
+
+                if (talentEntity.LanguageIds != null)
+                {
+                    var talentLanguages = _unitOfWork.JobTalentLanguageRepository.GetMany(x => x.TalentId == talentEntity.TalentId);
+                    foreach (var languageid in talentEntity.LanguageIds)
+                    {
+                        if (talentLanguages.Where(x => x.LanguageId == languageid).Count() == 0)
+                        {
+                            JobTalentLanguage objJobTalentLanguage = new JobTalentLanguage();
+                            objJobTalentLanguage.TalentId = talentModel.TalentId;
+                            objJobTalentLanguage.LanguageId = languageid;
+                            objJobTalentLanguage.CreatedBy = 1;
+                            objJobTalentLanguage.CreatedDate = currentDate;
+                            objJobTalentLanguage.modifiedBy = 1;
+                            objJobTalentLanguage.ModifiedDate = currentDate;
+                            objJobTalentLanguage.IsDeleted = false;
+                            _unitOfWork.JobTalentLanguageRepository.Insert(objJobTalentLanguage);
+                            _unitOfWork.Save();
+                        }
+
+                    }
+                    var DeletedLanguages = _unitOfWork.JobTalentLanguageRepository.GetMany(x => x.TalentId == talentEntity.TalentId).Where(x => !(talentEntity.LanguageIds.ToString().Contains(x.LanguageId.ToString())));
+                    foreach (var language in DeletedLanguages)
+                    {
+                        language.IsDeleted = true;
+                        language.ModifiedDate = currentDate;
+                        _unitOfWork.JobTalentLanguageRepository.Update(language);
+                        _unitOfWork.Save();
+
+                    }
+
+                }
+                else
+                {
+                    var DeletedLanguages = _unitOfWork.JobTalentLanguageRepository.GetMany(x => x.TalentId == talentEntity.TalentId);
+                    foreach (var language in DeletedLanguages)
+                    {
+                        language.IsDeleted = true;
+                        language.ModifiedDate = currentDate;
+                        _unitOfWork.JobTalentLanguageRepository.Update(language);
+                        _unitOfWork.Save();
+
+                    }
+                }
+
+                using (var scope = new TransactionScope())
+                {
+
+                    _unitOfWork.TalentRepository.Update(talentModel);
+                    _unitOfWork.Save();
+
+                    var talentCategories = _unitOfWork.JobTalentCategoryRepository.GetMany(x => x.TalentId == talentModel.TalentId);
+                    var talentSkills = _unitOfWork.JobTalentSkillRepository.GetMany(x => x.TalentId == talentModel.TalentId);
+
+
+
+                    foreach (var skill in talentSkills)
+                    {
+                        skill.IsDeleted = true;
+                        skill.ModifiedDate = currentDate;
+                        _unitOfWork.JobTalentSkillRepository.Update(skill);
+                        _unitOfWork.Save();
+                    }
+
+                    foreach (var category in talentCategories)
+                    {
+                        category.IsDeleted = true;
+                        category.ModifiedDate = currentDate;
+                        _unitOfWork.JobTalentCategoryRepository.Update(category);
+                        _unitOfWork.Save();
+                    }
+
+
+                    if (talentEntity.Skills != null)
+                    {
+                        long[] childIds = talentEntity.Skills.Select(x => x.SkillId).ToArray();
+                        var parentCategoryIds = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => childIds.Contains(x.SubCategoryId)).Select(x => new { x.ParentId, x.SubCategoryId }).Distinct().ToArray();
+
+                        foreach (var childCategory in talentEntity.Skills)
+                        {
+                            childCategory.ParentId = parentCategoryIds.Where(x => x.SubCategoryId == childCategory.SkillId).Select(x => x.ParentId).FirstOrDefault();
+                        }
+
+                        long parentId = 0;
+
+                        foreach (var parentCategory in parentCategoryIds)
+                        {
+                            if (parentId != (long)parentCategory.ParentId)
+                            {
+                                JobTalentCategory objJobTalentCategory = new JobTalentCategory();
+
+                                objJobTalentCategory.TalentId = talentModel.TalentId;
+                                objJobTalentCategory.CategoryId = (long)parentCategory.ParentId;
+                                objJobTalentCategory.CreatedBy = 1;
+                                objJobTalentCategory.CreatedDate = currentDate;
+                                objJobTalentCategory.modifiedBy = 1;
+                                objJobTalentCategory.ModifiedDate = currentDate;
+                                objJobTalentCategory.IsDeleted = false;
+
+                                foreach (var childCategory in talentEntity.Skills.Where(x => x.ParentId == parentCategory.ParentId))
+                                {
+                                    JobTalentSkill objJobTalentSkill = new JobTalentSkill();
+                                    objJobTalentSkill.TalentId = talentModel.TalentId;
+                                    objJobTalentSkill.ParentCategoryId = (long)parentCategory.ParentId;
+                                    objJobTalentSkill.SkillId = childCategory.SkillId;
+                                    objJobTalentSkill.Description = childCategory.Description;
+                                    objJobTalentSkill.CreatedBy = 1;
+                                    objJobTalentSkill.CreatedDate = currentDate;
+                                    objJobTalentSkill.modifiedBy = 1;
+                                    objJobTalentSkill.ModifiedDate = currentDate;
+                                    objJobTalentSkill.IsDeleted = false;
+                                    objJobTalentCategory.JobTalentSkills.Add(objJobTalentSkill);
+                                }
+
+                                parentId = (long)parentCategory.ParentId;
+                                _unitOfWork.JobTalentCategoryRepository.Insert(objJobTalentCategory);
+                                _unitOfWork.Save();
+                            }
+                        }
+
+                    }
+
+                    scope.Complete();
+                    return talentModel.TalentId;
+                }
+            }
+            //_unitOfWork.TalentRepository.Insert();
+            return 0;
         }
 
         public bool DeleteTalent(long talentId)

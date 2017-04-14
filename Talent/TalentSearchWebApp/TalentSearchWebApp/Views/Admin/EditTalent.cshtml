@@ -1,0 +1,432 @@
+﻿@model BusinessEntities.ViewModel.VmInsertTalent
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #banner {
+        display: none;
+    }
+</style>
+<script>
+    var talentProfile =@Html.Raw(Json.Encode(ViewBag.talent))
+   $(document).ready(function () {
+       $("#FirstNameFileld").val(talentProfile.FirstName);
+       $("#LastNameField").val(talentProfile.LastName);
+       $("#EmailField").val(talentProfile.EmailId);
+       $("#AlternateEmailField").val(talentProfile.AlternateEmailId);
+       $("#GenderField").val(talentProfile.Gender);
+       $("#AgeField").val(talentProfile.Age);
+       $("#HobbiesField").val(talentProfile.Hobbies);
+       $("#MobileField").val(talentProfile.Mobile);
+       $("#PhoneField").val(talentProfile.Phone);
+       $("#PostalField").val(talentProfile.PostalAddress);
+       $("select#RegionField").find("option").each(function (opt) {
+           if (this.text == talentProfile.RegionName) {
+               $(this).attr("selected", "selected");
+           }
+       });
+       $("#EmergencyNameField").val(talentProfile.EmergencyName);
+       $("#EmergencyNumberField").val(talentProfile.EmergencyNumber);
+       $("#HeightField").val(talentProfile.Height);
+       $("#NationalityField").val(talentProfile.Nationality);
+       $("#EyeColorField").val(talentProfile.EyeColor);
+       $("#EthicityField").val(talentProfile.Ethnicity);
+       $("#WaistField").val(talentProfile.Waist);
+       $("#HairColorField").val(talentProfile.HairColor);
+       $("#ChestSizeField").val(talentProfile.ChestSize);
+       $("#HipSizeField").val(talentProfile.HipSize);
+       if (talentProfile.IsPublic) {
+           $("#profilePublicField").attr("checked", "checked");
+       }
+       for (var i in talentProfile.Languages) {
+           $("select#AccentField").find("option").each(function (opt) {
+               if (this.text == talentProfile.Languages[i]) {
+                   $(this).attr("selected", "selected");
+               }
+               else {
+                   if (this.hasAttribute("selected"))
+                       this.removeAttribute("selected");
+               }
+           })
+       }
+       if (talentProfile.vmMainSkills.length > 0) {
+           if (talentProfile.vmMainSkills[0]) {
+               $("select#skill1NameField").find("option").each(function (opt) {
+                   if (this.text == talentProfile.vmMainSkills[0].Skills[0].SkillName) {
+                       $(this).attr("selected", "selected");
+                   }
+               });
+               $("#skill1DescField").val(talentProfile.vmMainSkills[0].Skills[0].Description)
+           }
+           if (talentProfile.vmMainSkills[1]) {
+               $("select#skill2NameField").find("option").each(function (opt) {
+                   if (this.text == talentProfile.vmMainSkills[1].Skills[0].SkillName) {
+                       $(this).attr("selected", "selected");
+                   }
+               });
+               $("#skill2DescField").val(talentProfile.vmMainSkills[1].Skills[0].Description)
+
+           }
+           if (talentProfile.vmMainSkills[2]) {
+               $("select#skill3NameField").find("option").each(function (opt) {
+                   if (this.text == talentProfile.vmMainSkills[2].Skills[0].SkillName) {
+                       $(this).attr("selected", "selected");
+                   }
+               });
+               $("#skill3DescField").val(talentProfile.vmMainSkills[2].Skills[0].Description)
+
+           }
+
+       }
+   });
+    function SubmitTalent() {
+        var $myForm = $('#Talentform');
+        if (!$myForm.context.forms[0].checkValidity()) {
+            $("#formsubmit").click();
+            return;
+        }
+
+        var objVmInsertTalent = {};
+        objVmInsertTalent.TalentId = talentProfile.TalentId;
+        objVmInsertTalent.FirstName = $("#FirstNameFileld").val();
+        objVmInsertTalent.LastName = $("#LastNameField").val();
+        objVmInsertTalent.EmailId = $("#EmailField").val();
+        objVmInsertTalent.AlternateEmailId = $("#AlternateEmailField").val();
+        objVmInsertTalent.Gender = $("#GenderField").val();
+
+        objVmInsertTalent.Age = $("#AgeField").val();
+        objVmInsertTalent.Hobbies = $("#HobbiesField").val();
+        objVmInsertTalent.Mobile = $("#MobileField").val();
+        objVmInsertTalent.Phone = $("#PhoneField").val();
+        objVmInsertTalent.PostalAddress = $("#PostalField").val();
+
+        objVmInsertTalent.RegionId = $("#RegionField").val();
+        objVmInsertTalent.EmergencyName = $("#EmergencyNameField").val();
+        objVmInsertTalent.EmergencyNumber = $("#EmergencyNumberField").val();
+        objVmInsertTalent.Height = $("#HeightField").val();
+        objVmInsertTalent.Nationality = $("#NationalityField").val();
+
+        objVmInsertTalent.EyeColor = $("#EyeColorField").val();
+        objVmInsertTalent.Ethnicity = $("#EthicityField").val();
+        objVmInsertTalent.Waist = $("#WaistField").val();
+        objVmInsertTalent.HairColor = $("#HairColorField").val();
+        objVmInsertTalent.ChestSize = $("#ChestSizeField").val();
+
+        objVmInsertTalent.HipSize = $("#HipSizeField").val();
+
+        if ($("#profilePublicField").length > 0) {
+            if ($("#profilePublicField").is(":checked")) {
+                objVmInsertTalent.IsPublic = true;
+            }
+            else {
+                objVmInsertTalent.IsPublic = false;
+            }
+        }
+        else {
+            objVmInsertTalent.IsPublic = true;
+        }
+
+
+        objVmInsertTalent.LanguageIds = $('select#AccentField').val();
+        objVmInsertTalent.Skills = [];
+
+        var skills = {};
+        skills.SkillName = "";
+        skills.SkillId = $("#skill1NameField").val();
+        skills.Description = $("#skill1DescField").val();
+        objVmInsertTalent.Skills.push(skills);
+
+        skills = {};
+        skills.SkillName = "";
+        skills.SkillId = $("#skill2NameField").val();
+        skills.Description = $("#skill2DescField").val();
+        objVmInsertTalent.Skills.push(skills);
+
+        skills = {};
+        skills.SkillName = "";
+        skills.SkillId = $("#skill3NameField").val();
+        skills.Description = $("#skill3DescField").val();
+        objVmInsertTalent.Skills.push(skills);
+
+        localStorage.setItem('profile', JSON.stringify(objVmInsertTalent));
+        localStorage.setItem('originalProfile', JSON.stringify(talentProfile));
+        window.location = "../Home/UploadFiles";
+
+    }
+
+</script>
+<header class="major">
+    <h2>Fill out your details</h2>
+</header>
+<form name="Talentform">
+    <div class="container WhiteBack">
+        <div class="row" style="font-weight: bolder;">
+            <div class="4u wufoo">
+                <section class="section">
+                    <div class="step well">
+                        <fieldset>
+                            <legend class="headerlegend">Communication Details</legend>
+                            <ul>
+                                <li>
+                                    <fieldset>
+                                        <legend>Name : </legend>
+
+                                        <span>
+                                            <label for="FirstNameFileld">First</label>
+                                            <input id="FirstNameFileld" name="FirstNameFileld" type="text" required class="field text fn" value="" size="8" tabindex="1">
+                                        </span>
+                                        <span>
+                                            <label for="LastNameField">Last</label>
+                                            <input id="LastNameField" name="LastNameField" type="text" required class="field text ln" value="" size="14" tabindex="2">
+                                        </span>
+                                    </fieldset>
+                                </li>
+
+
+
+                                <li id="fo1li5" class="notranslate ">
+                                    <label class="desc" id="title5" for="EmailField">
+                                        Email
+                                    </label>
+                                    <div>
+                                        <input id="EmailField" name="EmailField" type="email" spellcheck="false" required class="field text medium" value="" maxlength="255" tabindex="3">
+                                    </div>
+                                </li>
+
+
+
+                                <li id="fo1li6" class="notranslate">
+                                    <label class="desc" id="title6" for="AlternateEmailField">
+                                        Alternate Email
+                                    </label>
+                                    <div>
+                                        <input id="AlternateEmailField" name="AlternateEmailField" type="email" required spellcheck="false" class="field text medium" value="" maxlength="255" tabindex="4">
+                                    </div>
+                                </li>
+                                <li id="fo1li14" class="notranslate      ">
+                                    <label class="desc" id="title14" for="MobileField">
+                                        Mobile
+                                    </label>
+                                    <div>
+                                        <input id="MobileField" class="field text medium" name="MobileField" required tabindex="5" type="text" maxlength="255" value="">
+                                    </div>
+                                </li>
+
+
+
+                                <li id="fo1li15" class="notranslate      ">
+                                    <label class="desc" id="title15" for="PhoneField">
+                                        Phone Number
+                                    </label>
+                                    <div>
+                                        <input id="PhoneField" class="field text medium" name="PhoneField" tabindex="6" type="text" maxlength="255" value="">
+                                    </div>
+                                </li>
+
+                                <li id="fo1li16" class="complex notranslate      ">
+                                    <span>
+                                        <label for="EmergencyNameField">Emergency Name</label>
+                                        <input id="EmergencyNameField" name="EmergencyNameField" type="text" required class="field text addr" value="" maxlength="15" tabindex="7">
+                                    </span>
+                                    <span>
+                                        <label for="EmergencyNumberField">Emergency Number</label>
+                                        <input id="EmergencyNumberField" name="EmergencyNumberField" type="text" required class="field text addr" value="" maxlength="15" tabindex="8">
+                                    </span>
+                                    <span class="left zip">
+                                        <label for="PostalField">Postal / Zip Code</label>
+                                        <input id="PostalField" name="PostalField" type="text" class="field text addr" required value="" maxlength="15" tabindex="9">
+                                    </span>
+                                    <span>
+                                        <label for="NationalityField">Nationality</label>
+                                        <input id="NationalityField" name="NationalityField" type="text" class="field text ln" required value="" size="14" tabindex="10">
+                                    </span>
+                                    <span>
+                                        <label for="RegionField">Region</label>
+                                        @Html.DropDownListFor(model => model.RegionId, new SelectList(Model.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
+                                                                    new { @id = "RegionField", @name = "RegionField", @class = "field select addr", @tabindex = "11", required = "" })
+                                    </span>
+
+                                </li>
+
+                            </ul>
+                        </fieldset>
+                    </div>
+                </section>
+            </div>
+            <div class="4u wufoo">
+                <section class="section">
+                    <div class="step well">
+                        <fieldset>
+                            <legend class="headerlegend">Personal Details</legend>
+                            <ul>
+                                <li>
+                                    <fieldset>
+                                        <legend>Appearance : </legend>
+                                        <span>
+                                            <label for="GenderField">Gender</label>
+                                            <select id="GenderField" name="GenderField" required class="field select addr" tabindex="12">
+                                                <option value="">--Please Select--</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </span>
+                                        <span>
+                                            <label for="AgeField">Age</label>
+                                            <input id="AgeField" name="AgeField" type="text" required class="field text fn" value="" size="8" tabindex="13">
+                                        </span>
+                                        <span>
+                                            <label for="HeightField">Height</label>
+                                            <input id="HeightField" name="HeightField" type="text" required class="field text ln" value="" size="14" tabindex="14">
+                                        </span>
+                                        <span>
+                                            <label for="ChestSizeField">Chest/Bust Size</label>
+                                            <input id="ChestSizeField" name="ChestSizeField" type="text" required class="field text ln" value="" size="14" tabindex="15">
+                                        </span>
+                                        <span>
+                                            <label for="WaistField">Waist</label>
+                                            <input id="WaistField" name="WaistField" type="text" required class="field text ln" value="" size="14" tabindex="16">
+                                        </span>
+                                        <span>
+                                            <label for="HipSizeField">Hip Size</label>
+                                            <input id="HipSizeField" name="HipSizeField" type="text" required class="field text ln" value="" size="14" tabindex="17">
+                                        </span>
+                                        <span>
+                                            <label for="EyeColorField">Eye Color</label>
+                                            <input id="EyeColorField" name="EyeColorField" type="text" required class="field text ln" value="" size="14" tabindex="18">
+                                        </span>
+
+                                        <span>
+                                            <label for="HairColorField">Hair Color</label>
+                                            <input id="HairColorField" name="HairColorField" type="text" required class="field text ln" value="" size="14" tabindex="19">
+                                        </span>
+
+                                    </fieldset>
+                                    <span>
+                                        <label for="HobbiesField">Hobbies</label>
+                                        <textarea id="HobbiesField" placeholder="Share your hobbies..." required name="HobbiesField" class="field text ln" tabindex="20">
+                                    </textarea>
+                                    </span>
+
+                                    <span>
+                                        <label for="AccentField">Accents/Languages</label>
+                                        @Html.DropDownListFor(model => model.LanguageIds, new MultiSelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Language"), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                                                                 new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "AccentField", @name = "AccentField", @class = "field select addr multiselect", @tabindex = "21", required = "" })
+
+                                        @* <input id="AccentField" name="AccentField" type="text" class="field text ln" value="" size="14" tabindex="22">*@
+                                    </span>
+
+                                    <span>
+                                        <label for="EthicityField">Ethicity</label>
+                                        <input id="EthicityField" name="EthicityField" type="text" required class="field text ln" value="" size="14" tabindex="25">
+                                    </span>
+
+
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+
+                </section>
+            </div>
+            <div class="4u wufoo">
+                <section class="section">
+                    <div class="step well">
+                        <fieldset>
+                            <legend class="headerlegend">Talent Details</legend>
+                            <ul>
+                                <li>
+                                    <fieldset>
+                                        <legend>Talent 1 : </legend>
+                                        <span>
+                                            <label for="skill1NameField">Area of Expertise</label>
+                                            @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                                      new { @id = "skill1NameField", @name = "skill1NameField", @class = "field select addr", @tabindex = "26", required = "" })
+
+
+                                        </span>
+                                        <span>
+                                            <label for="skill1DescField">Share your experiences</label>
+                                            <textarea id="skill1DescField" required name="skill1DescField" class="field text ln" tabindex="27">
+                                            </textarea>
+                                        </span>
+
+                                    </fieldset>
+                                    <fieldset>
+                                        <legend>Talent 2 : </legend>
+                                        <span>
+                                            <label for="skill2NameField">Area of Expertise</label>
+                                            @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                                                        new { @id = "skill2NameField", @name = "skill2NameField", @class = "field select addr", @tabindex = "28" })
+
+
+                                        </span>
+                                        <span>
+                                            <label for="skill2DescField">Share your experiences</label>
+                                            <textarea id="skill2DescField" name="skill2DescField" class="field text ln" tabindex="29">
+                                            </textarea>
+
+                                        </span>
+
+                                    </fieldset>
+                                    <fieldset>
+                                        <legend>Talent 3 : </legend>
+                                        <span>
+                                            <label for="skill3NameField">Area of Expertise</label>
+                                            @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                                                                          new { @id = "skill3NameField", @name = "skill3NameField", @class = "field select addr", @tabindex = "30" })
+
+
+                                        </span>
+                                        <span>
+                                            <label for="skill3DescField">Share your experiences</label>
+                                            <textarea id="skill3DescField" name="skill3DescField" class="field text ln" tabindex="31">
+                                            </textarea>
+                                        </span>
+
+                                    </fieldset>
+                                </li>
+
+                                @{
+                                    if (User != null)
+                                    {
+                                        if (User.Identity.IsAuthenticated)
+                                        {
+                                    <li>
+
+
+                                        <span>
+                                            <input id="profilePublicField" name="profilePublicField" type="checkbox" class="field text fn" tabindex="32">
+                                            <label for="profilePublicField" style="font-size: 0.9em;" title="The Profile will be visible at jade talent website.">Do you want your profile to be public?</label>
+
+                                        </span>
+
+                                    </li>
+                                        }
+                                    }
+                                }
+                                <li>
+                                    <input type="button" class="action submit btn btn-success" onclick="SubmitTalent()" value="Next" />
+                                    <input type="submit" id="formsubmit" style="display: none" />
+                                </li>
+
+                                @{
+                                    if (User != null)
+                                    {
+                                        if (User.Identity.IsAuthenticated)
+                                        {
+                                    <li>
+                                        <br />
+                                        @Html.ActionLink("Back To List", "../Admin/Talents")
+                                    </li>
+                                        }
+                                    }
+                                }
+
+                            </ul>
+                        </fieldset>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</form>

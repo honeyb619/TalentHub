@@ -89,6 +89,7 @@ namespace JADE_TALENT.Controllers
             return Json(talentId);
         }
 
+
         public ActionResult ContactUs(ContactUsMail emailObj)
         {
             if (ModelState.IsValid)
