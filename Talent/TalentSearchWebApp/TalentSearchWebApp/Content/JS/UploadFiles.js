@@ -92,6 +92,10 @@ function submitFiles() {
                         });
                     }
                 }
+                else {
+                    localStorage.clear();
+                    window.location = profileUrl;
+                }
             },
             error: function (xhr) {
 
@@ -133,6 +137,7 @@ function insertFilePath(response) {
                         if (!filesObj[i].isProcessed) {
                             return;
                         }
+                        localStorage.clear();
                         window.location = profileUrl;
                     }
                 },
