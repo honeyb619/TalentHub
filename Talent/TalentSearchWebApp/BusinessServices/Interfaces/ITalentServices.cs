@@ -10,7 +10,7 @@ namespace BusinessServices.Interfaces
     public interface ITalentServices
     {
         VmTalentEntity GetTalentById(long talentId);
-        List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents();
+        List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents(string search=null);
         long CreateTalent(VmInsertTalent talentEntity);
         long UpdateTalent(VmInsertTalent talentEntity);
         bool DeleteTalent(long talentId);

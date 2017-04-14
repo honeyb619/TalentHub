@@ -6,6 +6,14 @@
     #banner {
         display: none;
     }
+
+    .btnwrapper {
+        margin-left: 5%;
+        margin-bottom: 2%;
+        border: 1px solid #000;
+        display: inline-block;
+        position: relative;
+    }
 </style>
 <div class="container WhiteBack">
     <div id='dialog'></div>
@@ -16,6 +24,11 @@
         <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
     </div>
     <div style="clear: both"></div>
+    <div class="btnwrapper">
+        <input type="text" id="searchTxt" style="width: 80%" placeholder="Search" />
+        <button style="width: 20%; height: 100%; background-color: transparent; border: 0; position: absolute; right: 0; top: 0;" onclick="SearchTalent()"><span class="icon-search">GO</span></button>
+
+    </div>
     <div>
         @{  
             WebGrid grid = new WebGrid(Model);  
@@ -51,7 +64,7 @@
          format: @<text>
             @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
-         @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
             </text>  
         )  
          //, canSort:false,  
@@ -88,5 +101,9 @@
                         alert("Not deleted something Wrong");
                 });
         }
+    }
+    function SearchTalent() {
+        var searchKey = $("#searchTxt").val();
+        window.location = "/Admin/Talents?Search=" + searchKey;
     }
 </script>

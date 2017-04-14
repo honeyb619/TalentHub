@@ -375,10 +375,10 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents()
+        public ActionResult Talents(string search=null)
         {
             ITalentServices talentObj = new TalentServices();
-            var talents = talentObj.GetAllTalents();
+            var talents = talentObj.GetAllTalents(search);
             return View(talents);
         }
 

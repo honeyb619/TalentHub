@@ -56,9 +56,22 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents()
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents(string searchKeyword=null)
         {
-            var talent = _unitOfWork.TalentRepository.GetMany(x => x.IsDeleted == null || x.IsDeleted == false).ToList();
+            List<Talent> talent;
+            if (String.IsNullOrEmpty(searchKeyword))
+            {
+                talent = _unitOfWork.TalentRepository.GetMany(x => (x.IsDeleted == null || x.IsDeleted == false)).ToList();
+            }
+            else
+            {
+                talent = _unitOfWork.TalentRepository.GetMany(x => (x.IsDeleted == null || x.IsDeleted == false)
+                && (searchKeyword.Contains(x.HairColor) || searchKeyword.Contains(x.FirstName) || searchKeyword.Contains(x.LastName)
+                || searchKeyword.Contains(x.EyeColor) || searchKeyword.Contains(x.Nationality) || searchKeyword.Contains(x.Region.RegionName)
+                || x.EmailId.Contains(searchKeyword) || x.HairColor.Contains(searchKeyword) || x.FirstName.Contains(searchKeyword) || x.LastName.Contains(searchKeyword)
+                || x.EyeColor.Contains(searchKeyword) || x.Nationality.Contains(searchKeyword) || x.Region.RegionName.Contains(searchKeyword)
+                || searchKeyword.Contains(x.EmailId))).ToList();
+            }
 
             if (talent != null)
             {
@@ -194,7 +207,7 @@ namespace BusinessServices.Services
                     var talentLanguages = _unitOfWork.JobTalentLanguageRepository.GetMany(x => x.TalentId == talentEntity.TalentId).ToList();
                     foreach (var language in talentLanguages)
                     {
-                        
+
                         _unitOfWork.JobTalentLanguageRepository.Delete(language);
                         _unitOfWork.Save();
 
