@@ -50,14 +50,14 @@
            
          format: @<text>
             @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
-
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
             </text>  
         )  
          //, canSort:false,  
            
         /* format: @<text>
             @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
-            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
             </text>  
         )  */
      })  
@@ -70,6 +70,18 @@
     }
 
     function ViewTalent(TalentId) {
-        window.location = "/Home/Profile?ProfileId="+TalentId;
+        window.location = "/Home/Profile?ProfileId=" + TalentId;
+    }
+
+    function DeleteTalent(TalentId) {
+        if (confirm("Are You Sure Delete Selected Talent?")) {
+            $.get('/Admin/DeleteTalent?TalentId=' + TalentId,
+                function (data) {
+                    if (data == true)
+                        window.location = "/Admin/Talents";
+                    else
+                        alert("Not deleted something Wrong");
+                });
+        }
     }
 </script>

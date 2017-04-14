@@ -10,6 +10,7 @@ using BusinessEntities.Model;
 using BusinessEntities.ViewModel;
 using System.Transactions;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace BusinessServices.Services
 {
@@ -57,7 +58,7 @@ namespace BusinessServices.Services
 
         public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents()
         {
-            var talent = _unitOfWork.TalentRepository.Get().ToList();
+            var talent = _unitOfWork.TalentRepository.GetMany(x => !(x.IsDeleted == true)).ToList();
 
             if (talent != null)
             {
@@ -183,9 +184,22 @@ namespace BusinessServices.Services
             throw new NotImplementedException();
         }
 
-        public bool DeleteTalent(long talentId, long deletedBy)
+        public bool DeleteTalent(long talentId)
         {
-            throw new NotImplementedException();
+            var success = false;
+            if (talentId > 0)
+            {
+                var TalentidToDelete = new SqlParameter("@TalentId", talentId);
+                var userId = new SqlParameter("@UserId", ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId);
+
+                var IsDeleted = _unitOfWork.DeleteUsingProc.GetWithRawSql("exec [usp_DeleteTalent] @TalentId, @UserId", TalentidToDelete, userId).FirstOrDefault();
+                if (IsDeleted == "Success")
+                {
+                    success = true;
+                }
+            }
+
+            return success;
         }
 
         public List<VmPublicTalent> GetPublicTalents(string category, string subCategory, bool isAdmin = false)
@@ -193,7 +207,7 @@ namespace BusinessServices.Services
             var categoryName = new SqlParameter("@Category", category.Trim());
             var subCategoryName = new SqlParameter("@SubCategory", subCategory.Trim());
             var isAdminParam = new SqlParameter("@isAdmin", isAdmin);
-            var publicTalents = _unitOfWork.Usp_GetPublicTalent_ResultRepository.GetWithRawSql("exec usp_GetPublicTalent @Category, @SubCategory,@isAdmin", categoryName, subCategoryName, isAdminParam).ToList();
+            var publicTalents = _unitOfWork.Usp_GetPublicTalent_ResultRepository.GetWithRawSql("exec usp_GetPublicTalent @Category, @SubCategory", categoryName, subCategoryName).ToList();
 
             if (publicTalents != null)
             {

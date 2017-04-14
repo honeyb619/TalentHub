@@ -375,6 +375,13 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
+        public JsonResult DeleteTalent(long TalentId)
+        {
+            ITalentServices objJobServices = new TalentServices();
+            return Json(objJobServices.DeleteTalent(TalentId), JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeWithSessionAttribute]
         public ActionResult Talents()
         {
             ITalentServices talentObj = new TalentServices();
