@@ -146,6 +146,10 @@
                 candidate.profilePicPath="";
             sendProfiles.candidateList.push(candidate);
         });
+        if (sendProfiles.candidateList.length==0){
+            alert("Please select profiles..")
+            return;
+        }
         $.ajax({
             url: '/Email/ProductionEmailFormat',
             type: "POST",
