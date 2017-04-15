@@ -375,7 +375,7 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents(string search=null)
+        public ActionResult Talents(string search = null)
         {
             ITalentServices talentObj = new TalentServices();
             var talents = talentObj.GetAllTalents(search);
@@ -413,6 +413,19 @@ namespace TalentSearchWebApp.Controllers
 
             return View(objVmInsertTalent);
 
+        }
+
+        [HttpPost]
+        public JsonResult SendEmail(ContactUsMail email)
+        {
+
+            if (!String.IsNullOrEmpty(email.Message))
+            {
+                JadeEmail.SendMessage(email.Message);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

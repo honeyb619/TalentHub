@@ -14,13 +14,31 @@
         display: inline-block;
         position: relative;
     }
+
+    input[type="checkbox"], input[type="radio"] {
+        -moz-appearance: checkbox;
+        -webkit-appearance: checkbox;
+        -o-appearance: checkbox;
+        -ms-appearance: checkbox;
+        display: inline;
+        float: none;
+        margin-right: -2em;
+        opacity: 100;
+        width: 1em;
+        z-index: -1;
+    }
 </style>
+<script src="~/Content/JS/linq.js"></script>
+<script>
+    var profiles=@Html.Raw(Json.Encode(@Model))
+</script>
 <div class="container WhiteBack">
     <div id='dialog'></div>
 
     <h3>Talents</h3>
 
     <div style="padding: 7px 0;">
+        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Send Profiles" onclick="sendTalent();" />
         <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
     </div>
     <div style="clear: both"></div>
@@ -29,17 +47,11 @@
         <button style="width: 20%; height: 100%; background-color: transparent; border: 0; position: absolute; right: 0; top: 0;" onclick="SearchTalent()"><span class="icon-search">GO</span></button>
 
     </div>
-    <div>
+    <div id="grid">
         @{  
-            WebGrid grid = new WebGrid(Model);  
+            WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", canPage: false);  
             @grid.GetHtml(
          tableStyle: "grid",
-         fillEmptyRows: false,
-         mode: WebGridPagerModes.All,
-         firstText: "<< First",
-         previousText: "< Prev",
-         nextText: "Next >",
-         lastText: "Last >>",
          columns: new[] {  
          grid.Column(format: (item) =>{
              var talentModel = Model.Where(x => x.TalentId == item.TalentId).FirstOrDefault();
@@ -63,8 +75,12 @@
            
          format: @<text>
             @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
+            &nbsp;
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
+            &nbsp;
             @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
+            &nbsp;
+            @Html.Raw("<input type='checkbox' class='profileSelect' aria-hidden='true' data-label='" + item.TalentId + "' />")
             </text>  
         )  
          //, canSort:false,  
@@ -106,4 +122,68 @@
         var searchKey = $("#searchTxt").val();
         window.location = "/Admin/Talents?Search=" + searchKey;
     }
+
+    function sendTalent(){
+        var sendProfiles={};
+        sendProfiles.candidateList=[];
+        $('.profileSelect:checkbox:checked').each(function(){
+            var profileId=$(this).attr('data-label');
+            var profile=Enumerable.From(profiles).Where(function(talent){
+                return talent.TalentId==profileId;
+            }).ToArray();
+            var candidate={};
+            candidate.RegionName=profile[0].RegionName;
+            candidate.CandidateName=profile[0].FirstName+" "+profile[0].LastName;
+            candidate.ProfileId=profileId;
+            var media=Enumerable.From(profile[0].vmMedias).Where(function(talent){
+                return talent.MediaType=="Image";
+            }).ToArray();
+            if(media.length>0){
+                var MediaPath=media[0].MediaPath.split('/');
+                candidate.profilePicPath=MediaPath.pop();
+            }
+            else
+                candidate.profilePicPath="";
+            sendProfiles.candidateList.push(candidate);
+        });
+        $.ajax({
+            url: '/Email/ProductionEmailFormat',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(sendProfiles),
+            processData: false,
+            cache: false,
+            success: function (data) {
+                EnquiryObj={};
+                EnquiryObj["Message"] = data;
+                sendEnquiry(EnquiryObj).then(function () {
+                    window.location = "../Home/MessagePage?messageKey=EnquirySent";
+                }, function (error) {
+                    alert('Please try after some time.');
+                });
+            },
+            error: function (xhr) {
+                alert('Please try after some time.');
+            }
+        });
+    }
+
+    function sendEnquiry(messageObj) {
+        return $.ajax({
+            url: '/Admin/SendEmail',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(messageObj),
+            processData: false,
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (xhr) {
+                alert('Please try after some time.');
+            }
+        });
+
+    }
+
 </script>

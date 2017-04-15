@@ -140,6 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactUsMail.cs" />
+    <Compile Include="Models\CustomEmailFormat.cs" />
     <Compile Include="Resources\JadeTalentResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +168,7 @@
     <Content Include="Content\JS\ImageSlider.js" />
     <Content Include="Content\JS\init.js" />
     <Content Include="Content\JS\jquery.min.js" />
+    <Content Include="Content\JS\linq.js" />
     <Content Include="Content\JS\skel-layers.min.js" />
     <Content Include="Content\JS\skel.min.js" />
     <Content Include="Content\JS\UploadFiles.js" />
@@ -341,6 +343,7 @@
     <Content Include="Views\Email\ForgotPasswordEmail.cshtml" />
     <Content Include="Views\Email\EnquiryFormEmail.cshtml" />
     <Content Include="Views\Admin\EditTalent.cshtml" />
+    <Content Include="Views\Email\ProductionEmailFormat.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>
