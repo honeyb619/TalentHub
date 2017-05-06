@@ -460,5 +460,13 @@ namespace TalentSearchWebApp.Controllers
             ISubCategory objSubCategory = new SubCategoryServices();
             return Json(objSubCategory.GetSubCategoriesWithWhere(categoryNames, masterCategoryNames).ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpPost]
+        public ActionResult SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)  
+        {
+            IJobs objJobServices = new JobServices();
+            return Json(objJobServices.SaveJobTalentAssociation(objVmSaveJobTalentAssociation), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace BusinessServices.Interfaces
         long CreateJob(VmInsertJob vmInsertJob);
         bool UpdateJob(VmInsertJob vmInsertJob);
         bool DeleteJob(long jobId);
+        bool SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation);
     }
 }

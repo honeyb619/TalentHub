@@ -14,7 +14,7 @@ $(document).ready(function () {
 		    }
 		},
 		{
-		    text: "Cancel",
+		    text: "Close",
 		    click: function () {
 		        $(this).dialog("close");
 		    }
@@ -191,7 +191,18 @@ function GetTalentsForJob(jobId) {
                         $("#list1").append('<option value="' + prop.TalentId + '" mailId="' + prop.EmailId + '">' + prop.Name + '</option>');
                     }
                     else {
-                        $("#list2").append('<option value="' + prop.TalentId + '" mailId="' + prop.EmailId + '">' + prop.Name + '</option>');                        
+                        $("#list2").append('<option value="' + prop.TalentId + '" mailId="' + prop.EmailId + '">' + prop.Name + '</option>');
+                        var table = document.getElementById("tblAssignedTalents");
+                        var markup = "<tr id='row_" + prop.TalentId + "'>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.Name + "</td>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.EmailId + "</td>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'><select id='select" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "</tr>";
+
+                        $("#tblAssignedTalents tbody").append(markup);
+
+                        $("#select" + prop.TalentId).val(prop.StatusId);
+                                       
                     }
                 }
 
@@ -237,6 +248,8 @@ function LoadjobTalentStatus() {
 
 function saveJobTalentAssociation() {
 
+    var isSave = false;
+
     if (jobIdForTalentAssociation == 0) {
         alert("Something went wrong. Please try after some time!");
         return;
@@ -254,31 +267,38 @@ function saveJobTalentAssociation() {
         if (statusValue == "" || statustext == "--Please Select--") {
             alert("Please select the status of " + $(this).find("td:first").text() + "(" + $(this).find("td:nth-child(1)").text() + ")");
             $(obj).find("select").focus();
+            isSave = false;
             return false;
         }
         else {
 
             var talentId = $(this).attr('id').split('_')[1];
-            jobTalentAssociationObj.TalentStatusIds.push({ TalentId:  talentId, StatusId: statusValue });
-
+            jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+            isSave = true;
         }
 
     });
 
-    $.ajax({
-        url: '/Admin/saveJobTalentAssociation?_=' + new Date().getTime(),
-        datatype: "JSON",
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(jobTalentAssociationObj),
-        processData: false,
-        cache: false,
-        success: function (data) {
-            alert('Job successfully associated with talents!');
-        },
-        error: function (xhr) {
-            alert('Error!');
-        }
-    });
-    
+    if (isSave) {
+        $.ajax({
+            url: '/Admin/SaveJobTalentAssociation?_=' + new Date().getTime(),
+            datatype: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(jobTalentAssociationObj),
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Job successfully associated with talents!');
+                }
+                else {
+                    alert('Error!');
+                }
+            },
+            error: function (xhr) {
+                alert('Error!');
+            }
+        });
+    }   
 }

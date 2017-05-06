@@ -280,5 +280,30 @@ namespace BusinessServices.Services
 
             return success;
         }
+
+
+        public bool SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)
+        {
+            var success = false;
+
+            if (objVmSaveJobTalentAssociation != null)
+            {
+                StringBuilder sbData = new StringBuilder();
+                var stringwriter = new StringWriter(sbData);
+                var serializer = new XmlSerializer(typeof(VmSaveJobTalentAssociation));
+                serializer.Serialize(stringwriter, objVmSaveJobTalentAssociation);
+
+                var updateXmlData = new SqlParameter("@UpdateXmlData", sbData.ToString());
+                var userId = new SqlParameter("@UserId", ((UserEntity)HttpContext.Current.Session["UserInfo"]).UserId);
+
+                var IsUpdated = _unitOfWork.DeleteUsingProc.GetWithRawSql("exec [JobTalentAssociationFromXML] @UpdateXmlData, @UserId", updateXmlData, userId).FirstOrDefault();
+                if (IsUpdated == "Success")
+                {
+                    success = true;
+                }
+            }
+
+            return success;
+        }
     }
 }
