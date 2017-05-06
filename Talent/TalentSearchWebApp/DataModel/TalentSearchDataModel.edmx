@@ -698,7 +698,6 @@
         <Function Name="usp_GetPublicTalent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Category" Type="varchar" Mode="In" />
           <Parameter Name="SubCategory" Type="varchar" Mode="In" />
-          <Parameter Name="isAdmin" Type="bit" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -708,7 +707,6 @@
           <FunctionImport Name="usp_GetPublicTalent" ReturnType="Collection(TalentSearchModel.usp_GetPublicTalent_Result)">
             <Parameter Name="Category" Mode="In" Type="String" />
             <Parameter Name="SubCategory" Mode="In" Type="String" />
-            <Parameter Name="isAdmin" Mode="In" Type="Boolean" />
           </FunctionImport>
           <EntitySet Name="Categories" EntityType="TalentSearchModel.Category" />
           <EntitySet Name="ContactUs" EntityType="TalentSearchModel.ContactU" />

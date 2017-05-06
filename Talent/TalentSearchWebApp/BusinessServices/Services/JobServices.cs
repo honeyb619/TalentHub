@@ -52,19 +52,16 @@ namespace BusinessServices.Services
                     }
                 }
 
-                var jobTalentSkills = _unitOfWork.JobTalentSkillRepository.Get(x => x.IsDeleted == false && x.JobId == jobId && x.TalentId == null);
-                VmSkills objVmSkills = new VmSkills();
-                if (jobTalentSkills != null)
+                var jobTalentSkills = _unitOfWork.JobTalentSkillRepository.GetManyQueryable(x => x.IsDeleted == false && x.JobId == jobId && x.TalentId == null).ToList();
+                if (jobTalentSkills != null && jobTalentSkills.Count > 0)
                 {
-                    objVmSkills.SkillId = jobTalentSkills.SkillId;
-                    objVmSkills.Description = jobTalentSkills.Description;
-                    objVmInsertJob.Skills.Add(objVmSkills);
+                    objVmInsertJob.SkillIds = new List<long>();
+                    foreach (var item in jobTalentSkills)
+                    {
+                        objVmInsertJob.SkillIds.Add(item.SkillId);
+                    }
                 }
-                else
-                {
-                    objVmInsertJob.Skills.Add(objVmSkills);
-                }
-
+                
                 return objVmInsertJob;
             }
 
@@ -147,10 +144,10 @@ namespace BusinessServices.Services
 
                 if (vmInsertJob.LanguageIds != null)
                 {
-                    foreach (var job in vmInsertJob.LanguageIds)
+                    foreach (var languageId in vmInsertJob.LanguageIds)
                     {
                         JobTalentLanguage objJobTalentLanguage = new JobTalentLanguage();
-                        objJobTalentLanguage.LanguageId = job;
+                        objJobTalentLanguage.LanguageId = languageId;
                         objJobTalentLanguage.CreatedBy = userId;
                         objJobTalentLanguage.CreatedDate = currentDate;
                         objJobTalentLanguage.modifiedBy = userId;
@@ -160,13 +157,23 @@ namespace BusinessServices.Services
                     }
                 }
 
+                if (vmInsertJob.SkillIds != null && vmInsertJob.SkillIds.Count > 0)
+                {
+                    foreach (var skillId in vmInsertJob.SkillIds)
+                    {
+                        VmSkills objVmSkills = new VmSkills();
+                        objVmSkills.SkillId = skillId;
+                        vmInsertJob.Skills.Add(objVmSkills);
+                    }
+                }
+
                 using (var scope = new TransactionScope())
                 {
 
                     _unitOfWork.JobRepository.Insert(jobModel);
                     _unitOfWork.Save();
 
-                    if (vmInsertJob.Skills != null)
+                    if (vmInsertJob.Skills != null && vmInsertJob.Skills.Count > 0)
                     {
                         long[] childIds = vmInsertJob.Skills.Select(x => x.SkillId).ToArray();
                         var parentCategoryIds = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => childIds.Contains(x.SubCategoryId)).Select(x => new { x.ParentId, x.SubCategoryId }).Distinct().ToArray();
@@ -196,7 +203,6 @@ namespace BusinessServices.Services
                                 {
                                     JobTalentSkill objJobTalentSkill = new JobTalentSkill();
                                     objJobTalentSkill.JobId = jobModel.JobId;
-                                    objJobTalentSkill.ParentCategoryId = (long)parentCategory.ParentId;
                                     objJobTalentSkill.SkillId = childCategory.SkillId;
                                     objJobTalentSkill.Description = childCategory.Description;
                                     objJobTalentSkill.CreatedBy = userId;
@@ -229,6 +235,16 @@ namespace BusinessServices.Services
 
             if (vmInsertJob != null)
             {
+                if (vmInsertJob.SkillIds != null && vmInsertJob.SkillIds.Count > 0)
+                {
+                    foreach (var skillId in vmInsertJob.SkillIds)
+                    {
+                        VmSkills objVmSkills = new VmSkills();
+                        objVmSkills.SkillId = skillId;
+                        vmInsertJob.Skills.Add(objVmSkills);
+                    }
+                }
+
                 StringBuilder sbData = new StringBuilder();
                 var stringwriter = new StringWriter(sbData);
                 var serializer = new XmlSerializer(typeof(VmInsertJob));

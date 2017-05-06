@@ -10,18 +10,23 @@
 
 
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
-    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-    <script src="~/Content/JS/jquery.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/JS/skel.min.js"></script>
-    <script src="~/Content/JS/skel-layers.min.js"></script>
-    <script src="~/Content/JS/init.js"></script>
     <link href="~/Content/css/skel.css" rel="stylesheet" />
     <link href="~/Content/css/style.css" rel="stylesheet" />
     <link href="~/Content/css/style-xlarge.css" rel="stylesheet" />
     <link href="~/Content/css/Form.css" rel="stylesheet" />
+
+       @* @Scripts.Render("~/bundles/jquery")*@
+       <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+     @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/JS/skel.min.js"></script>
+    <script src="~/Content/JS/skel-layers.min.js"></script>
+    <script src="~/Content/JS/init.js"></script>
     <style>
         .clearfix:after {
             display: block;
@@ -219,8 +224,7 @@
         </div>
         @RenderBody()
     </section>
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+
 
 </body>
 <footer id="footer">

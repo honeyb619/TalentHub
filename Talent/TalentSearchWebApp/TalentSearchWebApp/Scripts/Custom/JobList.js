@@ -1,5 +1,50 @@
 ﻿$(document).ready(function () {
 
+    $("#dialog").dialog({
+        autoOpen: false,
+        width: 400,
+        buttons: [
+		{
+		    text: "Ok",
+		    click: function () {
+		        $(this).dialog("close");
+		    }
+		},
+		{
+		    text: "Cancel",
+		    click: function () {
+		        $(this).dialog("close");
+		    }
+		}
+	]
+});
+
+$('#btnAdd').click(
+                    function (e) {
+                        $('#list1 > option:selected').appendTo('#list2');
+                        e.preventDefault();
+                    });
+
+$('#btnAddAll').click(
+                function (e) {
+                    $('#list1 > option').appendTo('#list2');
+                    e.preventDefault();
+                });
+
+$('#btnRemove').click(
+                function (e) {
+                    $('#list2 > option:selected').appendTo('#list1');
+                    e.preventDefault();
+                });
+
+$('#btnRemoveAll').click(
+                function (e) {
+                    $('#list2 > option').appendTo('#list1');
+                    e.preventDefault();
+                });
+
+    
+
     //$('#dialog').dialog({ 'autoOpen': false });
 
     $("#gridArea").on("click", "thead th a, tfoot a", function (e) {
@@ -72,4 +117,8 @@ function DeleteJob(J_ID) {
                     alert("Not delete something Wrong");
             });
     }
+}
+
+function AssignTalent(J_ID) {
+    $("#dialog").dialog("open");
 }

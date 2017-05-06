@@ -167,6 +167,7 @@
     <Content Include="Content\JS\html5shiv.js" />
     <Content Include="Content\JS\ImageSlider.js" />
     <Content Include="Content\JS\init.js" />
+    <Content Include="Content\JS\jquery-ui.min.js" />
     <Content Include="Content\JS\jquery.min.js" />
     <Content Include="Content\JS\linq.js" />
     <Content Include="Content\JS\skel-layers.min.js" />
@@ -251,10 +252,9 @@
     <Content Include="Scripts\Custom\ProductionCompanyList.js" />
     <Content Include="Scripts\Custom\RegisterTalent.js" />
     <Content Include="Scripts\jquery-1.8.3-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.8.3.js" />
-    <Content Include="Scripts\jquery-1.8.3.min.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />

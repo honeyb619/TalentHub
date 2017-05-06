@@ -41,6 +41,7 @@ namespace BusinessEntities.ViewModel
 
         public List<VmSelectListItem> ProductionCompanyList { get; set; }
         public List<int> LanguageIds { get; set; }
+        public List<long> SkillIds { get; set; }
         public List<VmSkills> Skills { get; set; }
         public List<RegionEntity> RegionEntities { get; set; }
         public List<SubCategoryEntity> SubCategoryEntities { get; set; }

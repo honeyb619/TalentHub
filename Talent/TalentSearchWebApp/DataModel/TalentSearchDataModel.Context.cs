@@ -45,7 +45,7 @@ namespace DataModel
         public DbSet<User> Users { get; set; }
         public DbSet<ErrorTracer> ErrorTracers { get; set; }
     
-        public virtual ObjectResult<usp_GetPublicTalent_Result> usp_GetPublicTalent(string category, string subCategory, Nullable<bool> isAdmin)
+        public virtual ObjectResult<usp_GetPublicTalent_Result> usp_GetPublicTalent(string category, string subCategory)
         {
             var categoryParameter = category != null ?
                 new ObjectParameter("Category", category) :
@@ -55,11 +55,7 @@ namespace DataModel
                 new ObjectParameter("SubCategory", subCategory) :
                 new ObjectParameter("SubCategory", typeof(string));
     
-            var isAdminParameter = isAdmin.HasValue ?
-                new ObjectParameter("isAdmin", isAdmin) :
-                new ObjectParameter("isAdmin", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPublicTalent_Result>("usp_GetPublicTalent", categoryParameter, subCategoryParameter, isAdminParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPublicTalent_Result>("usp_GetPublicTalent", categoryParameter, subCategoryParameter);
         }
     
         public virtual int Proc_InsertErrorDetails()

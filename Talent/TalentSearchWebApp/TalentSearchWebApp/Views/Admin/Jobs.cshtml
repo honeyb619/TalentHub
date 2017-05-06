@@ -14,7 +14,7 @@
         }
     </style>  
 }
-<div id='dialog'></div>
+
 <h3>Job List</h3>
 
 <div style="padding: 7px 0;">
@@ -29,7 +29,35 @@
 
 </div>
 
+<!-- ui-dialog -->
+<div id="dialog" title="Assign Talent">
+	<table cellpadding="4" cellspacing="4" width="90%" align="center" style="border: solid 2px gray;">  
+        
+        <tr>  
+            <td align="center">  
+             
+                <select  id="list1" size="10" multiple>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+  <option value="audi">Audi</option>
+</select>
+            </td>  
+            <td align="center" style="vertical-align:middle">  
+                <input type="button" id="btnAdd" value=">"  /><br />  
+                <input type="button" id="btnAddAll" value=">>" /><br />  
+                <input type="button" id="btnRemove" value="<"  /><br />  
+                <input type="button" id="btnRemoveAll" value="<<" />  
+            </td>  
+            <td align="center"> 
+            <select  id="list2" size="10" multiple>
 
+</select> 
+            </td>  
+        </tr>  
+        
+    </table>  
+</div>
 
 <div id="gridArea">
     @{Html.RenderAction("GetJobsData", "Admin");}
