@@ -17,7 +17,7 @@ namespace BusinessServices.Interfaces
         bool DeleteSubCategory(long subCategoryId, long deletedBy);
         List<BusinessEntities.ViewModel.VmMainSkills> GetParentChildCategoriesWithWhere();
         List<BusinessEntities.ViewModel.VmMainSkills> GetParentChildAdminCategoriesWithWhere();
-        IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetSubCategoriesWithWhere1(string[] categoryNames, string[] masterCategoryNames);
+        IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetParentChildSubCategoriesWithWhere(string[] categoryNames, string[] masterCategoryNames);
         bool AddMainCategory(SubCategoryEntity entity);
         bool AddChildCategory(SubCategoryEntity entity);
 

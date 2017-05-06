@@ -69,7 +69,7 @@ namespace BusinessServices.Services
         }
 
 
-        public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetSubCategoriesWithWhere1(string[] categoryNames, string[] masterCategoryNames)
+        public IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetParentChildSubCategoriesWithWhere(string[] categoryNames, string[] masterCategoryNames)
         {
             var subCategories = _unitOfWork.SubCategoryRepository.GetManyQueryable(x => x.IsDeleted == false).OrderBy(x => x.SubCategoryName).ToList();
 

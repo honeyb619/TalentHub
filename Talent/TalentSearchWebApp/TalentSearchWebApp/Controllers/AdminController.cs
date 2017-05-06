@@ -153,7 +153,7 @@ namespace TalentSearchWebApp.Controllers
         public ActionResult Categories()
         {
             ISubCategory categoryObj = new SubCategoryServices();
-            List<SubCategoryEntity> categoryentities = categoryObj.GetSubCategoriesWithWhere1(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetParentChildSubCategoriesWithWhere(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
             return View(categoryentities);
         }
 
@@ -440,6 +440,25 @@ namespace TalentSearchWebApp.Controllers
             long talentId = objTalentServices.UpdateTalent(objVmInsertTalent);
 
             return Json(talentId);
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpGet]
+        public JsonResult GetTalentsForJob(long jobId)
+        {
+            ITalentServices objTalentServices = new TalentServices();
+            return Json(objTalentServices.GetTalentsForJob(jobId), JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpGet]
+        public JsonResult LoadjobTalentStatus()
+        {
+            string[] categoryNames = { "Job Talent Status" };
+            string[] masterCategoryNames = { "STATUS" };
+
+            ISubCategory objSubCategory = new SubCategoryServices();
+            return Json(objSubCategory.GetSubCategoriesWithWhere(categoryNames, masterCategoryNames).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

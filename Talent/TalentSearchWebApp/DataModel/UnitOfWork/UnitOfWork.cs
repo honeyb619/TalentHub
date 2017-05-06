@@ -30,6 +30,7 @@ namespace DataModel.UnitOfWork
         private GenericRepository<Job> _jobRepository;
         private GenericRepository<JobTalentLanguage> _jobTalentLanguageRepository;
         private GenericRepository<string> _usp_Delete_ResultRepository;
+        private GenericRepository<usp_GetTalentsForJob_Result> _usp_GetTalentsForJob_ResultRepository;
 
         #endregion
 
@@ -65,6 +66,20 @@ namespace DataModel.UnitOfWork
                 return _usp_GetPublicTalent_ResultRepository;
             }
         }
+
+        /// <summary>
+        /// Get/Set Property for usp_GetTalentsForJob_Result repository.
+        /// </summary>
+        public GenericRepository<usp_GetTalentsForJob_Result> Usp_GetTalentsForJob_ResultRepository
+        {
+            get
+            {
+                if (this._usp_GetTalentsForJob_ResultRepository == null)
+                    this._usp_GetTalentsForJob_ResultRepository = new GenericRepository<usp_GetTalentsForJob_Result>(_context);
+                return _usp_GetTalentsForJob_ResultRepository;
+            }
+        }
+
         /// <summary>
         /// Get/Set Property for usp_GetPublicTalent_Result repository.
         /// </summary>

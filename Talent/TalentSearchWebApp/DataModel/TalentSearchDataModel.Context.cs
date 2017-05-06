@@ -62,5 +62,14 @@ namespace DataModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Proc_InsertErrorDetails");
         }
+    
+        public virtual ObjectResult<usp_GetTalentsForJob_Result> usp_GetTalentsForJob(Nullable<long> jobId)
+        {
+            var jobIdParameter = jobId.HasValue ?
+                new ObjectParameter("JobId", jobId) :
+                new ObjectParameter("JobId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTalentsForJob_Result>("usp_GetTalentsForJob", jobIdParameter);
+        }
     }
 }

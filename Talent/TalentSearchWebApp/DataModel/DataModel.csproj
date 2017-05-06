@@ -120,6 +120,9 @@
     <Compile Include="usp_GetPublicTalent_Result.cs">
       <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_GetTalentsForJob_Result.cs">
+      <DependentUpon>TalentSearchDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="TalentSearchDataModel.edmx">

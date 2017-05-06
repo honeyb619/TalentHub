@@ -354,5 +354,21 @@ namespace BusinessServices.Services
 
             return null;
         }
+
+
+        public List<VmTalentsForJob> GetTalentsForJob(long jobId)
+        {
+            var jobIdForTalent = new SqlParameter("@JobId", jobId);
+            var publicTalents = _unitOfWork.Usp_GetTalentsForJob_ResultRepository.GetWithRawSql("exec usp_GetTalentsForJob @JobId", jobIdForTalent).ToList();
+
+            if (publicTalents != null)
+            {
+                Mapper.CreateMap<usp_GetTalentsForJob_Result, VmTalentsForJob>();
+                var publicTalentsModel = Mapper.Map<List<usp_GetTalentsForJob_Result>, List<VmTalentsForJob>>(publicTalents);
+                return publicTalentsModel;
+            }
+
+            return null;
+        }
     }
 }
