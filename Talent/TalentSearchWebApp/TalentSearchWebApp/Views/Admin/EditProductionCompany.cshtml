@@ -1,65 +1,82 @@
 ﻿@model BusinessEntities.Model.ProductionCompanyEntitiy
 <style type="text/css">
-    #banner {
+    .slider {
         display: none;
     }
 </style>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top: 0.5em;">
+                <h3>Edit Production Company</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
-    <div style="margin-right: 20%; margin-left: 20%">
-        <fieldset>
-            <h2>Edit Production Company</h2>
-            <legend style="display: none;">Production Company</legend>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-6">
+                    <div class="row">
 
-            <div class="editor-label">
-                Production Company Name
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.ProductionCompanyName, new { required = "" })
-            </div>
+                        <div class="col-xs-12 form-group">
+                            Production Company Name
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.ProductionCompanyName, new { required = "", @class = "form-control" })
+                        </div>
 
-            <div class="editor-label">
-                Contact Person
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.ContactPerson, new { required = "" })
-            </div>
+                        <div class="col-xs-12 form-group">
+                            Contact Person
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.ContactPerson, new { required = "", @class = "form-control" })
+                        </div>
 
-            <div class="editor-label">
-                Phone Number
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.PhoneNumber, new { required = "" })
-            </div>
+                        <div class="col-xs-12 form-group">
+                            Phone Number
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { required = "", @class = "form-control" })
+                        </div>
 
-            <div class="editor-label">
-                Email
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.EmailId, new { required = "" })
-            </div>
+                        <div class="col-xs-12 form-group">
+                            Email
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.EmailId, new { required = "", @class = "form-control" })
+                        </div>
 
-            <div class="editor-label">
-                Region
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
-                                                                    new { @id = "RegionField", @name = "RegionField", required = "" })
-            </div>
+                        <div class="col-xs-12 form-group">
+                            Region
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.DropDownListFor(model => model.RegionId, new SelectList(ViewBag.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
+                                                                    new { @id = "RegionField", @name = "RegionField", required = "", @class = "form-control" })
+                        </div>
 
-            <div class="editor-label">
-                Description Notes
+                        <div class="col-xs-12 form-group">
+                            Description Notes
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.DescriptionNotes, new { required = "" , @class = "form-control" })
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            <input type="button" value="Update" onclick="UpdateProductionCompany()" />
+                            <input type="submit" value="Submit" style="display: none" id="formsubmit" />
+                            <div class="col-xs-12 form-group">
+                                @Html.ActionLink("Back to List", "ProductionCompany")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3"></div>
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.DescriptionNotes, new { required = "" })
-            </div>
-            <p>
-                <input type="button" value="Update" onclick="UpdateProductionCompany()" />
-                <input type="submit" value="Submit" style="display: none" id="formsubmit" />
-            </p>
-        </fieldset>
-        <div>
-            @Html.ActionLink("Back to List", "ProductionCompany")
         </div>
     </div>
 }

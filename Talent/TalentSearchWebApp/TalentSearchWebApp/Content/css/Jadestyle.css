@@ -46,7 +46,7 @@ header{width:100%;float:left;}
 .content h1 span{color:#de291e;}
 .content h2 span{color:#de291e;}
 .content p{}
-.talent{width:100%;float:left;background:url(images/tback_03.jpg) repeat;}
+.talent{width:100%;float:left;background:url(/Images/tback_03.jpg) repeat;}
 .talent h1{color:#fff;}
 .talent .homewidget{border-right:1px solid #2f2f2f;color:#fff;padding:10px 0px 0px 0px;margin:20px 0px;}
 .talent .homewidget h2{font-size:24px;}

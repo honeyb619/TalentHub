@@ -4,71 +4,90 @@
 }
 
 <style type="text/css">
-    #banner {
+    .slider {
         display: none;
     }
 </style>
-<div style="margin-left: 20%; margin-right: 20%">
-    <h2>Add Child Category</h2>
 
-
-    <form name="Talentform">
-        <fieldset>
-            <legend style="display: none;">Add Child Category</legend>
-            <div class="editor-label">
-                <label>Main Category</label>
-            </div>
-            <div class="editor-field">
-                <select id="MainCategory" required>
-                    <option value="">---Please Select---</option>
-                    @{
-                        foreach (var pair in ViewBag.AvaiableEnums)
-                        {
-                        @Html.Raw("<option value='" + pair.Value + "'>" + pair.Text + "</option>");
-                        }
-                    }
-                </select>
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top: 0.5em;">
+                <h3>Add Production Company</h3>
             </div>
 
-            <div class="editor-label">
-                <label>SubCategory Name</label>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.SubCategoryName, new { required = "" })
-                @Html.ValidationMessageFor(model => model.SubCategoryName)
-            </div>
-
-            <div class="editor-label">
-                <label>SubCategory Value</label>
-            </div>
-            <div class="editor-field">
-
-                @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "" })
-                @Html.ValidationMessageFor(model => model.SubCategoryValue)
-            </div>
-
-
-            <div class="editor-label">
-                <label>Description</label>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.SubCategoryDescription, new { required = "" })
-                @Html.ValidationMessageFor(model => model.SubCategoryDescription)
-
-            </div>
-
-            <p>
-                <br />
-                <input type="button" value="Create" onclick="SaveSubCategory()" />
-                <input type="submit" id="formsubmit" style="display: none" />
-            </p>
-        </fieldset>
-    </form>
-
-    <div>
-        @Html.ActionLink("Back to List", "Categories")
+        </div>
     </div>
 </div>
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6">
+                <div class="row">
+
+
+                    <form name="Talentform">
+                        <div class="col-xs-12 form-group">
+                            <span>Main Category</span>
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            <select id="MainCategory" class="form-control" required>
+                                <option value="">---Please Select---</option>
+                                @{
+                                    foreach (var pair in ViewBag.AvaiableEnums)
+                                    {
+                                    @Html.Raw("<option value='" + pair.Value + "'>" + pair.Text + "</option>");
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12 form-group">
+                            <span>SubCategory Name</span>
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.SubCategoryName, new { required = "", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SubCategoryName)
+                        </div>
+
+                        <div class="col-xs-12 form-group">
+                            <span>SubCategory Value</span>
+                        </div>
+                        <div class="col-xs-12 form-group">
+
+                            @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SubCategoryValue)
+                        </div>
+
+
+                        <div class="col-xs-12 form-group">
+                            <span>Description</span>
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            @Html.TextBoxFor(model => model.SubCategoryDescription, new { required = "", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SubCategoryDescription)
+
+                        </div>
+                        <div class="col-xs-12 form-group">
+                            <input type="button" value="Create" onclick="SaveSubCategory()" />
+                            <input type="submit" id="formsubmit" style="display: none" />
+                        </div>
+
+                    </form>
+
+                    <div class="col-xs-12 form-group">
+                        @Html.ActionLink("Back to List", "Categories")
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3"></div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function SaveSubCategory() {
         var $myForm = $('#Talentform');
@@ -90,6 +109,3 @@
            });
     }
 </script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
