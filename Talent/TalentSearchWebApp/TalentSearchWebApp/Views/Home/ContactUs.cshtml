@@ -3,70 +3,107 @@
     ViewBag.Title = "Index";
 }
 <style>
-    #banner {
+    .slider {
         display: none;
     }
 </style>
-<header class="major">
-    <h2>Contact US</h2>
-</header>
-<div class="container" style="background-color: whitesmoke;">
-    <div class="row">
-        <div class="6u wufoo">
-            <section class="section">
-                <ul>
-                    <li>
-                        <p class="font_8" style="line-height: 1.4em;"><span class="color_26">JADE</span></p>
-                        <p class="font_8" style="line-height: 1.4em;">
-                            <span class="color_26">PO BOX 23-123<br />
-                                Mt Wellington, Auckland NZ 1060</span>
-                            <br />
-                            <br />
-                            <a class="icon fa-envelope auto-generated-link" data-auto-recognition="true" data-content="enquiries@jadetalent.co.nz" href="mailto:enquiries@jadetalent.co.nz" data-type="mail">&emsp;enquiries@jadetalent.co.nz</a>
-                            <br />
-                            <span class="icon fa-phone">&emsp;021 1855321</span>
-                        </p>
 
-                    </li>
-                    <li>
-                        <form name="Contactus">
-                            <fieldset>
-                                <legend>Send Queries </legend>
-                                <span>
-                                    <label for="EmailNameField">Name</label>
-                                    <input id="EmailNameField" name="EmailNameField" type="text" required="" placeholder="Enter Name" class="field text fn" value="" size="8" tabindex="1">
-                                </span>
-                                <span>
-                                    <label for="EmailIDField">EMAIL</label>
-                                    @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "Enter Email Address", required = "", id = "emailid" })
-                                    @*<input id="EmailIDField" name="EmailIDField" type="text" class="field text fn" value="" size="8" tabindex="2">*@
-                                </span>
-                                <span>
-                                    <label for="SubjectField">SUBJECT</label>
-                                    @Html.TextBoxFor(Model => Model.Subject, new { placeholder = "Enter Subject", required = "", id = "subject" })
-                                    @*<input id="SubjectField" name="SubjectField" type="text" class="field text fn" value="" size="8" tabindex="3">*@
-                                </span>
-                                <span>
-                                    <label for="MessageField">Message</label>
-                                    @Html.TextAreaFor(Model => Model.Message, new { placeholder = "Enter Message", required = "", id = "message" })
-                                    @*<textarea id="MessageField" name="MessageField" class="field text ln" tabindex="4">
-                                            </textarea>*@
-                                </span>
-                                <br />
-                                <span>
-                                    <input type="button" name="Send" onclick="getMessage()" value="SEND" class="btn btn-success" />
-                                    <input type="submit" style="display: none" id="formsubmit" />
-                                </span>
-                            </fieldset>
-                        </form>
-                    </li>
-                </ul>
-            </section>
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top: 0.5em;">
+                <h3>Contact US</h3>
+            </div>
+
         </div>
+    </div>
+</div>
 
-        <div class="6u wufoo">
-            <section class="section" style="background: url('../Images/image.jpg') no-repeat; height: 737px; background-position: center; margin: 1em 1em;">
-            </section>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Contact Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <p class="font_8" style="line-height: 1.4em;"><span class="color_26">JADE</span></p>
+                                        <p class="font_8" style="line-height: 1.4em;">
+                                            <span class="color_26">PO BOX 23-123<br />
+                                                Mt Wellington, Auckland NZ 1060</span>
+                                            <br />
+                                            <br />
+                                            <a class="icon fa-envelope auto-generated-link" data-auto-recognition="true" data-content="enquiries@jadetalent.co.nz" href="mailto:enquiries@jadetalent.co.nz" data-type="mail">&emsp;enquiries@jadetalent.co.nz</a>
+                                            <br />
+                                            <span class="icon fa-phone">&emsp;021 1855321</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Send Queries</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <form name="Contactus">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                    <label for="EmailNameField">Name</label>
+                                                    <input id="EmailNameField" name="EmailNameField" type="text" required="" placeholder="Enter Name" class="form-control" value="" size="8" tabindex="1">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                    <label for="EmailIDField">EMAIL</label>
+                                                    @Html.TextBoxFor(Model => Model.EmailId, new { placeholder = "Enter Email Address", required = "", @class = "form-control", id = "emailid" })
+                                                    @*<input id="EmailIDField" name="EmailIDField" type="text" class="field text fn" value="" size="8" tabindex="2">*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                    <label for="SubjectField">SUBJECT</label>
+                                                    @Html.TextBoxFor(Model => Model.Subject, new { placeholder = "Enter Subject", required = "", @class = "form-control", id = "subject" })
+                                                    @*<input id="SubjectField" name="SubjectField" type="text" class="field text fn" value="" size="8" tabindex="3">*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                    <label for="MessageField">Message</label>
+                                                    @Html.TextAreaFor(Model => Model.Message, new { placeholder = "Enter Message", required = "", @class = "form-control", id = "message" })
+                                                    @*<textarea id="MessageField" name="MessageField" class="field text ln" tabindex="4">
+                                            </textarea>*@
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                    <input type="button" name="Send" onclick="getMessage()" value="SEND" class="btn btn-success" />
+                                                    <input type="submit" style="display: none" id="formsubmit" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <section class="section" style="background: url('../Images/image.jpg') no-repeat; height: 737px; background-position: center; margin: 1em 1em;">
+                </section>
+            </div>
         </div>
     </div>
 </div>

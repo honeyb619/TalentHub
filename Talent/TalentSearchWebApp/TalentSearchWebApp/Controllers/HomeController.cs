@@ -159,6 +159,7 @@ namespace JADE_TALENT.Controllers
         public ActionResult SearchCategory(string category, string subCategory)
         {
             ITalentServices objTalentServices = new TalentServices();
+            ViewBag.SubCategory = subCategory;
             return View(objTalentServices.GetPublicTalents(category, subCategory, User.Identity.IsAuthenticated));
         }
     }

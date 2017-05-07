@@ -3,7 +3,7 @@
     ViewBag.Title = "Talents";
 }
 <style type="text/css">
-    #banner {
+    .slider {
         display: none;
     }
 
@@ -27,30 +27,70 @@
         width: 1em;
         z-index: -1;
     }
+
+    td {
+        padding-left: 1em!important;
+        padding-right: 1em!important;
+    }
+
+    th {
+         padding-left: 1em!important;
+            padding-right: 1em!important;
+        text-align: center;
+    }
 </style>
 <script src="~/Content/JS/linq.js"></script>
 <script>
     var profiles=@Html.Raw(Json.Encode(@Model))
 </script>
-<div class="container WhiteBack">
-    <div id='dialog'></div>
 
-    <h3>Talents</h3>
-
-    <div style="padding: 7px 0;">
-        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Send Profiles" onclick="sendTalent();" />
-        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Talents</h3>
+            </div>
+        </div>
     </div>
-    <div style="clear: both"></div>
-    <div class="btnwrapper">
-        <input type="text" id="searchTxt" style="width: 80%" placeholder="Search" />
-        <button style="width: 20%; height: 100%; background-color: transparent; border: 0; position: absolute; right: 0; top: 0;" onclick="SearchTalent()"><span class="icon-search">GO</span></button>
+</div>
+<div class="content">
+    <div class="container">
+        <div id='dialog'></div>
+        <div class="row titlerow">
 
-    </div>
-    <div id="grid">
-        @{  
-            WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", canPage: false);  
-            @grid.GetHtml(
+            <div class="col-sm-4 col-xs-12">
+                <div class="input-group stylish-input-group">
+                    <input type="text" id="searchTxt" class="form-control" style="width: 80%" placeholder="Search" />
+                    <span class="input-group-addon">
+                        <a href="#" onclick='return SearchTalent()'>GO
+                        </a>
+
+                    </span>
+
+
+                </div>
+            </div>
+            <div class="col-sm-8 col-xs-12" style="padding: 7px 0;">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12">
+                        </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <input type="button" class="form-control" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Send Profiles" onclick="sendTalent();" />
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <input type="button" class="form-control" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div id="custom-table" class="table">
+                    @{  
+                        WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", canPage: false);  
+                        @grid.GetHtml(
          tableStyle: "grid",
          columns: new[] {  
          grid.Column(format: (item) =>{
@@ -74,14 +114,14 @@
           grid.Column("TalentId", header: "Action", canSort:false,  
            
          format: @<text>
-            @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
-            &nbsp;
+                        @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
+                        &nbsp;
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
-            &nbsp;
+                        &nbsp;
             @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
-            &nbsp;
+                        &nbsp;
             @Html.Raw("<input type='checkbox' class='profileSelect' aria-hidden='true' data-label='" + item.TalentId + "' />")
-            </text>  
+                        </text>  
         )  
          //, canSort:false,  
            
@@ -91,7 +131,10 @@
             </text>  
         )  */
      })  
-        }
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>

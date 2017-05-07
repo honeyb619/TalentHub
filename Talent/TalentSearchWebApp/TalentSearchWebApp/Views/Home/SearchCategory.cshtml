@@ -4,7 +4,7 @@
 }
 
 <style>
-    #banner {
+    .slider {
         display: none;
     }
 
@@ -127,21 +127,57 @@
             width: 100%;
         }
     }
+
+    .row {
+        margin-right: 0!important;
+        margin-left: 0!important;
+    }
 </style>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top:0.5em;">
+                <h3>@ViewBag.SubCategory</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
 @if (Model != null && Model.Count > 0)
 {
-    <ul id="rig">
-        @foreach (var item in Model)
-        {
-            <li>
-                <a class="rig-cell" href="/Home/Profile?ProfileId=@item.TalentId">
-                    <img class="rig-img" src="~/@item.FilePath" />
-                    <h3>@item.Name</h3>
-                    <span class="rig-overlay"></span>
-                </a>
-            </li>
-        }
-    </ul>
+    int columnCount = 0;
+    
+    
+    <div class="content">
+        <div class="container">
+
+            @foreach (var item in Model)
+            {
+                if (columnCount == 0)
+                { 
+                @Html.Raw("<div class='row'>");
+                }
+                  
+                <div class="col-md-3 portfolio-item">
+                    <a class="" href="/Home/Profile?ProfileId=@item.TalentId">
+                        <div style="min-height: 17em;">
+                            <img class="rig-img img-responsive" src="~/@item.FilePath" />
+
+                        </div>
+                        <h3 style="text-align: center;">@item.Name</h3>
+                        <span class="img-responsive"></span>
+                    </a>
+                </div>
+                if (columnCount == 2)
+                {
+                @Html.Raw("</div>");
+                                   columnCount = 0;
+                }
+            }
+
+        </div>
+    </div>
 }
 else
 {

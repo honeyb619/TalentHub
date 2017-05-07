@@ -5,7 +5,7 @@
     ViewBag.Title = "LogOn";
 }
 <style>
-    #banner {
+    .slider {
         display: none;
     }
 
@@ -19,7 +19,7 @@
         padding: 15px 35px 45px;
         margin: 0 auto;
         background-color: #fff;
-        border: 1px solid rgba(0,0,0,0.1);
+        
     }
 
     .form-signin-heading, .checkbox {
@@ -56,14 +56,58 @@
     }
 
 </script>
-<div class="wrapper">
-    <form class="form-signin">
-        <h2 class="form-signin-heading">Admin login</h2>
-        @Html.TextBoxFor(user => user.UserName, new { placeholder = "Enter User Name" })
-        <br />
-        @Html.PasswordFor(user => user.Password, new { placeholder = "Enter Password" })
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" />
-        <br />
-        @Html.ActionLink("Forgot Password", "ForgotPassword")
-    </form>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top: 0.5em;">
+                <h3>Admin</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+
+                <form class="form-signin">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+
+                            <h3 class="panel-title">Admin login</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-xs-12 form-group">
+
+                                    @Html.TextBoxFor(user => user.UserName, new { placeholder = "Enter User Name", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12  form-group">
+                                    @Html.PasswordFor(user => user.Password, new { placeholder = "Enter Password", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    <input type="submit" value="Login" class="form-control btn btn-success btn-primary btn-block" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    @Html.ActionLink("Forgot Password", "ForgotPassword", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+    </div>
+</div>
 </div>

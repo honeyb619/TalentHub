@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "ProductionCompany";
     <style type="text/css">
-        #banner {
+        .slider {
             display: none;
         }
 
@@ -12,24 +12,63 @@
             display: inline-block;
             position: relative;
         }
+
+        td {
+            padding-left: 1em!important;
+            padding-right: 1em!important;
+        }
+
+        th {
+             padding-left: 1em!important;
+            padding-right: 1em!important;
+            text-align: center;
+        }
     </style>  
 }
-<div id='dialog'></div>
-<h3>Production Company List</h3>
 
-<div style="padding: 7px 0;">
-    <input type="button" style="float: right; margin-bottom: 2%;" value="Add New Production Company" onclick="CreateProductionCompany()" />
-</div>
-<div style="clear: both"></div>
-
-<div class="btnwrapper">
-    <input type="text" id="txt" style="width: 80%" placeholder="Search" />
-    <button style="width: 20%; height: 100%; background-color: transparent; border: 0; position: absolute; right: 0; top: 0;" onclick="SearchProductionCompany()"><span class="icon-search">GO</span></button>
-
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Production Company List</h3>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="gridArea">
-    @{Html.RenderAction("GetProductionCompanyData", "Admin");}
-</div>
 
+<div class="content">
+    <div class="container">
+
+        <div class="row titlerow">
+
+            <div class="col-sm-4 col-xs-12">
+                <div class="input-group stylish-input-group">
+                    <input type="text" id="txt" class="form-control" style="width: 80%" placeholder="Search" />
+                    <span class="input-group-addon">
+                        <a href="#" onclick='return SearchProductionCompany()'>GO
+                        </a>
+
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-sm-8 col-xs-12" style="padding: 7px 0;">
+                <div class="row">
+                    <div class="col-sm-9 col-xs-12">
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <input type="button" style="float: right; margin-bottom: 2%;" value="Add New Production Company" onclick="CreateProductionCompany()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="gridArea" class="table">
+            @{Html.RenderAction("GetProductionCompanyData", "Admin");}
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/Custom/ProductionCompanyList.js" type="text/javascript"></script>

@@ -149,9 +149,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\4-col-portfolio.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\font-google.css" />
     <Content Include="Content\css\Form.css" />
+    <Content Include="Content\css\Jadestyle.css" />
     <Content Include="Content\css\skel.css" />
     <Content Include="Content\css\style-large.css" />
     <Content Include="Content\css\style-medium.css" />
@@ -160,10 +163,18 @@
     <Content Include="Content\css\style-xsmall.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\actor_03.png" />
     <Content Include="Content\images\banner.jpg" />
+    <Content Include="Content\images\banner_03.jpg" />
+    <Content Include="Content\images\favicon_03.png" />
+    <Content Include="Content\images\logo.jpg" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\music_03.png" />
+    <Content Include="Content\images\others_03.png" />
     <Content Include="Content\images\pic01.jpg" />
     <Content Include="Content\images\pic02.jpg" />
     <Content Include="Content\images\pic03.jpg" />
+    <Content Include="Content\JS\bootstrap.min.js" />
     <Content Include="Content\JS\html5shiv.js" />
     <Content Include="Content\JS\ImageSlider.js" />
     <Content Include="Content\JS\init.js" />
@@ -239,6 +250,7 @@
     <Content Include="Images\image.jpg" />
     <Content Include="Images\Loading.gif" />
     <Content Include="Images\TalentBack.png" />
+    <Content Include="Images\tback_03.jpg" />
     <Content Include="lib\Antlr3.Runtime.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
     <Content Include="lib\System.Web.Optimization.dll" />
@@ -320,6 +332,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Views\Home\UploadFiles.cshtml" />
+    <Content Include="Content\css\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\Jade.pubxml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Home\MessagePage.cshtml" />

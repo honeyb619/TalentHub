@@ -4,29 +4,24 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>JADE</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Jade - Home</title>
 
-
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/themes/base/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/css/skel.css" rel="stylesheet" />
-    <link href="~/Content/css/style.css" rel="stylesheet" />
-    <link href="~/Content/css/style-xlarge.css" rel="stylesheet" />
-    <link href="~/Content/css/Form.css" rel="stylesheet" />
-
-       @* @Scripts.Render("~/bundles/jquery")*@
-       <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-     @Scripts.Render("~/bundles/jqueryui")
-    @RenderSection("scripts", required: false)
-    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/JS/skel.min.js"></script>
-    <script src="~/Content/JS/skel-layers.min.js"></script>
-    <script src="~/Content/JS/init.js"></script>
+    <!-- Bootstrap -->
+    <link rel="icon" href="/Content/images/logo.png">
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/css/4-col-portfolio.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="/Content/css/Jadestyle.css" rel="stylesheet" />
+     <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
     <style>
         .clearfix:after {
             display: block;
@@ -154,90 +149,175 @@
 <body id="top">
 
     <!-- Header -->
-    <header id="header" class="skel-layers-fixed">
+    <header>
 
-        <h1>JADE</h1>
-        <div class="menu-wrap" style="text-align: left;">
-            <nav class="menu">
-                <ul class="clearfix">
-                    <li><a href="/Home/index">Home</a></li>
-                    <li><a href="/Home/RegisterTalent">Register</a></li>
-                    @{ foreach (var menu in MenuModel)
-                       {
-                           if (menu.Skills.Count > 0 && menu.MainSkil != "Admin")
-                           {
-                       
-                        <li class="primaryMenu">
-                            @Html.Raw("<a href='#'>" + menu.MainSkil + "</a>")
-
-                            <ul class="sub-menu">
-                                @{ foreach (var submenu in menu.Skills)
-                                   {
-                                    @Html.Raw("<li><a href='/Home/SearchCategory/" + menu.MainSkil + "/" + submenu.SkillName + "'>" + submenu.SkillName + "</a></li>")
-                                   }
-                                }
-
-
-                            </ul>
-                        </li> 
-                           }
-                           else if (menu.MainSkil == "Admin")
-                           {
-                        <li class="primaryMenu">
-                            @Html.Raw("<a href='#'>" + menu.MainSkil + "</a>")
-
-                            <ul class="sub-menu">
-                                @{ foreach (var submenu in menu.Skills)
-                                   {
-                                    @Html.Raw("<li><a href='/" + menu.MainSkil + "/" + submenu.SkillValue + "'>" + submenu.SkillName + "</a></li>")
-                                   }
-                                }
-                                <li><a href="/Admin/LogOut">Logout</a></li>
-
-                            </ul>
-                        </li> 
-                           }
-                           else
-                           {
-                        @Html.Raw("<li><a href='#'>" + menu.MainSkil + "</a></li>")
-                           }
-                       }
-                    }
-                    <li><a href="/Home/ContactUs">Contact Us</a></li>
-                </ul>
-            </nav>
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">Call Us: 021 1855321 - Mail info@jade.com</div>
+                    <div class="col-sm-6 col-xs-12 social">
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="mynav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand" href="http://jadetalent.co.nz/">
+                                        <img src="/Content/images/logo.png">
+                                    </a>
+                                </div>
+
+
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav navbar-right">
+
+                                        <li class="active"><a href="/Home/index">Home</a></li>
+                                        <li><a href="/Home/RegisterTalent">Register</a></li>
+                                        @{ foreach (var menu in MenuModel)
+                                           {
+                                               if (menu.Skills.Count > 0 && menu.MainSkil != "Admin")
+                                               {
+                       
+                                            <li class="dropdown">
+                                                @Html.Raw("<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>" + menu.MainSkil + "<span class='caret'></span></a>")
+
+                                                <ul class="dropdown-menu">
+                                                    @{ foreach (var submenu in menu.Skills)
+                                                       {
+                                                        @Html.Raw("<li><a href='/Home/SearchCategory/" + menu.MainSkil + "/" + submenu.SkillName + "'>" + submenu.SkillName + "</a></li>")
+                                                       }
+                                                    }
+
+
+                                                </ul>
+                                            </li> 
+                                               }
+                                               else if (menu.MainSkil == "Admin")
+                                               {
+                                            <li class="dropdown">
+                                                @Html.Raw("<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>" + menu.MainSkil + "<span class='caret'></span></a>")
+
+                                                <ul class="dropdown-menu">
+                                                    @{ foreach (var submenu in menu.Skills)
+                                                       {
+                                                        @Html.Raw("<li><a href='/" + menu.MainSkil + "/" + submenu.SkillValue + "'>" + submenu.SkillName + "</a></li>")
+                                                       }
+                                                    }
+                                                    <li><a href="/Admin/LogOut">Logout</a></li>
+
+                                                </ul>
+                                            </li> 
+                                               }
+                                               else
+                                               {
+                                            @Html.Raw("<li><a href='#'>" + menu.MainSkil + "</a></li>")
+                                               }
+                                           }
+                                        }
+                                        <li><a href="/Home/ContactUs">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </header>
 
-    <!-- Banner -->
-    <section id="banner">
-        <div class="inner">
-            <h2>JADE TALENT</h2>
-            <h2>Talent is a gift</h2>
+    <div class="slider">
+        <div id="myCarousel" class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="" contenteditable="false"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="active" contenteditable="false"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class="" contenteditable="false"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item" style="">
+                    <img src="/Content/images/banner_03.jpg" alt="" class="">
+                </div>
+                <div class="item active">
+                    <img src="/Content/images/banner_03.jpg" alt="" class="">
+                    <div class="carousel-caption">
+                        <!--  <h4 class="">Second Slide Title</h4>
+
+                <p class="">
+                   Description for Second Slide, this is Second Slide.
+                </p>-->
+                    </div>
+                </div>
+                <div class="item" style="">
+                    <img src="/Content/images/banner_03.jpg" alt="" class="" />
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+
+
         </div>
-    </section>
+
+
+
+    </div>
+
 
     <!-- One -->
     <section id="one" class="wrapper style1">
-        <div id="loading-image">
-            <img src="~/Images/Loading.gif" class="img-responsive" />
-        </div>
-        @RenderBody()
-    </section>
+        <div class="content">
 
+            <div class="talent">
+                <div class="container">
+                    <div class="row">
 
-</body>
-<footer id="footer">
-    <div class="container">
-        <div class="row double">
-            <div class="6u">
-                <ul class="copyright" style="font-weight: bolder">
-                    <li>&copy; 2017 JADE TALENT. All rights reserved.</li>
-                    <li>Design: JADE</li>
-                    <li><a href="/Admin/LogOn">Admin</a><li>
-                </ul>
+                        @RenderBody()
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">&copy; 2017 JADE TALENT. All right reserved. | <a href="/Admin/LogOn">Admin</a></div>
+              
+
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Content/JS/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="~/Content/JS/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $(".dropdown").hover(
+                function () { $(this).addClass('open') },
+                function () { $(this).removeClass('open') }
+            );
+        });
+    </script>
+</body>
 </html>
