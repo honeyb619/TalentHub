@@ -3,6 +3,8 @@
     ViewBag.Title = "SearchCategory";
 }
 
+
+<link href="/Content/css/4-col-portfolio.css" rel="stylesheet" />
 <style>
     .slider {
         display: none;
@@ -132,34 +134,37 @@
         margin-right: 0!important;
         margin-left: 0!important;
     }
+
+    body {
+        padding: 0!important;
+    }
 </style>
 
 <div class="page-title">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12" style="padding-top:0.5em;">
+            <div class="col-xs-12" style="padding-top: 0.5em;">
                 <h3>@ViewBag.SubCategory</h3>
             </div>
 
         </div>
     </div>
 </div>
-@if (Model != null && Model.Count > 0)
-{
-    int columnCount = 0;
+<div class="content">
+    <div class="container">
+        @if (Model != null && Model.Count > 0)
+        {
+            int columnCount = 0;
     
     
-    <div class="content">
-        <div class="container">
-
-            @foreach (var item in Model)
+            foreach (var item in Model)
             {
                 if (columnCount == 0)
                 { 
                 @Html.Raw("<div class='row'>");
                 }
                   
-                <div class="col-md-3 portfolio-item">
+<div class="col-md-3 portfolio-item">
                     <a class="" href="/Home/Profile?ProfileId=@item.TalentId">
                         <div style="min-height: 17em;">
                             <img class="rig-img img-responsive" src="~/@item.FilePath" />
@@ -176,14 +181,16 @@
                 }
             }
 
-        </div>
-    </div>
-}
-else
-{
-    <div style="text-align: center">
-        <h2><strong>PAGE HAS NO TALENTS
+    
+    
+        }
+        else
+        {
+            <div class="col-xs-12" style="text-align: center;padding-top:10%;min-height: 25em;">
+                <h2><strong>PAGE HAS NO TALENTS
             <br>
-            TO SHOW AT THE MOMENT.</strong></h2>
+                    TO SHOW AT THE MOMENT</strong></h2>
+            </div>
+        }
     </div>
-}
+</div>

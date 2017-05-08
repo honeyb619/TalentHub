@@ -3,7 +3,7 @@
 }
 <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
 <style>
-     .slider {
+    .slider {
         display: none;
     }
 
@@ -92,48 +92,51 @@
             transition: background-color 0.4s linear;
         }
 </style>
-<div class="container WhiteBack">
-    <div class="row">
-        <div class="12u wufoo">
-            <h2 style="text-align: center">Upload Files</h2>
-            <section>
-                <ul>
-                    <li>
-                        <fieldset>
-                            <legend>Upload Files : </legend>
-                            <div style="text-align: center">
+<div class="content">
+    <div class="container">
+        <div class="row" style="padding-top: 5%">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Upload Files</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
                                 <span class="btn btn-success fileinput-button">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Select files...</span>
+
                                     <!-- The file input field used as target for the file upload widget -->
                                     <input id="fileupload" type="file" name="files[]" multiple="">
                                 </span>
-                                <input type="button" class="btn-default" value="Submit" onclick="submitFiles()" />
+                                <input type="button" class="btn btn-primary" value="Submit" onclick="submitFiles()" />
                             </div>
-                            <fieldset id="selectedFields" style="border: none; display: none;">
-                                <legend style="border: none">Selected Files : </legend>
-                                <div class="12u" style="padding-top: 1em;">
+
+                            <div class="col-xs-12">
+                                <label style="border: none">Selected Files : </label>
+                                <div class="col-xs-12">
                                     <strong><span>Please select the profile picture from uploads</span></strong>
-                                    <div id="selectedImages" class="12u"></div>
+                                    <div id="selectedImages" class="col-xs-12"></div>
                                     <strong><span>Below are the selected Videos</span></strong>
-                                    <div id="selectedVideos" class="12u"></div>
-                                    <div style="clear: both"></div>
-                                </div>
-                                <div class="12u" style="padding-top: 1em;">
-                                </div>
-                            </fieldset>
-                            <strong><span>Below are the already uploaded files</span></strong>
-                            <div id="AlreadyUploadedFiles" class="12u"></div>
+                                    <div id="selectedVideos" class="col-xs-12"></div>
 
-                            <strong style="color: red;">Note : Only Images and Videos are allowed with size upto 10 MB.</strong>
-                        </fieldset>
-                    </li>
-                </ul>
-            </section>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <strong><span>Below are the already uploaded files</span></strong>
+                                <div id="AlreadyUploadedFiles" class="col-xs-12"></div>
+                            </div>
+                            <div class="col-xs-12">
+                                <strong style="color: red;">Note : Only Images and Videos are allowed with size upto 10 MB.</strong>
+                            </div>
 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<footer>
-    <script src="~/Content/JS/UploadFiles.js"></script>
-</footer>
+</div>  
+<script src="~/Content/JS/UploadFiles.js"></script>

@@ -4,58 +4,68 @@
     ViewBag.Title = "Edit Category";
 }
 <style type="text/css">
-    #banner {
+   .slider {
         display: none;
     }
 </style>
 
+<div class="content">
+    <div class="container">
+        <div class="row" style="padding-top: 5%">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Edit Category</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <form name="Talentform">
+                                    <div style="display: none">
+                                        @Html.TextBoxFor(model => model.SubCategoryId)
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        @Html.TextBoxFor(model => model.SubCategoryName, new { required = "" })
+                                        @Html.ValidationMessageFor(model => model.SubCategoryName)
+                                    </div>
 
-<div style="margin-left: 20%;margin-right:20%">
-<h2>Edit Category</h2>
-    <form name="Talentform">
-    <fieldset>
-        <legend style="display:none">Category</legend>
-        <div style="display: none">
-            @Html.TextBoxFor(model => model.SubCategoryId)
-        </div>
-        <div class="editor-label">
-            <label>Name</label>
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.SubCategoryName, new { required=""})
-            @Html.ValidationMessageFor(model => model.SubCategoryName)
-        </div>
+                                    <div class="col-xs-12 form-group">
+                                        <label>Value</label>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "" })
+                                        @Html.ValidationMessageFor(model => model.SubCategoryValue)
+                                    </div>
 
-        <div class="editor-label">
-            <label>Value</label>
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.SubCategoryValue, new { required=""})
-            @Html.ValidationMessageFor(model => model.SubCategoryValue)
-        </div>
+                                    <div class="col-xs-12 form-group">
+                                        <label>Description</label>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        @Html.TextBoxFor(model => model.SubCategoryDescription, new { required = "" })
+                                        @Html.ValidationMessageFor(model => model.SubCategoryDescription)
+                                    </div>
 
-        <div class="editor-label">
-            <label>Description</label>
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.SubCategoryDescription, new { required=""})
-            @Html.ValidationMessageFor(model => model.SubCategoryDescription)
-        </div>
+                                    <div class="col-xs-12 form-group">
+                                        <input type="button" class="btn btn-primary" value="Save" onclick="SaveCategory()" />
+                                        <input type="submit" value="submit" id="formsubmit" style="display: none" />
+                                    </div>
+                                </form>
 
-        <p>
-            <br/>
-            <input type="button" value="Save" onclick="SaveCategory()" />
-            <input type="submit" value="submit" id="formsubmit" style="display:none" />
-        </p>
-    </fieldset>
-        </form>
-    
-<div>
-    @Html.ActionLink("Back to List", "Categories")
+                                <div>
+                                    @Html.ActionLink("Back to List", "Categories")
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-</div>
-
 <script>
     function SaveCategory() {
         var $myForm = $('#Talentform');
@@ -80,6 +90,3 @@
 
 </script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

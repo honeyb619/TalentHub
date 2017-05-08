@@ -9,11 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Jade - Home</title>
-
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap -->
     <link rel="icon" href="/Content/images/logo.png">
     <link href="/Content/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/Content/css/4-col-portfolio.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +20,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="/Content/css/Jadestyle.css" rel="stylesheet" />
-     <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
     <style>
         .clearfix:after {
             display: block;
@@ -282,31 +281,29 @@
 
 
     </div>
+    <div class="content">
+
+        <div class="talent">
+            <div class="container">
+                <div class="row">
+
+                    @RenderBody()
+                </div>
+                <div class="row">
+                    <footer id="footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">&copy; 2017 JADE TALENT. All right reserved. | <a href="/Admin/LogOn">Admin</a></div>
 
 
-    <!-- One -->
-    <section id="one" class="wrapper style1">
-        <div class="content">
-
-            <div class="talent">
-                <div class="container">
-                    <div class="row">
-
-                        @RenderBody()
-                    </div>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
             </div>
         </div>
-    </section>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-xs-12">&copy; 2017 JADE TALENT. All right reserved. | <a href="/Admin/LogOn">Admin</a></div>
-              
+    </div>
 
-            </div>
-        </div>
-    </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="~/Content/JS/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

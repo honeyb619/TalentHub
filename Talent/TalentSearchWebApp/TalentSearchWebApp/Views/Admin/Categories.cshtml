@@ -4,24 +4,33 @@
     ViewBag.Title = "Categories";
 }
 <style type="text/css">
-    #banner {
+    .slider {
         display: none;
     }
 </style>
-<div class="container WhiteBack">
-    <div id='dialog'></div>
 
-    <h3>Categories List</h3>
-
-    <div style="padding: 7px 0;">
-        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Main Category" onclick="AddMainCategories();" />
-        <input type="button" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Sub Category" onclick="AddChildCategories();" />
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Categories List</h3>
+            </div>
+        </div>
     </div>
-    <div style="clear: both"></div>
-    <div>
-        @{  
-            WebGrid grid = new WebGrid(Model);  
-            @grid.GetHtml(
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="row titlerow">
+            <div class="col-xs-12" style="padding: 7px 0;">
+                <input type="button" class="btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Main Category" onclick="AddMainCategories();" />
+                <input type="button" class="btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Sub Category" onclick="AddChildCategories();" />
+            </div>
+        </div>
+        <div id="gridArea" class="table">
+            @{  
+                WebGrid grid = new WebGrid(Model);  
+                @grid.GetHtml(
          tableStyle: "grid",
          fillEmptyRows: false,
          mode: WebGridPagerModes.All,
@@ -37,12 +46,13 @@
          grid.Column("SubCategoryId", header: "Action", canSort:false,  
            
          format: @<text>
-            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
-            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
-            </text>  
+                @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
+                @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+                </text>  
         )  
      })  
-        }
+            }
+        </div>
     </div>
 </div>
 <script>

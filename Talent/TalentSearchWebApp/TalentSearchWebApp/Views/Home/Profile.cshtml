@@ -6,8 +6,9 @@
 }
 <style>
     li {
-    list-style-type: none;
-}
+        list-style-type: none;
+    }
+
     .slider {
         display: none;
     }
@@ -62,6 +63,100 @@
         border-bottom: 1px solid #444;
         cursor: pointer;
     }
+
+    .tabs {
+        display: table;
+        height: 50px;
+        width: 100%;
+    }
+
+        .tabs a {
+            display: table-cell;
+            vertical-align: middle;
+            color: #fff;
+            text-align: center;
+            -webkit-transition: all .3s ease-in-out;
+            -moz-transition: all .3s ease-in-out;
+            -o-transition: all .3s ease-in-out;
+            -ms-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+        }
+
+            .tabs a:hover {
+                color: #e95e07;
+            }
+
+
+
+        .tabs .enquire, .tabs .career {
+            line-height: 22px;
+            padding: 8px 8px 8px 18px;
+        }
+
+        .tabs .current {
+            border-top: 1px solid #666;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+            text-decoration: none;
+            border-bottom: none;
+        }
+
+        .tabs .profile.current {
+            border-left: 0!important;
+        }
+
+        .tabs .credits.current {
+            border-right: 0!important;
+        }
+
+        .tabs .career.current {
+            border-right: 1px solid #666;
+        }
+
+        .tabs .enquire.current, .tabs .sign-up.current {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+    .tab {
+        display: none;
+    }
+
+        .tab#profile {
+            display: block;
+        }
+
+            .tab#profile table {
+                font-weight: 100;
+                font-size: 14px;
+                margin-top: 26px;
+                color: #fff;
+            }
+
+                .tab#profile table tr {
+                    height: 22px;
+                    line-height: 22px;
+                }
+
+                    .tab#profile table tr :nth-child(1) {
+                        width: 100px;
+                    }
+
+        .tab#career {
+            margin-top: 26px;
+        }
+
+    .row {
+        padding-bottom: 1em;
+    }
+
+    .personal-info {
+        padding-left: 3em;
+    }
+
+    a.tab.active {
+        color: black;
+    }
 </style>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -71,7 +166,7 @@
 <div class="page-title">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 text-center">
                 <h3>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
             </div>
         </div>
@@ -80,7 +175,7 @@
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-xs-12 text-center">
+            <div class="col-xs-12 col-sm-6  text-center hideImg">
                 <div id="demo" style="border: 2px solid gray">
                     @{
                         
@@ -99,298 +194,357 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 col-xs-12 text-center personal-info">
-                <section class="profileSec">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.Age)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.Age)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.Ethnicity)
-                            </div>
-                            <div class="form-stronglabel  col-xs-6">
-                                @Html.DisplayFor(model => model.Ethnicity)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.Gender)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.Gender)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.Height)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.Height)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.HairColor)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.HairColor)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.EyeColor)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.EyeColor)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-
-                                @Html.DisplayNameFor(model => model.Waist)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.Waist)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                Chest/Bust Size              
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.ChestSize)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.HipSize)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.HipSize)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.RegionName)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.RegionName)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayNameFor(model => model.Hobbies)
-                            </div>
-                            <div class="form-stronglabel col-xs-6">
-                                @Html.DisplayFor(model => model.Hobbies)
-                            </div>
-                        </div>
-                    </div>
-
-                    @{
-                        if (Model != null && Model.vmMainSkills != null)
+            <div class="col-sm-12 col-xs-12 text-center showImg" style="display: none;">
+                @{
+                        
+                    if (Model != null)
+                    {
+                        foreach (var element in Model.vmMedias)
                         {
-                            foreach (var element in Model.vmMainSkills)
+                            if (element.MediaType == "Image")
                             {
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-12 profile-info">
-                                <h3>@Html.Raw(element.MainSkil)</h3>
-                                @if (element.Skills != null)
-                                {
-                                    <ol>
-                                        @foreach (var childelement in element.Skills)
-                                        {
-                               
-                                            <li><strong>@Html.Raw(childelement.SkillName)</strong>
-                                            </li>
-                                        
-                                            <li>Description :  @Html.Raw(childelement.Description ?? "")
-                                            </li>
-                                        
-    
-                            
-                                        }
-                                    </ol>
-                                }
-                            </div>
-                        </div>
-                      
+                    @Html.Raw("<img src='" + element.MediaPath + "' alt='" + element.MediaName + "' class='img-circle' />");
+                                                                                                                           break;
                             }
                         }
                     }
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12 profile-info">
+                }
 
-                            <h3>Accents/Languages</h3>
-                            @{
-                                if (Model != null)
-                                {
-                                    foreach (var element in Model.Languages)
-                                    {
-                                @Html.Raw("<p>" + element + "</p>");
-                                    }
-                                }
-                            }
+            </div>
+
+            <div class="col-xs-12 col-sm-6 text-center personal-info">
+                <div id="talent-info" class="panel panel-default">
+                    <div class="tabs panel-heading">
+                        <a class="tab panel-title" data-target="profile" href="#" title="profile">Profile</a>
+                        <a class="tab panel-title" data-target="skills" href="#" title="career">Skills</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="tab" data-target="Contact" href="#" title="career">Contact</a>
+                        }
+                    </div>
+                    <div id="profile" class="tabdiv panel-body" style="display: block;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.Age)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.Age)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.Ethnicity)
+                                </div>
+                                <div class="form-stronglabel  col-xs-6">
+                                    @Html.DisplayFor(model => model.Ethnicity)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.Gender)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.Gender)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.Height)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.Height)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.HairColor)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.HairColor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.EyeColor)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.EyeColor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+
+                                    @Html.DisplayNameFor(model => model.Waist)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.Waist)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    Chest/Bust Size              
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.ChestSize)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.HipSize)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.HipSize)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.RegionName)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.RegionName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayNameFor(model => model.Hobbies)
+                                </div>
+                                <div class="form-stronglabel col-xs-6">
+                                    @Html.DisplayFor(model => model.Hobbies)
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12 profile-info">
-
-                            <h3>Videos</h3>
-                            @{
-              
-       
-                                if (Model != null)
+                    <div id="skills" class="tabdiv" style="display: none;">
+                        @{
+                            if (Model != null && Model.vmMainSkills != null)
+                            {
+                                foreach (var element in Model.vmMainSkills)
                                 {
-                                    foreach (var element in Model.vmMedias)
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 profile-info">
+                                    <h3 style="color: orange">@Html.Raw(element.MainSkil)</h3>
+                                    @if (element.Skills != null)
                                     {
-                                        if (element.MediaType == "Video")
-                                        {
-                       
-                                @Html.Raw("<button onclick=Openpop('myModal" + element.MediaId + "') class='modalbtn'>" + element.MediaName + "</button><br/><br/>")
-                      
-                                @Html.Raw("<div id='myModal" + element.MediaId + "' class='modal'>")
-                                <div class="modal-content">
-                                    @Html.Raw("<button class='close' onclick=closepop('" + element.MediaId + "')>&times;</button>")
-                                    @Html.Raw("<video autoplay id='v" + element.MediaId + "' height='80%' width='80%' loop controls>  <source src='" + element.MediaPath + "' type='video/mp4'></video>")
-
+                                        <ol>
+                                            @foreach (var childelement in element.Skills)
+                                            {
+                               
+                                                <li><strong>@Html.Raw(childelement.SkillName)</strong>
+                                                </li>
+                                        
+                                                <li>Description :  @Html.Raw(childelement.Description ?? "")
+                                                </li>
+                                        
+    
+                            
+                                            }
+                                        </ol>
+                                    }
                                 </div>
-                                @Html.Raw("</div>")
-                       
+                            </div>
+                      
+                                }
+                            }
+                        }
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 profile-info">
+
+                                <h3 style="color: orange">Accents/Languages</h3>
+                                @{
+                                    if (Model != null)
+                                    {
+                                        foreach (var element in Model.Languages)
+                                        {
+                                    @Html.Raw("<p>" + element + "</p>");
                                         }
                                     }
                                 }
-                            }
+                            </div>
                         </div>
-                    </div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 profile-info">
-                                <h3>Contact Details</h3>
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.EmailId)
-                                    </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.EmailId)
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.AlternateEmailId)
-                                    </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.AlternateEmailId)
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.Mobile)
-                                    </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.Mobile)
-                                    </div>
-                                </div>
 
 
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.Phone)
-                                    </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.Phone)
-                                    </div>
-                                </div>
+                                @{
+              
+       
+                                    if (Model != null)
+                                    {
+                                        if (Model.vmMedias.Where(x => x.MediaType == "Video").Count() > 0)
+                                        {
+                                    <h3 style="color: orange">Videos</h3>
+                                            foreach (var element in Model.vmMedias)
+                                            {
+                                                if (element.MediaType == "Video")
+                                                {
+                       
+                                    @Html.Raw("<button onclick=Openpop('myModal" + element.MediaId + "') class='modalbtn'>" + element.MediaName + "</button><br/><br/>")
+                      
+                                    @Html.Raw("<div id='myModal" + element.MediaId + "' class='modal'>")
+                                    <div class="modal-content">
+                                        @Html.Raw("<button class='close' onclick=closepop('" + element.MediaId + "')>&times;</button>")
+                                        @Html.Raw("<video autoplay id='v" + element.MediaId + "' height='80%' width='80%' loop controls>  <source src='" + element.MediaPath + "' type='video/mp4'></video>")
 
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.EmergencyName)
                                     </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.EmergencyName)
-                                    </div>
-                                </div>
+                                    @Html.Raw("</div>")
+                       
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="col-sm-12 col-xs-12">
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayNameFor(model => model.EmergencyNumber)
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div id="Contact" class="tabdiv" style="display: none;">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 profile-info">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.EmailId)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.EmailId)
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-stronglabel col-xs-6">
-                                        @Html.DisplayFor(model => model.EmergencyNumber)
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.AlternateEmailId)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.AlternateEmailId)
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-stronglabel 12u">
-                                    @Html.ActionLink("Back To List", "../Admin/Talents")
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.Mobile)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.Mobile)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.Phone)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.Phone)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.EmergencyName)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.EmergencyName)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayNameFor(model => model.EmergencyNumber)
+                                            </div>
+                                            <div class="form-stronglabel col-xs-6">
+                                                @Html.DisplayFor(model => model.EmergencyNumber)
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     }
-
-                </section>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    <script>
-        $("#slideshow > div:gt(0)").hide();
+</div>
+<script>
+    $("#slideshow > div:gt(0)").hide();
 
-        setInterval(function () {
-            $('#slideshow > div:first')
-              .fadeOut(1000)
-              .next()
-              .fadeIn(1000)
-              .end()
-              .appendTo('#slideshow');
-        }, 3000);
+    setInterval(function () {
+        $('#slideshow > div:first')
+          .fadeOut(1000)
+          .next()
+          .fadeIn(1000)
+          .end()
+          .appendTo('#slideshow');
+    }, 3000);
 
 
-        // When the user clicks on the button, open the modal 
-        function Openpop(modalid) {
-            var modal = document.getElementById(modalid);
-            modal.style.display = "block";
-        }
+    // When the user clicks on the button, open the modal 
+    function Openpop(modalid) {
+        var modal = document.getElementById(modalid);
+        modal.style.display = "block";
+    }
 
-        function closepop(Mediaid) {
-            $("#v" + Mediaid).trigger("pause");
-            var modal = document.getElementById("myModal" + Mediaid);
-            modal.style.display = "none";
-        }
+    function closepop(Mediaid) {
+        $("#v" + Mediaid).trigger("pause");
+        var modal = document.getElementById("myModal" + Mediaid);
+        modal.style.display = "none";
+    }
 
-        $(function () {
-            $('legend').click(function () {
-                $(this).siblings().each(function () {
-                    if (!$(this).hasClass("modal"))
-                        $(this).toggle();
-                });
-                return false;
+    $(document).ready(function () {
+        $(".tab").click(function () {
+            var divid = $(this).attr("data-target");
+            $(".tabdiv").each(function () {
+                if ($(this)[0].id != divid) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
             });
         });
-    </script>
+    });
+
+    $(function () {
+        var links = $('a.tab').click(function () {
+            links.removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+    $(function () {
+        $('legend').click(function () {
+            $(this).siblings().each(function () {
+                if (!$(this).hasClass("modal"))
+                    $(this).toggle();
+            });
+            return false;
+        });
+    });
+</script>

@@ -3,70 +3,248 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,700i,900');
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
-body
-{
-margin:0px;
-padding:0px;
-font-family:"lato",serif;
-font-size:16px;
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "lato",serif;
+    font-size: 16px;
 }
-header{width:100%;float:left;}
-.topbar{width:100%;float:left;border:1px solid #efefef; color;#666666;font-family:"lato",serif;font-size:14px;padding:5px 0px;}
-.topbar .social a{color:#ababab;padding:0px 10px;}
-.topbar .social a:hover{color:#de291e;padding:0px 10px;}
-.navbar-default .navbar-nav>li>a{color:#373737;border-bottom:2px solid #fff;}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover,.dropdown-toggle a:hover{color:#de291e;border-bottom:2px solid #de291e; background-color:transparent; }
+
+header {
+    width: 100%;
+    float: left;
+}
+
+.topbar {
+    width: 100%;
+    float: left;
+    border: 1px solid #efefef;
+    font-family: "lato",serif;
+    font-size: 14px;
+    padding: 5px 0px;
+    background: url(/Images/tback_03.jpg) repeat;
+    color: whitesmoke;
+}
+
+    .topbar .social a {
+        color: #ababab;
+        padding: 0px 10px;
+    }
+
+        .topbar .social a:hover {
+            color: #de291e;
+            padding: 0px 10px;
+        }
+
+.navbar-default .navbar-nav > li > a {
+    color: #373737;
+    border-bottom: 2px solid #fff;
+}
+
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover, .dropdown-toggle a:hover {
+        color: #de291e;
+        border-bottom: 2px solid #de291e;
+        background-color: transparent;
+    }
+
 .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
     background-color: #de291e;
     color: #fff;
     text-decoration: none;
 }
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {background-color: #de291e;color:#fff;}
-.topbar .social{text-align:right;}
-.mymenu{}
-.navbar-default .navbar-toggle{background-color:transparent;border:none;}
-.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-    background-color: transparent;
-	
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    background-color: #de291e;
+    color: #fff;
 }
-.navbar-toggle{margin-top:25px;}
+
+.topbar .social {
+    text-align: right;
+}
+
+.mymenu {
+}
+
+.navbar-default .navbar-toggle {
+    background-color: transparent;
+    border: none;
+}
+
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+        background-color: transparent;
+    }
+
+.navbar-toggle {
+    margin-top: 25px;
+}
+
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #000;
 }
 
-.navbar-default{background:transparent;border:none;text-transform:uppercase;}
-.navbar-right{margin-top:20px;}
-.navbar-brand{height:auto;padding:0px;position:relative;z-index:999;}
-.slider{width:100%;float:left;}
-.slider img{width:100%;}
-.content{width:100%;float:left;padding:30px 0px;}
-.content .titlerow{padding:20px 0px;}
-.content h1{font-size:43px;font-family:"lato",serif;color:#150f10;font-weight:bold;text-transform:uppercase; margin:0px;}
-.content h2{font-size:30px;font-family:"lato",serif;color:#150f10;font-weight:bold;text-transform:uppercase; margin:0px;}
-.content h1 span{color:#de291e;}
-.content h2 span{color:#de291e;}
-.content p{}
-.talent{width:100%;float:left;background:url(/Images/tback_03.jpg) repeat;}
-.talent h1{color:#fff;}
-.talent .homewidget{border-right:1px solid #2f2f2f;color:#fff;padding:10px 0px 0px 0px;margin:20px 0px;}
-.talent .homewidget h2{font-size:24px;}
-.talent .homewidget p{font-size:16px;}
-.talent .homewidget:last-child{border:none;}
-footer{background:#d3d3d3;width:100%;float:left; font-size:13px; color:#150f10;padding:5px 0px;}
-footer a{color:#150f10;}
-footer a:hover{color:#de291e;}
-footer .social{text-align:right;}
-footer .social a{color:#fff;padding:0px 10px;}
-footer .social a:hover{color:#de291e;}
-.panel-default >.panel-heading{background-color:#de291e;color:#fff;}
-.page-title{width:100%;float:left;background:url(/Images/tback_03.jpg) repeat;height:80px;color:#fff;}
-.breadcrumb{background:transparent;text-align:right;margin:20px 0px; color:#fff;}
-.breadcrumb a{color:#fff;}
+.navbar-default {
+    background: transparent;
+    border: none;
+    text-transform: uppercase;
+}
+
+.navbar-right {
+    margin-top: 20px;
+}
+
+.navbar-brand {
+    height: auto;
+    padding: 0px;
+    position: relative;
+    z-index: 999;
+}
+
+.slider {
+    width: 100%;
+    float: left;
+}
+
+    .slider img {
+        width: 100%;
+    }
+
+.content {
+    width: 100%;
+    float: left;
+    padding: 0px 0px;
+}
+
+    .content .titlerow {
+        padding: 20px 0px;
+    }
+
+    .content h1 {
+        font-size: 43px;
+        font-family: "lato",serif;
+        color: #150f10;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0px;
+    }
+
+    .content h2 {
+        font-size: 30px;
+        font-family: "lato",serif;
+        color: whitesmoke;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0px;
+    }
+
+    .content h1 span {
+        color: #de291e;
+    }
+
+    .content h2 span {
+        color: #de291e;
+    }
+
+    .content p {
+    }
+
+.talent {
+    width: 100%;
+    float: left;
+    background: url(/Images/tback_03.jpg) repeat;
+}
+
+    .talent h1 {
+        color: #fff;
+    }
+
+    .talent .homewidget {
+        border-right: 1px solid #2f2f2f;
+        color: #fff;
+        padding: 10px 0px 0px 0px;
+        margin: 20px 0px;
+    }
+
+        .talent .homewidget h2 {
+            font-size: 24px;
+        }
+
+        .talent .homewidget p {
+            font-size: 16px;
+        }
+
+        .talent .homewidget:last-child {
+            border: none;
+        }
+
+footer {
+    background: #d3d3d3;
+    width: 100%;
+    float: left;
+    font-size: 13px;
+    color: #150f10;
+    padding: 5px 0px;
+}
+
+    footer a {
+        color: #150f10;
+    }
+
+        footer a:hover {
+            color: #de291e;
+        }
+
+    footer .social {
+        text-align: right;
+    }
+
+        footer .social a {
+            color: #fff;
+            padding: 0px 10px;
+        }
+
+            footer .social a:hover {
+                color: #de291e;
+            }
+
+.panel-default > .panel-heading {
+    background-color: #de291e;
+    color: #fff;
+}
+
+.page-title {
+    width: 100%;
+    float: left;
+    background: url(/Images/tback_03.jpg) repeat;
+    height: 80px;
+    color: #fff;
+}
+
+.breadcrumb {
+    background: transparent;
+    text-align: right;
+    margin: 20px 0px;
+    color: #fff;
+}
+
+    .breadcrumb a {
+        color: #fff;
+    }
 
 /* GRID STYLE */
-.table thead{background-color:#000;color:#fff;}
-.table  tr:nth-child(even){backgrund-color:#cfcfcf;}
-.table  tr:nth-child(odd){backgrund-color:#fff;}
+.table thead {
+    background-color: #000;
+    color: #fff;
+}
+
+.table th {
+    background-color: #000;
+    color: #fff;
+}
+
+.table tr {
+    background-color: #fff;
+}
 /* Pagination */
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
     background-color: #de291e;
@@ -75,14 +253,70 @@ footer .social a:hover{color:#de291e;}
     cursor: default;
     z-index: 3;
 }
-.pagination > li > a, .pagination > li > span {color:#333;}
 
-.input-group-addon{background-color:#de291e;color:#fff;}
-.input-group-addon a{color:#fff;}
+.pagination > li > a, .pagination > li > span {
+    color: #333;
+}
+
+.input-group-addon {
+    background-color: #de291e;
+    color: #fff;
+}
+
+    .input-group-addon a {
+        color: #fff;
+    }
 
 
 /* profile page css */
-.personal-info{text-align:center;}
-.personal-info strong,.personal-info span{display:block;}
-.profile-info h3{color:#de291e;}
-.profile-info a{color:#de291e;}
+.personal-info {
+    text-align: center;
+}
+
+    .personal-info strong, .personal-info span {
+        display: block;
+    }
+
+.profile-info h3 {
+    color: #de291e;
+}
+
+.profile-info a {
+    color: #de291e;
+}
+
+@media (max-width: 768px) {
+    .hideImg {
+        display: none;
+    }
+
+    .showImg {
+        display: inline-block!important;
+    }
+
+        .showImg img {
+            height: 50%;
+            width: 80%;
+        }
+}
+
+#footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background: #999;
+}
+
+
+.table td {
+    padding-left: 1em!important;
+    padding-right: 1em!important;
+}
+
+.table th {
+    padding-left: 1em!important;
+    padding-right: 1em!important;
+    text-align: center;
+}
