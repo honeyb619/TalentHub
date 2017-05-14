@@ -166,6 +166,7 @@
     <Content Include="Content\images\actor_03.png" />
     <Content Include="Content\images\banner.jpg" />
     <Content Include="Content\images\banner_03.jpg" />
+    <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\favicon_03.png" />
     <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\images\logo.png" />

@@ -151,42 +151,43 @@
     </div>
 </div>
 <div class="content">
-    <div class="container">
+    <div class="container" style="background-color: rgba(0,0,0,0.9);">
+        <div style="padding-top: 1em;"></div>
         @if (Model != null && Model.Count > 0)
         {
             int columnCount = 0;
-    
-    
+
+
             foreach (var item in Model)
             {
                 if (columnCount == 0)
                 { 
-                @Html.Raw("<div class='row'>");
+            @Html.Raw("<div class='row'>");
                 }
                   
-<div class="col-md-3 portfolio-item">
-                    <a class="" href="/Home/Profile?ProfileId=@item.TalentId">
-                        <div style="min-height: 17em;">
-                            <img class="rig-img img-responsive" src="~/@item.FilePath" />
+            <div class="col-md-3 portfolio-item">
+                <a class="" href="/Home/Profile?ProfileId=@item.TalentId">
+                    <div style="min-height: 17em;">
+                        <img class="rig-img img-responsive" src="~/@item.FilePath" />
 
-                        </div>
-                        <h3 style="text-align: center;">@item.Name</h3>
-                        <span class="img-responsive"></span>
-                    </a>
-                </div>
+                    </div>
+                    <h3 style="text-align: center;">@item.Name</h3>
+                    <span class="img-responsive"></span>
+                </a>
+            </div>
                 if (columnCount == 2)
                 {
-                @Html.Raw("</div>");
-                                   columnCount = 0;
+            @Html.Raw("</div>");
+                               columnCount = 0;
                 }
             }
 
-    
-    
+
+
         }
         else
         {
-            <div class="col-xs-12" style="text-align: center;padding-top:10%;min-height: 25em;">
+            <div class="col-xs-12" style="text-align: center; padding-top: 10%; min-height: 25em; background-color: rgba(0,0,0,0.5);">
                 <h2><strong>PAGE HAS NO TALENTS
             <br>
                     TO SHOW AT THE MOMENT</strong></h2>

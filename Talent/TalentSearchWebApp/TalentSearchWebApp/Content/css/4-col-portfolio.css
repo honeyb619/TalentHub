@@ -12,8 +12,8 @@ body {
     margin-bottom: 25px;
 }
 .portfolio-item h4{text-align:center;text-transform:uppercase; color:#de291e;}
-.portfolio-item a{text-decoration:none;}
-.portfolio-item  a:hover{color:#000;}
+.portfolio-item a{text-decoration:none; color:whitesmoke}
+.portfolio-item  a:hover{color:orange; background-color:gray;}
 footer {
     margin: 50px 0 0px;
 }
