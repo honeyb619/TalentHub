@@ -42,20 +42,20 @@ header {
 }
 
     .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover, .dropdown-toggle a:hover {
-        color: red;
+        color: #ea6153;
         border-bottom: 2px solid #de291e;
         background-color: rgba(0,0,0,0.5);
     }
 
 .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
     background-color: rgba(0,0,0,0.5);
-    color: red;
+    color: #ea6153;
     text-decoration: none;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
     background-color: rgba(0,0,0,0.5);
-    color: red;
+    color: #ea6153;
 }
 
 .topbar .social {
@@ -82,10 +82,22 @@ header {
     right: auto;
 }
 
+.form-group input[type="text"] {
+    color: initial;
+}
+
+.footerRow {
+    padding-top: 4em;
+}
+
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: White;
     }
+
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+            color: #ea6153;
+        }
 
     .dropdown-menu {
         background-color: rgba(0,0,0,0.9)!important;
@@ -101,8 +113,7 @@ header {
     }
 
     #footer {
-     padding:1.5em 0px;
-    
+        padding: 1.5em 0px;
     }
 }
 
@@ -349,15 +360,17 @@ a {
     bottom: 0px;
     min-height: 30px;
     width: 100%;
-    color:whitesmoke;
+    color: whitesmoke;
     background: url(/Images/tback_03.jpg) repeat;
 }
+
     #footer a {
-    color:whitesmoke;
+        color: whitesmoke;
     }
-    #footer a:hover {
-    color:whitesmoke;
-    }
+
+        #footer a:hover {
+            color: whitesmoke;
+        }
 
 .table td {
     padding-left: 1em!important;
