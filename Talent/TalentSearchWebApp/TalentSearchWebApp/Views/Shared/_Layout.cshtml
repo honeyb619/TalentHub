@@ -12,8 +12,8 @@
     <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Bootstrap -->
     <link rel="icon" href="/Content/images/logo.png">
-   @*<link href="/Content/css/bootstrap.min.css" rel="stylesheet" />*@
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    @*<link href="/Content/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -145,7 +145,7 @@
         }
     </style>
     <script src="/Scripts/jquery-3.2.1.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body id="top" class="transparent-bg">
 
@@ -155,7 +155,7 @@
         <div class="topbar">
             <div class="container">
                 <div class="row">
-                  @*  <div class="col-sm-6 col-xs-12">Call Us: 021 1855321 - Mail info@jade.com</div>*@
+                    @*  <div class="col-sm-6 col-xs-12">Call Us: 021 1855321 - Mail info@jade.com</div>*@
                     <div class="mynav">
                         <div class="container">
                             <div class="row">
@@ -246,16 +246,22 @@
         <div class="talent">
             <div class="container">
                 <div class="row">
-
-                    @RenderBody()
+                    <div class="col-sm-12 col-xs-12">
+                        @RenderBody()
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row footerRow">
                     <footer id="footer">
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-12 col-xs-12">&copy; 2017 JADE TALENT. All right reserved. | <a href="/Admin/LogOn">Admin</a></div>
-
-
+                                <div class="col-sm-4 col-xs-12">
+                                    <span style="margin-right: 1em"><a href="/">Home</a></span> |
+                                    <span style="margin-right: 1em"><a href="/Admin/LogOn">Admin</a></span>|
+                                     <span style="margin-right: 1em"><a href="Home/ContactUs">Contact US</a></span>
+                                </div>
+                                <div class="col-sm-5 col-xs-12">&copy; 2017 JADE TALENT. All right reserved.</div>
+                                <div class="col-sm-3 col-xs-12">
+                                </div>
                             </div>
                         </div>
                     </footer>

@@ -13,7 +13,7 @@ body {
 }
 .portfolio-item h4{text-align:center;text-transform:uppercase; color:#de291e;}
 .portfolio-item a{text-decoration:none; color:whitesmoke}
-.portfolio-item  a:hover{color:orange; background-color:gray;}
+.portfolio-item  a:hover{color:red; background-color:gray;}
 footer {
     margin: 50px 0 0px;
 }

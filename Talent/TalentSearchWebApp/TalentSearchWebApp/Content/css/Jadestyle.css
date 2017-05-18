@@ -42,20 +42,20 @@ header {
 }
 
     .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover, .dropdown-toggle a:hover {
-        color: orange;
+        color: red;
         border-bottom: 2px solid #de291e;
         background-color: rgba(0,0,0,0.5);
     }
 
 .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
     background-color: rgba(0,0,0,0.5);
-    color: orange;
+    color: red;
     text-decoration: none;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
     background-color: rgba(0,0,0,0.5);
-    color: orange;
+    color: red;
 }
 
 .topbar .social {
@@ -92,8 +92,17 @@ header {
     }
 
     .logostyle {
-    height:60%;
-    width:60%;
+        height: 60%;
+        width: 60%;
+    }
+
+    .footerRow {
+        padding-top: 6em;
+    }
+
+    #footer {
+     padding:1.5em 0px;
+    
     }
 }
 
@@ -201,11 +210,10 @@ header {
         }
 
 footer {
-    background: #d3d3d3;
+    background: url(/Images/tback_03.jpg) repeat;
     width: 100%;
     float: left;
     font-size: 13px;
-    color: #150f10;
     padding: 5px 0px;
 }
 
@@ -299,13 +307,18 @@ footer {
         display: block;
     }
 
-.profile-info h3 {
-    color: #de291e;
-}
 
 .profile-info a {
     color: #de291e;
 }
+
+a {
+    color: whitesmoke;
+}
+
+    a:hover {
+        color: black;
+    }
 
 @media (max-width: 768px) {
     .hideImg {
@@ -334,11 +347,17 @@ footer {
     position: fixed;
     left: 0px;
     bottom: 0px;
-    height: 30px;
+    min-height: 30px;
     width: 100%;
-    background: #999;
+    color:whitesmoke;
+    background: url(/Images/tback_03.jpg) repeat;
 }
-
+    #footer a {
+    color:whitesmoke;
+    }
+    #footer a:hover {
+    color:whitesmoke;
+    }
 
 .table td {
     padding-left: 1em!important;
@@ -397,10 +416,57 @@ footer {
 
 .panel {
     color: whitesmoke;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.7);
 }
 
 .row {
     margin-left: 0!important;
     margin-right: 0!important;
 }
+
+.auto-generated-link {
+    color: whitesmoke;
+}
+
+.form-stronglabel {
+    text-align: left;
+}
+
+.profile-info {
+    text-align: left;
+}
+
+.btn {
+    width: auto;
+    min-width: 10em;
+}
+
+.table {
+    margin: 0 0 40px 0;
+    width: 100%;
+    display: table;
+}
+
+    .table th {
+        font-weight: 900;
+        color: #ffffff;
+        background: #ea6153!important;
+    }
+
+    .table tr:nth-child(even) {
+        background: #CCC;
+    }
+
+    .table tr:nth-child(odd) {
+        background: #FFF;
+    }
+
+    .table th {
+        height: 3em;
+    }
+
+    .table th, td {
+        font-size: 0.9em;
+        text-align: left;
+        width: 6%;
+    }

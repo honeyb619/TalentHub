@@ -24,13 +24,14 @@
         <div class="row titlerow">
             <div class="col-xs-12" style="padding: 7px 0;">
                 <input type="button" class="btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Main Category" onclick="AddMainCategories();" />
-                <input type="button" class="btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Sub Category" onclick="AddChildCategories();" />
+                <input type="button" class="btn btn-success" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Sub Category" onclick="AddChildCategories();" />
             </div>
-        </div>
-        <div id="gridArea" class="table">
-            @{  
-                WebGrid grid = new WebGrid(Model);  
-                @grid.GetHtml(
+
+            <div class="col-xs-12">
+                <div id="gridArea" class="table">
+                    @{  
+                        WebGrid grid = new WebGrid(Model);  
+                        @grid.GetHtml(
          tableStyle: "grid",
          fillEmptyRows: false,
          mode: WebGridPagerModes.All,
@@ -46,40 +47,43 @@
          grid.Column("SubCategoryId", header: "Action", canSort:false,  
            
          format: @<text>
-                @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
-                @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
-                </text>  
+                        @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
+                        @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+                        </text>  
         )  
      })  
-            }
+                    }
+                </div>
+            </div>
+
+
         </div>
     </div>
-</div>
-<script>
+    <script>
 
-    function EditCategories(P_ID) {
-        window.location = "/Admin/EditCategories?CategoryId=" + P_ID;
-    }
-
-    function AddMainCategories() {
-        window.location = "/Admin/AddMainCategory";
-    }
-    function AddChildCategories() {
-        window.location = "/Admin/AddChildCategory";
-
-    }
-
-    function DeleteCategories(E_ID) {
-        if (confirm("Are You Sure Delete Selected Category and all associated child records?")) {
-            $.get('/Admin/DeleteCategories?CategoryId=' + E_ID,
-            function (data) {
-                if (data == true)
-                    location = location.href;
-                else
-                    alert("Not delete something Wrong");
-            });
+        function EditCategories(P_ID) {
+            window.location = "/Admin/EditCategories?CategoryId=" + P_ID;
         }
-    }
+
+        function AddMainCategories() {
+            window.location = "/Admin/AddMainCategory";
+        }
+        function AddChildCategories() {
+            window.location = "/Admin/AddChildCategory";
+
+        }
+
+        function DeleteCategories(E_ID) {
+            if (confirm("Are You Sure Delete Selected Category and all associated child records?")) {
+                $.get('/Admin/DeleteCategories?CategoryId=' + E_ID,
+                function (data) {
+                    if (data == true)
+                        location = location.href;
+                    else
+                        alert("Not delete something Wrong");
+                });
+            }
+        }
 
 
-</script>
+    </script>
