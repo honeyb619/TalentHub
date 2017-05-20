@@ -161,11 +161,11 @@
             foreach (var item in Model)
             {
                 if (columnCount == 0)
-                { 
+                {
             @Html.Raw("<div class='row'>");
                 }
                   
-            <div class="col-md-3 portfolio-item">
+            <div class="col-xs-12 col-sm-3 portfolio-item">
                 <a class="img-zoom" href="/Home/Profile?ProfileId=@item.TalentId">
                     <img class="img-responsive" src="~/@item.FilePath" />
                     <h4><strong>@item.Name</strong></h4>
@@ -176,7 +176,10 @@
             @Html.Raw("</div>");
                                columnCount = 0;
                 }
-                columnCount++;
+                else
+                {
+                    columnCount++;
+                }
             }
 
 
