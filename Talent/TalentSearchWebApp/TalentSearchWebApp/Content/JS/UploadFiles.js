@@ -128,14 +128,15 @@ function sendTalent() {
         success: function (data) {
             EnquiryObj = {};
             EnquiryObj["Message"] = data;
+            EnquiryObj["Subject"] = "Registeration Notification";
             sendEnquiry(EnquiryObj).then(function () {
                 console.log("Message Sent Successfully")
             }, function (error) {
-                alert('Please try after some time.');
+             //   alert('Please try after some time.');
             });
         },
         error: function (xhr) {
-            alert('Please try after some time.');
+           // alert('Please try after some time.');
         }
     });
 }
