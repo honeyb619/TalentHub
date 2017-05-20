@@ -1,0 +1,67 @@
+﻿@model TalentSearchWebApp.Models.CustomEmailFormat
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Email Format</title>
+</head>
+<body>
+
+    <table>
+
+        <tr>
+
+            <td>
+
+                <img src="http://jadetalent.co.nz/Images/TalentBack.png" width="80%" height="20%" />
+                <br />
+                <br />
+
+                <div style="border-top: 3px solid #22BCE5"></div>
+
+                <span style="font-family: Arial; font-size: 10pt">Hello <b>Stacey </b>,</span>
+                <br />
+                <br />
+
+                <a style="color: #22BCE5" href="{Url}">Please find below the newly registered candidate.</a><br />
+                <table>
+                    @{
+                        foreach (var profile in Model.candidateList)
+                        {
+                        <tr>
+                            <td>
+                                @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + profile.ProfileId + "'><img src='http://jadetalent.co.nz/Content/Files/Image/" + profile.profilePicPath + "' alternate='" + profile.CandidateName + "' height='100px' width='100px' ");
+                            </td>
+                            <td>
+                                <ul style="list-style:none">
+                                    <li><span>Name : </span><span>@Html.Raw(profile.CandidateName)</span></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        }
+                    }
+                </table>
+                <br />
+                <br />
+
+                Thanks<br />
+                Jade Admin  
+                <br />PO BOX 23-123
+                <br />Mt Wellington, Auckland NZ 1060 
+                <br /><i class="fa-envelope">enquiries@jadetalent.co.nz </i> 
+                <br /><i class="fa-phone">021 1855321</i>
+                
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</body>
+</html>

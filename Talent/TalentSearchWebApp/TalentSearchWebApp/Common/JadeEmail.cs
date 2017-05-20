@@ -55,7 +55,7 @@ namespace TalentSearchWebApp.Common
         {
             MailMessage message = new MailMessage();
             message.From = new MailAddress("info@jadetalent.co.nz");
-            message.To.Add(new MailAddress("stacey@jadetalent.co.nz"));
+            message.To.Add(new MailAddress("honeybansal98@gmail.com"));
             message.Body = messageBody;
             message.IsBodyHtml = true;
             message.Subject = "Selected Profiles";

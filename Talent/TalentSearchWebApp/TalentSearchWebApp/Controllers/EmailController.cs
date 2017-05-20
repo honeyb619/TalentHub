@@ -38,6 +38,12 @@ namespace TalentSearchWebApp.Controllers
             return View(email);
         }
 
+        [HttpPost]
+        public ActionResult NotificationEmailFormat(CustomEmailFormat email)
+        {
+            return View(email);
+        }
+
 
         public ActionResult Index()
         {

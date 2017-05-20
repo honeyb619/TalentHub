@@ -358,6 +358,7 @@
     <Content Include="Views\Email\EnquiryFormEmail.cshtml" />
     <Content Include="Views\Admin\EditTalent.cshtml" />
     <Content Include="Views\Email\ProductionEmailFormat.cshtml" />
+    <Content Include="Views\Email\NotificationEmailFormat.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

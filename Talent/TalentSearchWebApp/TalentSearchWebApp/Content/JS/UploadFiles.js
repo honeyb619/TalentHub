@@ -4,8 +4,11 @@ var filesObj = [];
 var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
 var ValidVideoTypes = ["video/mp4"];
 var profile = localStorage.getItem("profile");
+var enquiryProfile = localStorage.getItem("profile");
 var talentId = "";
 var profileUrl = "";
+var emailEnquiryPic = "";
+var sendEnquiryFlag = false;
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
@@ -95,6 +98,7 @@ function submitFiles() {
                 else {
                     localStorage.clear();
                     window.location = profileUrl;
+
                 }
             },
             error: function (xhr) {
@@ -103,6 +107,57 @@ function submitFiles() {
         })
     }
 }
+
+
+function sendTalent() {
+    var sendProfiles = {};
+    sendProfiles.candidateList = [];
+    var candidate = {};
+    candidate.RegionName = JSON.parse(enquiryProfile).RegionName;
+    candidate.CandidateName = JSON.parse(enquiryProfile).FirstName + " " + JSON.parse(enquiryProfile).LastName;
+    candidate.ProfileId = talentId;
+    candidate.profilePicPath = emailEnquiryPic;
+    sendProfiles.candidateList.push(candidate);
+    return $.ajax({
+        url: '/Email/NotificationEmailFormat',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(sendProfiles),
+        processData: false,
+        cache: false,
+        success: function (data) {
+            EnquiryObj = {};
+            EnquiryObj["Message"] = data;
+            sendEnquiry(EnquiryObj).then(function () {
+                console.log("Message Sent Successfully")
+            }, function (error) {
+                alert('Please try after some time.');
+            });
+        },
+        error: function (xhr) {
+            alert('Please try after some time.');
+        }
+    });
+}
+
+function sendEnquiry(messageObj) {
+    return $.ajax({
+        url: '/Admin/SendEmail',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(messageObj),
+        processData: false,
+        cache: false,
+        success: function (data) {
+
+        },
+        error: function (xhr) {
+        }
+    });
+
+}
+
+
 
 function insertFilePath(response) {
     for (var i = 0; i < filesObj.length; i++) {
@@ -125,6 +180,9 @@ function insertFilePath(response) {
             media.MimeType = filesObj[i].File.type;
             media.isProfilePic = filesObj[i].isProfilePic ? filesObj[i].isProfilePic : false;
             media.MediaName = filesObj[i].File.name;
+            if (media.isProfilePic) {
+                emailEnquiryPic = media.MediaPath.split('/').pop();
+            }
             filesObj[i].isProcessed = true;
             $.ajax({
                 type: "POST",
@@ -133,13 +191,22 @@ function insertFilePath(response) {
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function (data, textStatus, jQxhr) {
-                    for (var i = 0; i < filesObj.length; i++) {
-                        if (!filesObj[i].isProcessed) {
-                            return;
-                        }
+                    var goflag = Enumerable.From(filesObj).Where(function (fileObj) {
+                        return !fileObj.isProcessed;
+                    }).ToArray();
+
+                    if (goflag.length == 0 && !sendEnquiryFlag) {
+                        sendEnquiryFlag = true;
                         localStorage.clear();
-                        window.location = profileUrl;
+                        sendTalent().then(function (response) {
+                            window.location = profileUrl;
+                        }, function (error) {
+                            sendEnquiryFlag = false;
+                            window.location = profileUrl;
+                        });
                     }
+                    else
+                        return;
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     console.log(errorThrown);
