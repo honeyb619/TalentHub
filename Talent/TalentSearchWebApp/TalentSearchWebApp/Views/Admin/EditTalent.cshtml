@@ -57,7 +57,7 @@
                                                 </div>
 
 
-                                                <div class="col-xs-12 col-sm-4 form-group">
+                                                <div class="col-xs-12 col-sm-6 form-group">
                                                     <label for="RegionField">Region</label>
                                                     @Html.DropDownListFor(model => model.RegionId, new SelectList(Model.RegionEntities, "RegionId", "RegionName"), "--Please Select--",
                                                                     new { @id = "RegionField", @name = "RegionField", @class = "form-control no-selection", @tabindex = "11", required = "" })

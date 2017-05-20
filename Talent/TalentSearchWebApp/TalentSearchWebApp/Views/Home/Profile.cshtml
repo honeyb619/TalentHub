@@ -208,7 +208,7 @@
                 }
 
             </div>*@
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-5">
                 <section class="jk-slider">
                     <div id="carousel-example" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -260,28 +260,30 @@
                                     }
                                 }
                             }
+                            @*<a class="left carousel-control" href="#carousel-example" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>*@
                         </div>
 
-                        <a class="left carousel-control" href="#carousel-example" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
+
                     </div>
                 </section>
             </div>
 
-            <div class="col-xs-12 col-sm-6 text-center personal-info">
-                <div id="talent-info" class="panel panel-default">
-                    <div class="tabs panel-heading" style="text-align: left;">
-                        <a class="tab panel-title" data-target="profile" href="#" title="profile">Profile</a>
-                        <a class="tab panel-title" data-target="skills" href="#" title="career">Skills</a>
+            <div class="col-xs-12 col-sm-7 text-center personal-info">
+                <div id="talent-info" class="panel panel-default card">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a class="tab panel-title" role="tab" data-toggle="tab" data-target="profile" href="#" title="profile">Profile</a></li>
+                        <li role="presentation"><a class="tab panel-title" data-target="skills" href="#" title="career" role="tab" data-toggle="tab">Skills</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="tab" data-target="Contact" href="#" title="career">Contact</a>
+                            <li role="presentation"><a class="tab" data-target="Contact" href="#" title="career" role="tab" data-toggle="tab">Contact</a></li>
                         }
-                    </div>
+                    </ul>
+
                     <div id="profile" class="tabdiv panel-body" style="display: block;">
                         <div class="row">
                             <div class="col-xs-12">
