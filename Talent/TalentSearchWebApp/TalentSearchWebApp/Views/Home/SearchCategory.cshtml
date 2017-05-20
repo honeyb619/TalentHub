@@ -166,20 +166,17 @@
                 }
                   
             <div class="col-md-3 portfolio-item">
-                <a class="" href="/Home/Profile?ProfileId=@item.TalentId">
-                    <div style="min-height: 17em;">
-                        <img class="rig-img img-responsive" src="~/@item.FilePath" />
-
-                    </div>
-                    <h3 style="text-align: center;">@item.Name</h3>
-                    <span class="img-responsive"></span>
+                <a class="img-zoom" href="/Home/Profile?ProfileId=@item.TalentId">
+                    <img class="img-responsive" src="~/@item.FilePath" />
+                    <h4><strong>@item.Name</strong></h4>
                 </a>
             </div>
-                if (columnCount == 2)
+                if (columnCount == 3)
                 {
             @Html.Raw("</div>");
                                columnCount = 0;
                 }
+                columnCount++;
             }
 
 
@@ -195,3 +192,10 @@
         }
     </div>
 </div>
+<script>
+    $('.img-zoom').hover(function () {
+        $(this).addClass('transition');
+    }, function () {
+        $(this).removeClass('transition');
+    });
+</script>
