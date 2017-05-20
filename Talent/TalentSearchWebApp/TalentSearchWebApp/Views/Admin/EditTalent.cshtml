@@ -46,45 +46,16 @@
 
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="AlternateEmailField">Alternate Email</label>
-                                                    <input type="email" class="form-control" id="AlternateEmailField" placeholder="Alternate Email" required spellcheck="false" value="" maxlength="255" tabindex="4">
-                                                </div>
-
-
-                                                <div class="col-xs-12 col-sm-6 form-group">
                                                     <label for="MobileField">Mobile</label>
                                                     <input type="text" class="form-control" id="MobileField" placeholder="Mobile Number" required tabindex="5" type="text" maxlength="255" value="">
                                                 </div>
 
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="PhoneField">Phone Number</label>
+                                                    <label for="PhoneField">Alternate Number</label>
                                                     <input type="text" class="form-control" id="PhoneField" placeholder="Phone Number" tabindex="6" maxlength="255" value="">
                                                 </div>
 
-
-                                                <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="EmergencyNameField">Emergency Name</label>
-                                                    <input type="text" class="form-control" id="EmergencyNameField" placeholder="Emergency Name" required value="" maxlength="15" tabindex="7">
-                                                </div>
-
-
-                                                <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="EmergencyNumberField">Emergency Number</label>
-                                                    <input type="text" class="form-control" id="EmergencyNumberField" placeholder="Emergency Number" required value="" maxlength="15" tabindex="8">
-                                                </div>
-
-
-                                                <div class="col-xs-12 col-sm-4 form-group">
-                                                    <label for="PostalField">Postal Code</label>
-                                                    <input type="text" class="form-control" id="PostalField" placeholder="Postal" required value="" maxlength="15" tabindex="9">
-                                                </div>
-
-
-                                                <div class="col-xs-12 col-sm-4 form-group">
-                                                    <label for="NationalityField">Nationality</label>
-                                                    <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="10">
-                                                </div>
 
                                                 <div class="col-xs-12 col-sm-4 form-group">
                                                     <label for="RegionField">Region</label>
@@ -119,21 +90,21 @@
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="HeightField">Height</label>
+                                                    <label for="HeightField">Height (cms)</label>
                                                     <input type="text" class="form-control" id="HeightField" placeholder="Height" required value="" size="8" tabindex="14">
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="ChestSizeField">Chest/Bust Size</label>
+                                                    <label for="ChestSizeField">Chest/Bust Size (cms)</label>
                                                     <input type="text" class="form-control" id="ChestSizeField" placeholder="Chest/Bust Size" required value="" size="14" tabindex="15">
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="WaistField">Waist</label>
+                                                    <label for="WaistField">Waist (cms)</label>
                                                     <input type="text" class="form-control" id="WaistField" placeholder="Waist" required value="" size="14" tabindex="16">
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="HipSizeField">Hip Size</label>
+                                                    <label for="HipSizeField">Hip Size (cms)</label>
                                                     <input type="text" class="form-control" id="HipSizeField" placeholder="Hip Size" required value="" size="14" tabindex="17">
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6 form-group">
@@ -146,96 +117,77 @@
                                                     <input type="text" class="form-control" id="HairColorField" placeholder="Hair Color" required value="" size="14" tabindex="19">
                                                 </div>
 
-                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                <div class="col-xs-12 col-sm-6 form-group">
                                                     <label for="HobbiesField">Hobbies</label>
-                                                    <textarea class="form-control" id="HobbiesField" placeholder="Hobbies" required name="HobbiesField" tabindex="20"></textarea>
+                                                    <textarea class="form-control" id="HobbiesField" placeholder="Hobbies" style="height: 8em;" required name="HobbiesField" tabindex="20"></textarea>
                                                 </div>
 
-                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                <div class="col-xs-12 col-sm-6 form-group">
                                                     <label for="AccentField">Accents/ Language</label>
                                                     @Html.DropDownListFor(model => model.LanguageIds, new MultiSelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Language"), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                                                 new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "AccentField", @name = "AccentField", @class = "form-control multiselect", @tabindex = "21", required = "" })
+                                                                                                                 new { multiple = "multiple", @size = "5", @style = "height: 8em;", @id = "AccentField", @name = "AccentField", @class = "form-control multiselect", @tabindex = "21", required = "" })
 
                                                 </div>
-
-                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                <div class="col-xs-12 col-sm-6 form-group">
                                                     <label for="EthicityField">Ethicity</label>
                                                     <input type="text" class="form-control" id="EthicityField" placeholder="Eithicity">
                                                 </div>
 
+                                                <div class="col-xs-12 col-sm-6 form-group">
+                                                    <label for="NationalityField">Nationality</label>
+                                                    <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="10">
+                                                </div>
 
+                                                <div class="col-xs-12 col-sm-6 form-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">Talent 1</h3>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                                    <label for="skill1NameField">Area Of Expertise</label>
 
-
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Talent 1</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill1NameField">Area Of Expertise</label>
-
-                                                    @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                    @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
                                                                                       new { @id = "skill1NameField", @name = "skill1NameField", @class = "form-control", @tabindex = "26", required = "" })
 
 
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                                    <label for="skill1DescField">Share Your Experience</label>
+                                                                    <textarea class="form-control" id="skill1DescField" placeholder="Share your Experiences" tabindex="27"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill1DescField">Share Your Experience</label>
-                                                    <textarea class="form-control" id="skill1DescField" placeholder="Share your Experiences" required tabindex="27"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <div class="col-xs-12 col-sm-6 form-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">Talent 2</h3>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                                    <label for="skill2NameField">Area Of Expertise</label>
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Talent 2</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill2NameField">Area Of Expertise</label>
-
-                                                    @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
+                                                                    @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
                                                                                       new { @id = "skill2NameField", @name = "skill2NameField", @class = "form-control", @tabindex = "28" })
 
 
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-12 form-group">
+                                                                    <label for="skill2DescField">Share Your Experience</label>
+                                                                    <textarea class="form-control" id="skill2DescField" placeholder="Share your Experiences" tabindex="29"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill2DescField">Share Your Experience</label>
-                                                    <textarea class="form-control" id="skill2DescField" placeholder="Share your Experiences" tabindex="29"></textarea>
-                                                </div>
+
+
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Talent 3</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill3NameField">Area Of Expertise</label>
-
-                                                    @Html.DropDownListFor(model => model.Skills, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "Category" && x.ParentId != null), "SubCategoryId", "SubCategoryValue"), "--Please Select--",
-                                                                                      new { @id = "skill3NameField", @name = "skill3NameField", @class = "form-control", @tabindex = "30" })
-
-
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 form-group">
-                                                    <label for="skill3DescField">Share Your Experience</label>
-                                                    <textarea class="form-control" id="skill3DescField" placeholder="Share your Experiences" tabindex="31"></textarea>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 

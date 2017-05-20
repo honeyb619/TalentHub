@@ -48,7 +48,7 @@ function SubmitTalent() {
         }
     }
     else {
-        objVmInsertTalent.IsPublic = true;
+        objVmInsertTalent.IsPublic = false;
     }
 
 

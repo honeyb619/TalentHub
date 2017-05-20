@@ -71,5 +71,44 @@ namespace DataModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTalentsForJob_Result>("usp_GetTalentsForJob", jobIdParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> JobTalentAssociationFromXML(string updateXmlData, Nullable<long> userId)
+        {
+            var updateXmlDataParameter = updateXmlData != null ?
+                new ObjectParameter("UpdateXmlData", updateXmlData) :
+                new ObjectParameter("UpdateXmlData", typeof(string));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("JobTalentAssociationFromXML", updateXmlDataParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> UpdateJobFromXML(string updateXmlData, Nullable<long> userId)
+        {
+            var updateXmlDataParameter = updateXmlData != null ?
+                new ObjectParameter("UpdateXmlData", updateXmlData) :
+                new ObjectParameter("UpdateXmlData", typeof(string));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateJobFromXML", updateXmlDataParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> usp_DeleteTalent(Nullable<long> talentId, Nullable<long> userId)
+        {
+            var talentIdParameter = talentId.HasValue ?
+                new ObjectParameter("TalentId", talentId) :
+                new ObjectParameter("TalentId", typeof(long));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_DeleteTalent", talentIdParameter, userIdParameter);
+        }
     }
 }

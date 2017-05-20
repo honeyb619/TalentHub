@@ -334,7 +334,7 @@
           <Property Name="Acsent" Type="bigint" />
           <Property Name="Mobile" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="PostalAddress" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="PostalAddress" Type="varchar" MaxLength="1000" />
           <Property Name="RegionId" Type="bigint" Nullable="false" />
           <Property Name="EmergencyName" Type="varchar" MaxLength="200" />
           <Property Name="EmergencyNumber" Type="varchar" MaxLength="50" />
@@ -686,13 +686,25 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="GetJobs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="JobTalentAssociationFromXML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UpdateXmlData" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="UserId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="Proc_InsertErrorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UpdateJobFromXML" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UpdateXmlData" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="UserId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="usp_DeleteJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobId" Type="bigint" Mode="In" />
           <Parameter Name="UserId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="usp_DeleteProductionCompany" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProductionCompanyId" Type="bigint" Mode="In" />
+          <Parameter Name="UserId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteTalent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TalentId" Type="bigint" Mode="In" />
           <Parameter Name="UserId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="usp_GetPublicTalent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -833,7 +845,19 @@
           <EntitySet Name="ErrorTracers" EntityType="TalentSearchModel.ErrorTracer" />
           <FunctionImport Name="Proc_InsertErrorDetails" />
           <FunctionImport Name="usp_GetTalentsForJob" ReturnType="Collection(TalentSearchModel.usp_GetTalentsForJob_Result)">
-            <Parameter Name="JobId" Mode="In" Type="Int64" />
+          <Parameter Name="JobId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="JobTalentAssociationFromXML" ReturnType="Collection(Int32)">
+            <Parameter Name="UpdateXmlData" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateJobFromXML" ReturnType="Collection(Int32)">
+            <Parameter Name="UpdateXmlData" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteTalent" ReturnType="Collection(Int32)">
+            <Parameter Name="TalentId" Mode="In" Type="Int64" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_GetPublicTalent_Result">
@@ -1075,7 +1099,7 @@
           <Property Type="Int64" Name="Acsent" />
           <Property Type="String" Name="Mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PostalAddress" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PostalAddress" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="Int64" Name="RegionId" Nullable="false" />
           <Property Type="String" Name="EmergencyName" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="EmergencyNumber" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1749,6 +1773,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="JobTalentAssociationFromXML" FunctionName="TalentSearchModel.Store.JobTalentAssociationFromXML" />
+          <FunctionImportMapping FunctionImportName="UpdateJobFromXML" FunctionName="TalentSearchModel.Store.UpdateJobFromXML" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteTalent" FunctionName="TalentSearchModel.Store.usp_DeleteTalent" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -274,7 +274,7 @@
 
             <div class="col-xs-12 col-sm-6 text-center personal-info">
                 <div id="talent-info" class="panel panel-default">
-                    <div class="tabs panel-heading" style="text-align:left;">
+                    <div class="tabs panel-heading" style="text-align: left;">
                         <a class="tab panel-title" data-target="profile" href="#" title="profile">Profile</a>
                         <a class="tab panel-title" data-target="skills" href="#" title="career">Skills</a>
                         @if (User.Identity.IsAuthenticated)
@@ -406,18 +406,20 @@
                                     <h3>@Html.Raw(element.MainSkil)</h3>
                                     @if (element.Skills != null)
                                     {
-                                       
+
                                         foreach (var childelement in element.Skills)
                                         {
                                
-<p>@Html.Raw(childelement.SkillName)
-                                            </p>
-                                        
-<p>Description :  @Html.Raw(childelement.Description ?? "")
+                                        <p>@Html.Raw(childelement.SkillName)
                                         </p>
-                                        
-    
-                            
+                                            if (!string.IsNullOrEmpty(childelement.Description))
+                                            {
+                                        <p>
+                                            Description :  @Html.Raw(childelement.Description ?? "")
+                                        </p>
+                                            }
+
+
                                         }
                                     }
                                 </div>
@@ -495,16 +497,6 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayNameFor(model => model.AlternateEmailId)
-                                            </div>
-                                            <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayFor(model => model.AlternateEmailId)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-xs-12">
-                                            <div class="form-stronglabel col-xs-6">
                                                 @Html.DisplayNameFor(model => model.Mobile)
                                             </div>
                                             <div class="form-stronglabel col-xs-6">
@@ -515,30 +507,10 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-xs-12">
                                             <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayNameFor(model => model.Phone)
+                                                Alternate Number
                                             </div>
                                             <div class="form-stronglabel col-xs-6">
                                                 @Html.DisplayFor(model => model.Phone)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-xs-12">
-                                            <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayNameFor(model => model.EmergencyName)
-                                            </div>
-                                            <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayFor(model => model.EmergencyName)
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-xs-12">
-                                            <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayNameFor(model => model.EmergencyNumber)
-                                            </div>
-                                            <div class="form-stronglabel col-xs-6">
-                                                @Html.DisplayFor(model => model.EmergencyNumber)
                                             </div>
                                         </div>
                                     </div>
