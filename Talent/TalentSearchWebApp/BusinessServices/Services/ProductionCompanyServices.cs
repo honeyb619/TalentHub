@@ -74,12 +74,17 @@ namespace BusinessServices.Services
             }
 
                 var products = _unitOfWork.ProductionCompanyRepository.GetManyQueryable(null)
-                    .Where(strWhere)
                     .OrderBy(strSort)
                     .Skip((page - 1) * objProductionCompanyList.PageSize).Take(objProductionCompanyList.PageSize)
                     .ToList();
+                products = products.Where(product => product.IsDeleted == false).ToList();
 
-                objProductionCompanyList.TotalRecord = _unitOfWork.ProductionCompanyRepository.DynamicQuery().Where(strWhere).Count();
+                if (productEntity != null && productEntity.ProductionCompanyName!=null)
+                {
+                    products = products.Where(product => product.ProductionCompanyName.ToLower().Contains(productEntity.ProductionCompanyName.ToLower())).ToList();
+                }
+
+                objProductionCompanyList.TotalRecord = products.Count();
                 objProductionCompanyList.NoOfPages = (objProductionCompanyList.TotalRecord / objProductionCompanyList.PageSize)
                                                         + ((objProductionCompanyList.TotalRecord % objProductionCompanyList.PageSize) > 0 ? 1 : 0);
 

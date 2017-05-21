@@ -101,10 +101,22 @@ namespace BusinessServices.Services
             }
 
             var jobs = _unitOfWork.JobRepository.GetManyQueryable(null)
-                    .Where(strWhere)
+                    .Where(job=>job.IsDeleted==false)
                     .OrderBy(strSort)
                     .Skip((page - 1) * objGridVmJobsList.PageSize).Take(objGridVmJobsList.PageSize)
                     .ToList();
+
+            if (jobEntity != null) {
+                if (jobEntity.JobName != null) {
+                    jobs = jobs.Where(job => job.JobName.ToLower().Contains(jobEntity.JobName.ToLower())).ToList();
+                }
+
+                if (jobEntity.ProductionCompanyName != null)
+                {
+                    jobs = jobs.Where(job => job.ProductionCompany.ProductionCompanyName.ToLower().Contains(jobEntity.ProductionCompanyName.ToLower())).ToList();
+                }
+
+            }
 
             objGridVmJobsList.TotalRecord = _unitOfWork.JobRepository.DynamicQuery().Where(strWhere).Count();
             objGridVmJobsList.NoOfPages = (objGridVmJobsList.TotalRecord / objGridVmJobsList.PageSize)

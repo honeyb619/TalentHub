@@ -113,8 +113,8 @@ function QueryStringToJSON(list, params) {
 function SearchJob() {
 
     var jobEntitiy = {};
-    jobEntitiy.ProductionCompanyName = $("#txt").val();
-
+    jobEntitiy.ProductionCompanyName = $("#Productiontxt").val();
+    jobEntitiy.JobName = $("#Jobtxt").val();
     $.ajax({
         url: '/Admin/GetJobsData?_=' + new Date().getTime(),
         datatype: "html",
