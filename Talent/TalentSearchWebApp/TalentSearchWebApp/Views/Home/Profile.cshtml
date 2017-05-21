@@ -146,11 +146,6 @@
             margin-top: 26px;
         }
 
-    .row {
-        padding-bottom: 1em;
-    }
-
-
     a.tab.active {
         color: black;
     }
@@ -172,42 +167,6 @@
 <div class="content">
     <div class="container">
         <div class="row">
-            @* <div class="col-xs-12 col-sm-6  text-center hideImg">
-                <div id="demo" style="border: 2px solid gray">
-                    @{
-                        
-                        if (Model != null)
-                        {
-                            foreach (var element in Model.vmMedias)
-                            {
-                                if (element.MediaType == "Image")
-                                {
-                        @Html.Raw("<img src='" + element.MediaPath + "' alt='" + element.MediaName + "' />");
-                                }
-                            }
-                        }
-                    }
-
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-xs-12 text-center showImg" style="display: none;">
-                @{
-                        
-                    if (Model != null)
-                    {
-                        foreach (var element in Model.vmMedias)
-                        {
-                            if (element.MediaType == "Image")
-                            {
-                    @Html.Raw("<img src='" + element.MediaPath + "' alt='" + element.MediaName + "' class='img-circle' />");
-                                                                                                                           break;
-                            }
-                        }
-                    }
-                }
-
-            </div>*@
             <div class="col-xs-12 col-sm-5">
                 <section class="jk-slider">
                     <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -273,7 +232,7 @@
                 </section>
             </div>
 
-            <div class="col-xs-12 col-sm-7 text-center personal-info">
+            <div class="col-xs-12 col-sm-5 text-center personal-info">
                 <div id="talent-info" class="panel panel-default card">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a class="tab panel-title" role="tab" data-toggle="tab" data-target="profile" href="#" title="profile">Profile</a></li>
@@ -521,6 +480,8 @@
                         </div>
                     }
                 </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
             </div>
         </div>
     </div>

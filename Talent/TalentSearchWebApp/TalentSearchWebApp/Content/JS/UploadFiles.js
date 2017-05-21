@@ -61,6 +61,7 @@ function handleFileSelect(e) {
 
 function submitFiles() {
     if (profile) {
+        $('.submit').button('loading');
         var url = "/Home/RegisterTalent";
         if (JSON.parse(profile).TalentId) {
             url = "/Admin/UpdateTalent";
@@ -132,11 +133,11 @@ function sendTalent() {
             sendEnquiry(EnquiryObj).then(function () {
                 console.log("Message Sent Successfully")
             }, function (error) {
-             //   alert('Please try after some time.');
+                //   alert('Please try after some time.');
             });
         },
         error: function (xhr) {
-           // alert('Please try after some time.');
+            // alert('Please try after some time.');
         }
     });
 }
