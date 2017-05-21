@@ -404,40 +404,7 @@
                                 }
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-12 profile-info">
 
-
-                                @{
-              
-       
-                                    if (Model != null)
-                                    {
-                                        if (Model.vmMedias.Where(x => x.MediaType == "Video").Count() > 0)
-                                        {
-                                    <h3 style="color: orange">Videos</h3>
-                                            foreach (var element in Model.vmMedias)
-                                            {
-                                                if (element.MediaType == "Video")
-                                                {
-                       
-                                    @Html.Raw("<button onclick=Openpop('myModal" + element.MediaId + "') class='modalbtn'>" + element.MediaName + "</button><br/><br/>")
-                      
-                                    @Html.Raw("<div id='myModal" + element.MediaId + "' class='modal'>")
-                                    <div class="modal-content">
-                                        @Html.Raw("<button class='close' onclick=closepop('" + element.MediaId + "')>&times;</button>")
-                                        @Html.Raw("<video autoplay id='v" + element.MediaId + "' height='80%' width='80%' loop controls>  <source src='" + element.MediaPath + "' type='video/mp4'></video>")
-
-                                    </div>
-                                    @Html.Raw("</div>")
-                       
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            </div>
-                        </div>
                     </div>
 
                     @if (User.Identity.IsAuthenticated)
@@ -479,6 +446,51 @@
                             </div>
                         </div>
                     }
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Videos</h3>
+                    </div>
+                    <div class="tabdiv panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 profile-info">
+
+
+                                @{
+              
+       
+                                    if (Model != null)
+                                    {
+                                        if (Model.vmMedias.Where(x => x.MediaType == "Video").Count() > 0)
+                                        {
+                                            foreach (var element in Model.vmMedias)
+                                            {
+                                                if (element.MediaType == "Video")
+                                                {
+                       
+                                    <div class="video-thumbnail">
+                                        @Html.Raw("<button onclick=Openpop('myModal" + element.MediaId + "') class='glyphicon glyphicon-play'></button><br/><br/>")
+                                        <div style="background-color:whitesmoke;height:15em;" alt="Profile Video" class="img-thumbnail img-responsive center-block" />
+                                    </div>
+                                                    
+                                    @Html.Raw("<span>" + element.MediaName + "</span><br/><br/>")
+                      
+                                    @Html.Raw("<div id='myModal" + element.MediaId + "' class='modal' style='background-color: rgba(0,0,0,0.7);'>")
+                                    <div class="modal-content">
+                                        @Html.Raw("<button class='close' onclick=closepop('" + element.MediaId + "')>&times;</button>")
+                                        @Html.Raw("<video id='v" + element.MediaId + "' height='100%' width='100%' loop controls>  <source src='" + element.MediaPath + "' type='video/mp4'></video>")
+
+                                    </div>
+                                    @Html.Raw("</div>")
+                       
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-2">

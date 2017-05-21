@@ -92,6 +92,7 @@ header {
 
 .carousel-indicators {
     left: 10em;
+    z-index:1;
 }
 
 @media (max-width: 767px) {
@@ -529,4 +530,24 @@ a {
         background-color: #c91409;
         border: 1px solid #c91409;
         color: #ffffff;
+    }
+
+.video-thumbnail {
+    position: relative;
+}
+
+    .video-thumbnail .glyphicon {
+        position: absolute;
+        top: 50%;
+        margin-top: -40px; /* half icon's height */
+        left: 50%;
+        margin-left: -40px; /* half icon's width */
+        font-size: 40px;
+        transition: all .25s;
+        opacity: .75;
+        background-color:black;
+    }
+
+    .video-thumbnail:hover .glyphicon {
+        opacity: 1;
     }
