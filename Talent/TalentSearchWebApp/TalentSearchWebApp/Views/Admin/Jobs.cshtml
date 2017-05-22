@@ -21,6 +21,18 @@
             display: none;
             color: red;
         }
+
+        .ui-dialog-titlebar-close {
+            display: none;
+        }
+
+        .ui-dialog-titlebar {
+        background-color:#ea6153!important;
+        color:whitesmoke;
+        }
+
+        
+
     </style>  
 }
 <div class="page-title">
@@ -39,8 +51,8 @@
 
             <div class="col-sm-6 col-xs-12">
                 <div class="input-group stylish-input-group">
-                    <input type="text" id="Productiontxt" class="form-control" style="width: 40%;margin-left:1em;" placeholder="Enter Company Name" />
-                    <input type="text" id="Jobtxt" class="form-control" style="width: 40%;margin-left:1em;" placeholder="Enter Job Title" />
+                    <input type="text" id="Productiontxt" class="form-control" style="width: 40%; margin-left: 1em;" placeholder="Enter Company Name" />
+                    <input type="text" id="Jobtxt" class="form-control" style="width: 40%; margin-left: 1em;" placeholder="Enter Job Title" />
                     <span class="input-group-addon">
                         <a href="#" onclick='return SearchJob()'>GO
                         </a>
@@ -62,29 +74,29 @@
         </div>
 
         <!-- ui-dialog -->
-     @*   <div id="dialog" title="Assign Talent">
+        <div id="dialog" title="Assign Talent">
             <div>
                 <table cellpadding="4" cellspacing="4" width="90%" align="center" style="border: solid 2px gray;">
                     <tr>
                         <td align="center">
-                            <select id="list1" size="7" multiple>
+                            <select id="list1" size="7" style="width: 100%;" multiple>
                             </select>
                         </td>
-                        <td align="center" style="vertical-align: middle">
-                            <input type="button" id="btnAdd" value=">" /><br />
-                            <input type="button" id="btnAddAll" value=">>" /><br />
-                            <input type="button" id="btnRemove" value="<" /><br />
-                            <input type="button" id="btnRemoveAll" value="<<" />
+                        <td style="vertical-align: middle; text-align: center">
+                            <input type="button" style="min-width: 5em;" id="btnAdd" value=">" /><br />
+                            <input type="button" style="min-width: 5em;" id="btnAddAll" value=">>" /><br />
+                            <input type="button" style="min-width: 5em;" id="btnRemove" value="<" /><br />
+                            <input type="button" style="min-width: 5em;" id="btnRemoveAll" value="<<" />
                         </td>
                         <td align="center">
-                            <select id="list2" size="7" multiple>
+                            <select id="list2" size="7" style="width: 100%;" multiple>
                             </select>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div style="overflow: auto; height: 250px">
-                <table id="tblAssignedTalents">
+            <div style="overflow: auto; height: 250px; margin-top: 2em;">
+                <table id="tblAssignedTalents" class="table">
                     <thead>
                         <tr>
                             <th>Name
@@ -106,7 +118,7 @@
             </div>
             <div style="clear: both">
             </div>
-        </div>*@
+        </div>
         <div id="gridArea" class="table">
             @{Html.RenderAction("GetJobsData", "Admin");}
         </div>
