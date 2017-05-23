@@ -1,11 +1,16 @@
 ﻿@model  BusinessEntities.GridVm.GridVmJobsList
             @{
                 var grid = new WebGrid(rowsPerPage: Model.PageSize);
-                grid.Bind(Model.ListJobEntity, autoSortAndPage: false,  rowCount: Model.TotalRecord);
+                grid.Bind(Model.ListJobEntity, autoSortAndPage: true,  rowCount: Model.TotalRecord);
             }
  
                 @grid.GetHtml(
                 tableStyle:"gridtable",
+                 mode: WebGridPagerModes.All,
+                 firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
                 columns: new[] {  
                 grid.Column("JobName",header: "Job Title"),  
                 grid.Column("ProductionCompanyName",header: "Company Name"),  

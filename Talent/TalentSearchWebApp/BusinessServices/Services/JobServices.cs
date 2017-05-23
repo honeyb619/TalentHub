@@ -102,8 +102,6 @@ namespace BusinessServices.Services
 
             var jobs = _unitOfWork.JobRepository.GetManyQueryable(null)
                     .Where(job=>job.IsDeleted==false)
-                    .OrderBy(strSort)
-                    .Skip((page - 1) * objGridVmJobsList.PageSize).Take(objGridVmJobsList.PageSize)
                     .ToList();
 
             if (jobEntity != null) {

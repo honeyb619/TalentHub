@@ -49,10 +49,10 @@ namespace BusinessServices.Services
         /// Fetches all the production companies.
         /// </summary>
         /// <returns></returns>
-        public GridVmProductionCompanyList GetAllProducts(int page, string sort, string sortdir, ProductionCompanyEntitiy productEntity)
+        public GridVmProductionCompanyList GetAllProducts(int page=1, string sort="", string sortdir="", ProductionCompanyEntitiy productEntity=null)
         {
             GridVmProductionCompanyList objProductionCompanyList = new GridVmProductionCompanyList();
-            objProductionCompanyList.PageSize = 3;
+            objProductionCompanyList.PageSize = 10;
             string strWhere = "IsDeleted = false";
             string strSort = string.Empty;
 
@@ -74,8 +74,6 @@ namespace BusinessServices.Services
             }
 
                 var products = _unitOfWork.ProductionCompanyRepository.GetManyQueryable(null)
-                    .OrderBy(strSort)
-                    .Skip((page - 1) * objProductionCompanyList.PageSize).Take(objProductionCompanyList.PageSize)
                     .ToList();
                 products = products.Where(product => product.IsDeleted == false).ToList();
 

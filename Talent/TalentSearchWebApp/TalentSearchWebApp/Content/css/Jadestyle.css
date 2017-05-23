@@ -555,3 +555,7 @@ a {
     .video-thumbnail:hover .glyphicon {
         opacity: 1;
     }
+
+tfoot a {
+color:black;
+}

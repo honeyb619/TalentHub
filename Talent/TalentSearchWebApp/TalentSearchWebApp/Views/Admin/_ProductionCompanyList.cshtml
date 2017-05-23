@@ -1,10 +1,15 @@
 ﻿@model  BusinessEntities.GridVm.GridVmProductionCompanyList
-            @{
-                var grid = new WebGrid(rowsPerPage: Model.PageSize);
-                grid.Bind(Model.ListProductionCompanyEntitiy, autoSortAndPage: false,  rowCount: Model.TotalRecord);
-            }
-                @grid.GetHtml(
-                tableStyle:"gridtable",
+@{
+    var grid = new WebGrid(rowsPerPage: Model.PageSize);
+    grid.Bind(Model.ListProductionCompanyEntitiy, autoSortAndPage: true, rowCount: Model.TotalRecord);
+}
+@grid.GetHtml(
+                tableStyle: "gridtable",
+                  mode: WebGridPagerModes.All,
+                 firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
                 columns: new[] {  
          grid.Column("ProductionCompanyName",header: "Name"),  
          grid.Column("ContactPerson",header: "Contact Person"),  
@@ -15,12 +20,11 @@
           grid.Column("ProductionCompanyId", header: "Action", canSort:false,  
            
          format: @<text>
-            @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
-            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
-            </text>  
+@Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
+@Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteProductionCompany(" + item.ProductionCompanyId + ")' ></i>")
+</text>  
         )  
                 }
                         )
- 
-        
-            
+
+
