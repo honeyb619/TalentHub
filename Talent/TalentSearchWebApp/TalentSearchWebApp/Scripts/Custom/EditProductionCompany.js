@@ -24,6 +24,7 @@
             if (data == 0) { location = location.href; }
             else {
                 alert("Production Company Updated successfull");
+                window.location = "/Admin/ProductionCompany";
             }
         }, 'json');
 }

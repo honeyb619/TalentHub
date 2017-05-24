@@ -14,6 +14,7 @@ function Success(data) {
     }
     else if (data == true) {
         alert("Job Updated Successfully.");
+        window.location = "/Admin/Jobs";
     } 
     else {
         alert("Something went wrong. Try after some time!");

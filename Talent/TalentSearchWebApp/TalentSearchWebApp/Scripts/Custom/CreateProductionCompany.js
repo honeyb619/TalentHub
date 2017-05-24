@@ -23,6 +23,7 @@
             if (data == 0) { location = location.href; }
             else {
                 alert("Production Company Created successfull");
+                window.location = "/Admin/ProductionCompany";
             }
         }, 'json');
 }
