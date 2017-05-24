@@ -66,9 +66,18 @@ namespace BusinessServices.Services
             return media.MediaId;
         }
 
-        public bool UpdateMedia(long mediaId, MediaEntity talentEntity)
+        public bool UpdateMedia(VmMedias mediaModel)
         {
-            throw new NotImplementedException();
+            var mediaEntity = _unitOfWork.MediaRepository.GetMany(x => x.MediaId == mediaModel.MediaId).FirstOrDefault();
+
+            mediaEntity.FilePath = mediaModel.MediaPath;
+            mediaEntity.IsProfilePic = mediaModel.isProfilePic;
+            mediaEntity.FileName = mediaModel.MediaName;
+            mediaEntity.ModifiedDate = DateTime.UtcNow;
+
+            _unitOfWork.MediaRepository.Update(mediaEntity);
+            _unitOfWork.Save();
+            return true;
         }
 
         public bool DeleteMedia(long mediaId)

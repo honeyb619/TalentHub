@@ -150,6 +150,18 @@ namespace JADE_TALENT.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult UpdateTalentMedia(VmMedias media)
+        {
+            IMediaServices mediaservice = new MediaServices();
+            var mediaId = mediaservice.UpdateMedia(media);
+            if (mediaId)
+                return Json("Media Updated Successfully");
+            else
+                return Json("Media Not Updated.");
+        }
+
+
         public ActionResult MessagePage(string messageKey)
         {
             var message = TalentSearchWebApp.Resources.JadeTalentResource.ResourceManager.GetString(messageKey);

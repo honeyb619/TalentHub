@@ -109,7 +109,8 @@ function submitFiles() {
                 }
                 else {
                     localStorage.clear();
-                    window.location = profileUrl;
+                    checkProfilePic().then(function (response) { window.location = profileUrl; }
+                                  , function (error) { });
 
                 }
             },
@@ -212,7 +213,8 @@ function insertFilePath(response) {
                         sendEnquiryFlag = true;
                         localStorage.clear();
                         sendTalent().then(function (response) {
-                            window.location = profileUrl;
+                            checkProfilePic().then(function (response) { window.location = profileUrl; }
+                                , function (error) { });
                         }, function (error) {
                             sendEnquiryFlag = false;
                             window.location = profileUrl;
@@ -229,6 +231,38 @@ function insertFilePath(response) {
         }
 
     }
+}
+
+function checkProfilePic() {
+
+    var promise = new Promise(function (resolve, reject) {
+        var ifajaxrequest = false;
+        Enumerable.From(alreadyUploadedFiles).ForEach(function (uploadedFile) {
+            if ($("input[type='radio']:checked").val().indexOf(uploadedFile.MediaName) > -1) {
+                uploadedFile.isProfilePic = true;
+                ifajaxrequest = true;
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/UpdateTalentMedia",
+                    data: JSON.stringify(uploadedFile),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data, textStatus, jQxhr) {
+                        resolve("success");
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        reject(errorThrown);
+                    }
+                });
+
+            }
+        });
+        if (!ifajaxrequest) {
+            resolve("success");
+        }
+    });
+    return promise;
+
 }
 
 function FileSubmit(formData, postUrl) {
@@ -254,11 +288,11 @@ $(document).ready(function () {
         var originalProfile = JSON.parse(localStorage.getItem("originalProfile"));
         for (var i in originalProfile.vmMedias) {
             if (originalProfile.vmMedias[i].MediaType == "Image") {
-                alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
+                alreadyUploadedFiles.push(originalProfile.vmMedias[i]);
                 AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
             else {
-                alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
+                alreadyUploadedFiles.push(originalProfile.vmMedias[i]);
                 AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
 
