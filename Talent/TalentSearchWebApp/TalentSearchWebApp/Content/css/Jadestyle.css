@@ -557,5 +557,9 @@ a {
     }
 
 tfoot a {
-color:black;
+    color: black;
+}
+
+.displayNone {
+    display: none!important;
 }

@@ -9,6 +9,7 @@ var talentId = "";
 var profileUrl = "";
 var emailEnquiryPic = "";
 var sendEnquiryFlag = false;
+var alreadyUploadedFiles = [];
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
@@ -24,28 +25,38 @@ function handleFileSelect(e) {
         return;
     }
     else {
+        $("#newFiles").removeClass("displayNone");
         $("#selectedFields").show();
     }
-    filesObj = [];
     selImageDiv.innerHTML = "";
     selVideoDiv.innerHTML = "";
     var files = e.target.files;
     for (var i = 0; i < files.length; i++) {
         var f = files[i];
-
-        if (ValidImageTypes.indexOf(f.type) > -1) {
+        if (f.type.split('/')[0].indexOf('image') > -1) {
             var fileObj = {};
             fileObj["File"] = f;
             filesObj.push(fileObj);
-            selImageDiv.innerHTML = selImageDiv.innerHTML + "<div>" + "<input type='radio' id='" + f.name + "' name='radio' value='" + f.name + "' /><label class='filepath' for='" + f.name + "'><span></span>" + f.name + "</label><button data-label='" + f.name + "' class='icon-remove-sign'>X</button></div>";
+            //              selImageDiv.innerHTML = selImageDiv.innerHTML + "<div>" + "<input type='radio' id='" + f.name + "' name='radio' value='" + f.name + "' /><label class='filepath' for='" + f.name + "'><span></span>" + f.name + "</label><button data-label='" + f.name + "' class='icon-remove-sign'>X</button></div>";
         }
         else if (ValidVideoTypes.indexOf(f.type) > -1) {
             var fileObj = {};
             fileObj["File"] = f;
             filesObj.push(fileObj);
-            selVideoDiv.innerHTML = selVideoDiv.innerHTML + "<div><span class='filepath'>" + f.name + "</span>" + "<button data-label='" + f.name + "' class='icon-remove-sign'>X</button></div>";
+            //                selVideoDiv.innerHTML = selVideoDiv.innerHTML + "<div><span class='filepath'>" + f.name + "</span>" + "<button data-label='" + f.name + "' class='icon-remove-sign'>X</button></div>";
         }
+
     }
+    Enumerable.From(filesObj).ForEach(function (fileObj) {
+        if (fileObj.File.type.split('/')[0].indexOf('image') > -1) {
+            selImageDiv.innerHTML = selImageDiv.innerHTML + "<div>" + "<input type='radio' id='" + fileObj.File.name + "' name='radio' value='" + fileObj.File.name + "' /><label class='filepath' for='" + fileObj.File.name + "'><span></span>" + fileObj.File.name + "</label><button data-label='" + fileObj.File.name + "' class='icon-remove-sign'>X</button></div>";
+        }
+        else if (ValidVideoTypes.indexOf(fileObj.File.type) > -1) {
+            selVideoDiv.innerHTML = selVideoDiv.innerHTML + "<div><span class='filepath'>" + fileObj.File.name + "</span>" + "<button data-label='" + fileObj.File.name + "' class='icon-remove-sign'>X</button></div>";
+        }
+    });
+
+
     $('.icon-remove-sign').click(function () {
         var button = $(this);
         var filename = $(this).attr("data-label");
@@ -243,9 +254,11 @@ $(document).ready(function () {
         var originalProfile = JSON.parse(localStorage.getItem("originalProfile"));
         for (var i in originalProfile.vmMedias) {
             if (originalProfile.vmMedias[i].MediaType == "Image") {
+                alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
                 AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
             }
             else {
+                alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
                 AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
             }
 
@@ -269,6 +282,9 @@ $(document).ready(function () {
                 //}, function (error) { console.log(error); });
 
             });
+        }
+        if (alreadyUploadedFiles.length > 0) {
+            $("#oldFiles").removeClass("displayNone");
         }
         $("#AlreadyUploadedFiles").show();
     }

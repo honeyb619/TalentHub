@@ -114,18 +114,17 @@
                                 <input type="button" class="btn btn-primary submit" id="load" data-loading-text="Processing...." value="Submit" onclick="submitFiles()" />
                             </div>
 
-                            <div class="col-xs-12">
-                                <label style="border: none">Selected Files : </label>
+                            <div class="col-xs-12 displayNone" id="newFiles">
                                 <div class="col-xs-12">
-                                    <strong><span>Please select the profile picture from uploads</span></strong>
+                                    <div class="col-xs-12"><strong><span>Please select the profile picture from uploads</span></strong></div>
                                     <div id="selectedImages" class="col-xs-12"></div>
-                                    <strong><span>Below are the selected Videos</span></strong>
+                                    <div class="col-xs-12"><strong><span>Below are the selected Videos</span></strong></div>
                                     <div id="selectedVideos" class="col-xs-12"></div>
 
                                 </div>
                             </div>
-                            <div class="col-xs-12">
-                                <strong><span>Below are the already uploaded files</span></strong>
+                            <div class="col-xs-12 displayNone" id="oldFiles">
+                                <div class="col-xs-12"><strong><span>Below are the already uploaded files</span></strong></div>
                                 <div id="AlreadyUploadedFiles" class="col-xs-12"></div>
                             </div>
                             <div class="col-xs-12">
@@ -140,4 +139,4 @@
         </div>
     </div>
 </div>
-<script src="~/Content/JS/UploadFiles.js"></script>
+<script src="~/Content/JS/UploadFiles.js?v=1.1"></script>
