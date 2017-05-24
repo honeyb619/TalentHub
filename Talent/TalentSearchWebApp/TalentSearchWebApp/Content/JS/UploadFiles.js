@@ -49,10 +49,10 @@ function handleFileSelect(e) {
     }
     Enumerable.From(filesObj).ForEach(function (fileObj) {
         if (fileObj.File.type.split('/')[0].indexOf('image') > -1) {
-            selImageDiv.innerHTML = selImageDiv.innerHTML + "<div>" + "<input type='radio' id='" + fileObj.File.name + "' name='radio' value='" + fileObj.File.name + "' /><label class='filepath' for='" + fileObj.File.name + "'><span></span>" + fileObj.File.name + "</label><button data-label='" + fileObj.File.name + "' class='icon-remove-sign'>X</button></div>";
+            selImageDiv.innerHTML = selImageDiv.innerHTML + "<div>" + "<input type='radio' id='" + fileObj.File.name + "' name='radio' value='" + fileObj.File.name + "' /><label class='filepath' for='" + fileObj.File.name + "'><span></span>" + fileObj.File.name + "</label><button data-label='" + fileObj.File.name + "' class='icon-remove-sign' style='background-color:#337ab7;'>X</button></div>";
         }
         else if (ValidVideoTypes.indexOf(fileObj.File.type) > -1) {
-            selVideoDiv.innerHTML = selVideoDiv.innerHTML + "<div><span class='filepath'>" + fileObj.File.name + "</span>" + "<button data-label='" + fileObj.File.name + "' class='icon-remove-sign'>X</button></div>";
+            selVideoDiv.innerHTML = selVideoDiv.innerHTML + "<div><span class='filepath'>" + fileObj.File.name + "</span>" + "<button data-label='" + fileObj.File.name + "' class='icon-remove-sign' style='background-color:#337ab7;'>X</button></div>";
         }
     });
 
@@ -255,11 +255,11 @@ $(document).ready(function () {
         for (var i in originalProfile.vmMedias) {
             if (originalProfile.vmMedias[i].MediaType == "Image") {
                 alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
-                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
+                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
             else {
                 alreadyUploadedFiles.push(originalProfile.vmMedias[i].MediaName);
-                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia'>X</button></div>";
+                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
 
             $('.deleteMedia').click(function () {
