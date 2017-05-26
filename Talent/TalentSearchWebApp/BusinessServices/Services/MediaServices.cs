@@ -66,15 +66,20 @@ namespace BusinessServices.Services
             return media.MediaId;
         }
 
-        public bool UpdateMedia(VmMedias mediaModel)
+        public bool TalentMediaProfileUpdate(VmMedias mediaModel)
         {
             var mediaEntity = _unitOfWork.MediaRepository.GetMany(x => x.MediaId == mediaModel.MediaId).FirstOrDefault();
-
+            var profileMedia = _unitOfWork.MediaRepository.GetMany(x => x.MediaId != mediaModel.MediaId && x.TalentId == mediaEntity.Talent.TalentId);
+            foreach (var media in profileMedia)
+            {
+                media.IsProfilePic = false;
+                _unitOfWork.MediaRepository.Update(media);
+                _unitOfWork.Save();
+            }
             mediaEntity.FilePath = mediaModel.MediaPath;
             mediaEntity.IsProfilePic = mediaModel.isProfilePic;
             mediaEntity.FileName = mediaModel.MediaName;
             mediaEntity.ModifiedDate = DateTime.UtcNow;
-
             _unitOfWork.MediaRepository.Update(mediaEntity);
             _unitOfWork.Save();
             return true;

@@ -151,10 +151,10 @@ namespace JADE_TALENT.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateTalentMedia(VmMedias media)
+        public ActionResult TalentMediaProfileUpdate(VmMedias media)
         {
             IMediaServices mediaservice = new MediaServices();
-            var mediaId = mediaservice.UpdateMedia(media);
+            var mediaId = mediaservice.TalentMediaProfileUpdate(media);
             if (mediaId)
                 return Json("Media Updated Successfully");
             else

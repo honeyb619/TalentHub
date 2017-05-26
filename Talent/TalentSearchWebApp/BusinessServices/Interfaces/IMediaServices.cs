@@ -12,7 +12,7 @@ namespace BusinessServices.Interfaces
         VmMedias GetMediaById(long mediaId);
         IEnumerable<MediaEntity> GetAllMedias();
         long CreateMedia(VmMedias mediaEntity);
-        bool UpdateMedia(VmMedias mediaModel);
+        bool TalentMediaProfileUpdate(VmMedias mediaModel);
         bool DeleteMedia(long mediaId);
     }
 }

@@ -236,15 +236,20 @@ function insertFilePath(response) {
 function checkProfilePic() {
 
     var promise = new Promise(function (resolve, reject) {
-        var ifajaxrequest = false;
-        Enumerable.From(alreadyUploadedFiles).ForEach(function (uploadedFile) {
-            if ($("input[type='radio']:checked").val().indexOf(uploadedFile.MediaName) > -1) {
-                uploadedFile.isProfilePic = true;
-                ifajaxrequest = true;
+        var selectedFileName = $("input[type='radio']:checked").val() ? $("input[type='radio']:checked").val() : "";
+        var profileMedia = [];
+        if (selectedFileName) {
+            profileMedia = Enumerable.From(alreadyUploadedFiles).Where(function (uploadedFile) {
+                return ($("input[type='radio']:checked").val().indexOf(uploadedFile.MediaName) > -1);
+            }).ToArray();
+        }
+        if (profileMedia.length > 0) {
+            if (!profileMedia[0].isProfilePic) {
+                profileMedia[0].isProfilePic = true;
                 $.ajax({
                     type: "POST",
-                    url: "/Home/UpdateTalentMedia",
-                    data: JSON.stringify(uploadedFile),
+                    url: "/Home/TalentMediaProfileUpdate",
+                    data: JSON.stringify(profileMedia[0]),
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data, textStatus, jQxhr) {
@@ -256,8 +261,9 @@ function checkProfilePic() {
                 });
 
             }
-        });
-        if (!ifajaxrequest) {
+            else resolve("success");
+        }
+        else {
             resolve("success");
         }
     });
@@ -286,14 +292,17 @@ $(document).ready(function () {
     if (JSON.parse(profile).TalentId) {
         var AlreadyUploadedFiles = document.querySelector("#AlreadyUploadedFiles");
         var originalProfile = JSON.parse(localStorage.getItem("originalProfile"));
-        for (var i in originalProfile.vmMedias) {
-            if (originalProfile.vmMedias[i].MediaType == "Image") {
-                alreadyUploadedFiles.push(originalProfile.vmMedias[i]);
-                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + originalProfile.vmMedias[i].MediaName + "' name='radio' value='" + originalProfile.vmMedias[i].MediaName + "' /><label class='filepath' for='" + originalProfile.vmMedias[i].MediaName + "'><span></span>" + originalProfile.vmMedias[i].MediaName + "</label><button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
+        Enumerable.From(originalProfile.vmMedias).OrderBy("$.MediaType").ForEach(function (media) {
+            if (media.MediaType == "Image") {
+                alreadyUploadedFiles.push(media);
+                if (media.isProfilePic)
+                    AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' checked id='" + media.MediaName + "' name='radio' value='" + media.MediaName + "' /><label class='filepath' for='" + media.MediaName + "'><span></span>" + media.MediaName + "</label><button data-label='" + media.MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
+                else
+                    AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div>" + "<input type='radio' id='" + media.MediaName + "' name='radio' value='" + media.MediaName + "' /><label class='filepath' for='" + media.MediaName + "'><span></span>" + media.MediaName + "</label><button data-label='" + media.MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
             else {
-                alreadyUploadedFiles.push(originalProfile.vmMedias[i]);
-                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + originalProfile.vmMedias[i].MediaName + "</span>" + "<button data-label='" + originalProfile.vmMedias[i].MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
+                alreadyUploadedFiles.push(media);
+                AlreadyUploadedFiles.innerHTML = AlreadyUploadedFiles.innerHTML + "<div><span class='filepath'>" + media.MediaName + "</span>" + "<button data-label='" + media.MediaId + "' class='deleteMedia' style='background-color:#337ab7;'>X</button></div>";
             }
 
             $('.deleteMedia').click(function () {
@@ -316,7 +325,7 @@ $(document).ready(function () {
                 //}, function (error) { console.log(error); });
 
             });
-        }
+        });
         if (alreadyUploadedFiles.length > 0) {
             $("#oldFiles").removeClass("displayNone");
         }
