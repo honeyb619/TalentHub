@@ -325,6 +325,15 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
+        public JsonResult GetJobsbyTalentId(long TalentId)
+        {
+            IJobs objJobServices = new JobServices();
+            return Json(objJobServices.GetJobsByTalentId(TalentId), JsonRequestBehavior.AllowGet);
+        }
+
+
+        [AuthorizeWithSessionAttribute]
+        [HttpGet]
         public ActionResult CreateJob(long JobId = 0)  //Insert Job  
         {
             string[] categoryNames = { "New Zealand Language", "Category", "Job Status" };
@@ -463,7 +472,7 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpPost]
-        public ActionResult SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)  
+        public ActionResult SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)
         {
             IJobs objJobServices = new JobServices();
             return Json(objJobServices.SaveJobTalentAssociation(objVmSaveJobTalentAssociation), JsonRequestBehavior.AllowGet);

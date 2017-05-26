@@ -30,6 +30,12 @@ namespace BusinessServices.Services
             _unitOfWork = new UnitOfWork();
         }
 
+        public List<JobEntity> GetJobsByTalentId(long TalentId)
+        {
+            VmInsertJob objVmInsertJob = new VmInsertJob();
+            return _unitOfWork.JobTalentAssociationRepository.GetAll().Where(x => x.IsDeleted == false && x.TalentId == TalentId).AsEnumerable().Join(_unitOfWork.SubCategoryRepository.GetAll(), job => job.Status, category => category.SubCategoryId, (job, sub) => new JobEntity { JobName = job.Job.JobName+" : "+job.Job.JobDescription, JobStatus = sub.SubCategoryName }).ToList();
+        }
+
         public VmInsertJob GetJobById(long jobId)
         {
             VmInsertJob objVmInsertJob = new VmInsertJob();
@@ -61,7 +67,7 @@ namespace BusinessServices.Services
                         objVmInsertJob.SkillIds.Add(item.SkillId);
                     }
                 }
-                
+
                 return objVmInsertJob;
             }
 
@@ -101,11 +107,13 @@ namespace BusinessServices.Services
             }
 
             var jobs = _unitOfWork.JobRepository.GetManyQueryable(null)
-                    .Where(job=>job.IsDeleted==false)
+                    .Where(job => job.IsDeleted == false)
                     .ToList();
 
-            if (jobEntity != null) {
-                if (jobEntity.JobName != null) {
+            if (jobEntity != null)
+            {
+                if (jobEntity.JobName != null)
+                {
                     jobs = jobs.Where(job => job.JobName.ToLower().Contains(jobEntity.JobName.ToLower())).ToList();
                 }
 

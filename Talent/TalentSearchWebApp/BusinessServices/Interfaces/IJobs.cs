@@ -5,6 +5,7 @@ using System.Text;
 using BusinessEntities.Model;
 using BusinessEntities.GridVm;
 using BusinessEntities.ViewModel;
+using DataModel;
 
 namespace BusinessServices.Interfaces
 {
@@ -16,5 +17,6 @@ namespace BusinessServices.Interfaces
         bool UpdateJob(VmInsertJob vmInsertJob);
         bool DeleteJob(long jobId);
         bool SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation);
+        List<JobEntity> GetJobsByTalentId(long TalentId);
     }
 }

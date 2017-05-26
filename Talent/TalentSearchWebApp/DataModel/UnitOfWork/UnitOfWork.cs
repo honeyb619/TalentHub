@@ -24,6 +24,7 @@ namespace DataModel.UnitOfWork
         private GenericRepository<SubCategory> _subCategoryRepository;
         private GenericRepository<Category> _categoryRepository;
         private GenericRepository<JobTalentCategory> _jobTalentCategoryRepository;
+        private GenericRepository<JobTalentAssociation> _jobTalentAssociationRepository;
         private GenericRepository<JobTalentSkill> _jobTalentSkillRepository;
         private GenericRepository<Medium> _mediaRepository;
         private GenericRepository<usp_GetPublicTalent_Result> _usp_GetPublicTalent_ResultRepository;
@@ -104,6 +105,21 @@ namespace DataModel.UnitOfWork
                 return _jobTalentCategoryRepository;
             }
         }
+
+         /// <summary>
+        /// Get/Set Property for JobTalentCategory repository.
+        /// </summary>
+        public GenericRepository<JobTalentAssociation> JobTalentAssociationRepository
+        {
+            get
+            {
+                if (this._jobTalentAssociationRepository == null)
+                    this._jobTalentAssociationRepository = new GenericRepository<JobTalentAssociation>(_context);
+                return _jobTalentAssociationRepository;
+            }
+        }
+
+        
 
         /// <summary>
         /// Get/Set Property for Media repository.
