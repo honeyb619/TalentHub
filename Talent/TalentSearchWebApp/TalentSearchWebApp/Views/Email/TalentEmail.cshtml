@@ -1,0 +1,56 @@
+﻿@model TalentSearchWebApp.Models.NotificationEmail
+@{
+    Layout = null;
+    ViewBag.Title = "ProductionCompanyEmail";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Talent Notification</title>
+</head>
+<body>
+
+    <table>
+
+        <tr>
+
+            <td>
+
+                <img src="http://jadetalent.co.nz/Images/TalentBack.png" width="90%" height="200px" />
+                <br />
+                <br />
+
+                <div style="border-top: 3px solid #22BCE5"></div>
+
+                <span style="font-family: Arial; font-size: 10pt"><b>Hello @Model.TalentName</b>,<br />
+                    <br />
+
+                    <span>Greetings for the day!!!</span><br />
+
+                    Your Profile has been put forward to @Model.ProductionComanyName for below job.
+                    <br />
+                    <br />
+                   Job Name : @Model.JobName
+                    <br />
+                    Job Description : @Model.JobDescription
+                    <br />
+                    Job Status : @Model.JobStatus
+                    <br />
+                    <br />
+                    Thanks<br />
+                    Jade Admin
+
+                </span></td>
+
+        </tr>
+
+    </table>
+
+
+</body>
+</html>
+

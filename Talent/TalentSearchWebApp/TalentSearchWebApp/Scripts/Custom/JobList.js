@@ -1,5 +1,6 @@
 ﻿var jobTalentStatus = "";
 var jobIdForTalentAssociation = 0;
+var jobTalentAssociationObj = {};
 
 $(document).ready(function () {
 
@@ -19,7 +20,7 @@ $(document).ready(function () {
 		        $(this).dialog("close");
 		    }
 		}
-	]
+        ]
     });
 
     LoadjobTalentStatus();
@@ -197,12 +198,14 @@ function GetTalentsForJob(jobId) {
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.Name + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.EmailId + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'><select id='select" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'><button class='btn btn-primary' onclick='setAddNotificationObj(this)'>Company</button></td>"
+                        markup += "<td id='name_row_" + prop.TalentId + "'><button class='btn btn-primary' onclick='setAddNotificationObj(this)'>Talent</button></td>"
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);
 
                         $("#select" + prop.TalentId).val(prop.StatusId);
-                                       
+
                     }
                 }
 
@@ -255,7 +258,6 @@ function saveJobTalentAssociation() {
         return;
     }
 
-    var jobTalentAssociationObj = {};
     jobTalentAssociationObj.JobId = jobIdForTalentAssociation;
     jobTalentAssociationObj.TalentStatusIds = [];
 
@@ -300,5 +302,107 @@ function saveJobTalentAssociation() {
                 alert('Error!');
             }
         });
-    }   
+    }
+}
+
+
+function setAddNotificationObj(btnObj) {
+    var notificationType = "";
+    if (jobIdForTalentAssociation == 0) {
+        alert("Something went wrong. Please try after some time!");
+        return;
+    }
+
+    if ($(btnObj).html() == 'Company') {
+        notificationType = 'company';
+    }
+    else {
+        notificationType = 'talent';
+    }
+    jobTalentAssociationObj.JobId = jobIdForTalentAssociation;
+    jobTalentAssociationObj.TalentStatusIds = [];
+
+    var rowobj = $(btnObj).closest("tr");
+    var obj = $(rowobj).find("select");
+    var statusValue = $(obj).find(":selected").val();
+    var statustext = $(obj).find(":selected").text();
+
+    if (statusValue == "" || statustext == "--Please Select--") {
+        return false;
+    }
+    else {
+
+        var talentId = $(obj).closest("tr").attr('id').split('_')[1];
+        jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+    }
+
+    $.ajax({
+        url: '/Admin/GetNotificationDetails',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(jobTalentAssociationObj),
+        processData: false,
+        cache: false,
+        success: function (data) {
+            GetNotificationMessage(data, notificationType).then(function (response) {
+                alert("Your notification has been sent.")
+            }, function (error) {
+                alert("Error while sending Notification.")
+            });
+        },
+        error: function (xhr) {
+            console.log(xhr);
+        }
+    });
+}
+
+function GetNotificationMessage(notifyData, notificationType) {
+    var url = "";
+    var EnquiryObj = {};
+    if (notificationType == 'company') {
+        url = "/Email/ProductionCompanyEmail"
+        EnquiryObj["EmailId"] = notifyData["ProductionEmail"];
+    }
+    else {
+        url = "/Email/TalentEmail";
+        EnquiryObj["EmailId"] = notifyData["TalentEmail"];
+    }
+    EnquiryObj["Subject"] = "Jade Talent Notification";
+
+    return $.ajax({
+        url: url,
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(notifyData),
+        processData: false,
+        cache: false,
+        success: function (response) {
+            EnquiryObj["Message"] = response;
+            sendEnquiry(EnquiryObj).then(function () {
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        error: function (xhr) {
+            console.log(xhr);
+        }
+    });
+
+}
+function sendEnquiry(messageObj) {
+    return $.ajax({
+        url: '/Email/SendBulkEmail',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(messageObj),
+        processData: false,
+        cache: false,
+        success: function (data) {
+
+        },
+        error: function (xhr) {
+            alert('Please try after some time.');
+        }
+    });
+
 }

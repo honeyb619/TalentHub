@@ -1,0 +1,56 @@
+﻿@model TalentSearchWebApp.Models.NotificationEmail
+@{
+    Layout = null;
+    ViewBag.Title = "TalentEmail";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Talent Notification</title>
+</head>
+<body>
+    <table>
+
+        <tr>
+
+            <td>
+
+                <img src="http://jadetalent.co.nz/Images/TalentBack.png" width="90%" height="200px" />
+                <br />
+                <br />
+
+                <div style="border-top: 3px solid #22BCE5"></div>
+
+                <span style="font-family: Arial; font-size: 10pt">Hello @Model.ProductionComanyName<b>
+                   
+                </b>,<br />
+                    <br />
+
+                    <span>Greetings for the day!!!</span><br />
+
+                    Your Job [ @Model.JobName ]  has been found a new match. Please find below the details.
+                    <br />
+                    <br />
+                    Talent Name : @Model.TalentName
+                    <br />
+                    Region : @Model.Region
+                    <br />
+                    <br />
+                    Please click the below link to see the profile.
+                    <br />
+                    @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + @Model.TalentId + "'>" + @Model.TalentName + "</a> ")
+                    <br />
+                    <br />
+                    Thanks<br />
+                    Jade Admin
+
+                </span></td>
+
+        </tr>
+
+    </table>
+
+</body>
+</html>

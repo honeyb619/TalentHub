@@ -1,37 +1,34 @@
-﻿@{
-    ViewBag.Title = "Jobs";
-    <style type="text/css">
-        .slider {
-            display: none;
-        }
+﻿<style type="text/css">
+    .slider {
+        display: none;
+    }
 
-        .btnwrapper {
-            margin-left: 5%;
-            margin-bottom: 2%;
-            border: 1px solid #000;
-            display: inline-block;
-            position: relative;
-        }
+    .btnwrapper {
+        margin-left: 5%;
+        margin-bottom: 2%;
+        border: 1px solid #000;
+        display: inline-block;
+        position: relative;
+    }
 
-        #tblAssignedTalents tbody:empty + tfoot {
-            display: table-footer-group;
-        }
+    #tblAssignedTalents tbody:empty + tfoot {
+        display: table-footer-group;
+    }
 
-        #tblAssignedTalents tbody + tfoot {
-            display: none;
-            color: red;
-        }
+    #tblAssignedTalents tbody + tfoot {
+        display: none;
+        color: red;
+    }
 
-        .ui-dialog-titlebar-close {
-            display: none;
-        }
+    .ui-dialog-titlebar-close {
+        display: none;
+    }
 
-        .ui-dialog-titlebar {
-            background-color: #ea6153!important;
-            color: whitesmoke;
-        }
-    </style>  
-}
+    .ui-dialog-titlebar {
+        background-color: #ea6153!important;
+        color: whitesmoke;
+    }
+</style>
 <div class="page-title">
     <div class="container">
         <div class="row">
@@ -102,6 +99,7 @@
                             </th>
                             <th>Status
                             </th>
+                            <th>Notification</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

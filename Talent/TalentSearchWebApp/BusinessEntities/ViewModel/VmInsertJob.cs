@@ -38,7 +38,7 @@ namespace BusinessEntities.ViewModel
         public Nullable<long> modifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-
+        public string Email { get; set; }
         public List<VmSelectListItem> ProductionCompanyList { get; set; }
         public List<int> LanguageIds { get; set; }
         public List<long> SkillIds { get; set; }

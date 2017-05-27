@@ -46,6 +46,7 @@ namespace DataModel
         public Nullable<long> modifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
+        public string Email { get; set; }
     
         public virtual ProductionCompany ProductionCompany { get; set; }
         public virtual Region Region { get; set; }

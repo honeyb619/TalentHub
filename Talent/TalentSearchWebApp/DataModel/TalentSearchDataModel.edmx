@@ -193,6 +193,7 @@
           <Property Name="modifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Email" Type="nchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="JobTalentAssociation">
           <Key>
@@ -927,6 +928,7 @@
           <NavigationProperty Name="JobTalentLanguages" Relationship="TalentSearchModel.FK_JobTalentLanguage_Jobs" FromRole="Job" ToRole="JobTalentLanguage" />
           <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_Jobs" FromRole="Job" ToRole="JobTalentSkill" />
           <NavigationProperty Name="Media" Relationship="TalentSearchModel.FK_Media_Jobs" FromRole="Job" ToRole="Medium" />
+          <Property Type="String" Name="Email" MaxLength="1000" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="JobTalentAssociation">
           <Key>
@@ -1527,6 +1529,7 @@
           <EntitySetMapping Name="Jobs">
             <EntityTypeMapping TypeName="TalentSearchModel.Job">
               <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />

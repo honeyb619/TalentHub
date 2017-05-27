@@ -277,6 +277,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                  
                                 <div class="col-xs-12">
                                     <div class="row">
                                         <div class="col-xs-6">
@@ -347,6 +349,22 @@ new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "skill1N
                                             @id = "NumberOfDaysField",
                                             @name = "NumberOfDays"
                                         })
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label for="EmailField">Email</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            @Html.TextBoxFor(model => model.Email, new
+                                   {
+                                       @class = "form-control",
+                                       @tabindex = "20",
+                                       @id = "EmailField",
+                                       @name = "EmailField"
+                                   })
                                         </div>
                                     </div>
                                 </div>

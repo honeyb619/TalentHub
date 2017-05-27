@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TalentSearchWebApp.Common;
 using TalentSearchWebApp.Models;
 
 namespace TalentSearchWebApp.Controllers
@@ -34,7 +35,8 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProductionEmailFormat(CustomEmailFormat email) {
+        public ActionResult ProductionEmailFormat(CustomEmailFormat email)
+        {
             return View(email);
         }
 
@@ -44,6 +46,30 @@ namespace TalentSearchWebApp.Controllers
             return View(email);
         }
 
+        [HttpPost]
+        public ActionResult ProductionCompanyEmail(NotificationEmail emailData)
+        {
+            return View(emailData);
+        }
+
+        [HttpPost]
+        public ActionResult TalentEmail(NotificationEmail emailData)
+        {
+            return View(emailData);
+        }
+
+        [HttpPost]
+        public JsonResult SendBulkEmail(ContactUsMail email)
+        {
+
+            if (!String.IsNullOrEmpty(email.Message))
+            {
+                JadeEmail.SendBulkMessage(email.EmailId, email.Subject, email.Message);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Index()
         {

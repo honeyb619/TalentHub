@@ -140,6 +140,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactUsMail.cs" />
+    <Compile Include="Models\NotificationEmail.cs" />
     <Compile Include="Models\CustomEmailFormat.cs" />
     <Compile Include="Resources\JadeTalentResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -359,6 +360,8 @@
     <Content Include="Views\Admin\EditTalent.cshtml" />
     <Content Include="Views\Email\ProductionEmailFormat.cshtml" />
     <Content Include="Views\Email\NotificationEmailFormat.cshtml" />
+    <Content Include="Views\Email\ProductionCompanyEmail.cshtml" />
+    <Content Include="Views\Email\TalentEmail.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

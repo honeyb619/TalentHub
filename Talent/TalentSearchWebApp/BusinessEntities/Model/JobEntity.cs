@@ -30,5 +30,6 @@ namespace BusinessEntities.Model
         public string HairColor { get; set; }
         public Nullable<long> ChestSize { get; set; }
         public Nullable<long> HipSize { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -62,6 +62,21 @@ namespace TalentSearchWebApp.Common
             JadeEmail.sendEmail(message);
         }
 
+        public static void SendBulkMessage(string emailaddress, string subject, string messageBody)
+        {
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("info@jadetalent.co.nz");
+            string[] recipents = emailaddress.Split(';');
+            foreach (var recipent in recipents)
+            {
+                message.To.Add(new MailAddress(recipent));
+            }
+            message.Body = messageBody;
+            message.IsBodyHtml = true;
+            message.Subject = subject;
+            JadeEmail.sendEmail(message);
+        }
+
 
     }
 }

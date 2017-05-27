@@ -477,5 +477,28 @@ namespace TalentSearchWebApp.Controllers
             IJobs objJobServices = new JobServices();
             return Json(objJobServices.SaveJobTalentAssociation(objVmSaveJobTalentAssociation), JsonRequestBehavior.AllowGet);
         }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpPost]
+        public JsonResult GetNotificationDetails(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)
+        {
+            Dictionary<string, string> NotificationDetails = new Dictionary<string, string>();
+            IJobs ObjJobService = new JobServices();
+            ITalentServices ObjTalentService = new TalentServices();
+            IProductionCompanyServices ObjProductionCompany = new ProductionCompanyServices();
+            ISubCategory ObjSubCategory = new SubCategoryServices();
+            VmTalentEntity Talent = ObjTalentService.GetTalentById(objVmSaveJobTalentAssociation.TalentStatusIds[0].TalentId);
+            NotificationDetails["ProductionEmail"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).Email;
+            NotificationDetails["ProductionComanyName"] = ObjProductionCompany.GetProductById(ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).ProductionCompanyId).ProductionCompanyName;           
+            NotificationDetails["TalentName"] = Talent.FirstName + " " + Talent.LastName;
+            NotificationDetails["JobStatus"] = ObjSubCategory.GetSubCategoryById(objVmSaveJobTalentAssociation.TalentStatusIds[0].StatusId).SubCategoryName;
+            NotificationDetails["TalentEmail"] = Talent.EmailId;
+            NotificationDetails["JobDescription"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobDescription;
+            NotificationDetails["JobName"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobName;
+            NotificationDetails["TalentId"] = Talent.TalentId.ToString();
+            NotificationDetails["Region"] = Talent.RegionName;
+            return Json(NotificationDetails);
+        }
+
     }
 }
