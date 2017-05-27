@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     $("#dialog").dialog({
         autoOpen: false,
-        width: 700,
+        width: 1000,
         buttons: [
 		{
 		    text: "Save",
@@ -198,8 +198,8 @@ function GetTalentsForJob(jobId) {
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.Name + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.EmailId + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'><select id='select" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
-                        markup += "<td id='name_row_" + prop.TalentId + "'><button class='btn btn-primary' onclick='setAddNotificationObj(this)'>Company</button></td>"
-                        markup += "<td id='name_row_" + prop.TalentId + "'><button class='btn btn-primary' onclick='setAddNotificationObj(this)'>Talent</button></td>"
+                        markup += "<td id='name_row_" + prop.TalentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
+                        markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);
@@ -313,7 +313,7 @@ function setAddNotificationObj(btnObj) {
         return;
     }
 
-    if ($(btnObj).html() == 'Company') {
+    if ($(btnObj).attr('data-label') == 'Company') {
         notificationType = 'company';
     }
     else {
