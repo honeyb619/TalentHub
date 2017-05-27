@@ -37,6 +37,8 @@ $(document).ready(function () {
                             markup += "<td id='name_row_" + talentId + "'>" + name + "</td>";
                             markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
                             markup += "<td id='name_row_" + talentId + "'><select id='select" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                            markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
+                            markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
                             markup += "</tr>";
 
                             $("#tblAssignedTalents tbody").append(markup);
@@ -57,7 +59,10 @@ $(document).ready(function () {
                         var markup = "<tr id='row_" + talentId + "'>";
                         markup += "<td id='name_row_" + talentId + "'>" + name + "</td>";
                         markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
-                        markup += "<td id='name_row_" + talentId + "'>SS</td>";
+                        markup += "<td id='name_row_" + talentId + "'><select id='select" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
+                        markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
+
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);

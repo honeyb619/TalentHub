@@ -66,7 +66,7 @@ namespace TalentSearchWebApp.Common
         {
             MailMessage message = new MailMessage();
             message.From = new MailAddress("info@jadetalent.co.nz");
-            string[] recipents = emailaddress.Split(';');
+            string[] recipents = emailaddress.Split(',');
             foreach (var recipent in recipents)
             {
                 message.To.Add(new MailAddress(recipent));
