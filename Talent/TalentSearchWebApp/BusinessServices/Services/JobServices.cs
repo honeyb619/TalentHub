@@ -34,7 +34,7 @@ namespace BusinessServices.Services
         {
             VmInsertJob objVmInsertJob = new VmInsertJob();
             return _unitOfWork.JobTalentAssociationRepository.GetAll().Where(x => x.IsDeleted == false && x.TalentId == TalentId).
-                Join(_unitOfWork.JobRepository.GetAll().Where(job => job.IsDeleted == false), JobTalentAssociation => JobTalentAssociation.JobId, Job => Job.JobId, (JobTalentAssociation, Job) => new JobTalentAssociation { JobId = JobTalentAssociation.JobId, Status = JobTalentAssociation.Status, IsDeleted = JobTalentAssociation.IsDeleted, Job = JobTalentAssociation.Job }).
+                Join(_unitOfWork.JobRepository.GetAll().Where(job => job.IsDeleted == false), JobTalentAssociation => JobTalentAssociation.JobId, Job => Job.JobId, (JobTalentAssociation, Job) => new JobTalentAssociation { JobId = Job.JobId, Status = JobTalentAssociation.Status, IsDeleted = JobTalentAssociation.IsDeleted, Job = JobTalentAssociation.Job }).
                 Join(_unitOfWork.SubCategoryRepository.GetAll(), job => job.Status, category => category.SubCategoryId, (job, sub) => new JobEntity { JobName = job.Job.JobName + " : " + job.Job.JobDescription, JobStatus = sub.SubCategoryName }).ToList();
         }
 
