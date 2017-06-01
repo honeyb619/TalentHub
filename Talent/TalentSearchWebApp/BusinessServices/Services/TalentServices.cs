@@ -56,7 +56,52 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents(string searchKeyword=null)
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null)
+        {
+
+            List<Talent> talent;
+            talent = _unitOfWork.TalentRepository.GetMany(x => (x.IsDeleted == null || x.IsDeleted == false)).ToList();
+            if (!string.IsNullOrEmpty(Region))
+            {
+                talent = talent.Where(ent => ent.Region.RegionName.ToLower().Contains(Region.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(Ethicity))
+            {
+                talent = talent.Where(ent => ent.Ethnicity.ToLower().Contains(Ethicity.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(HairColor))
+            {
+                talent = talent.Where(ent => ent.HairColor.ToLower().Contains(HairColor.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(EyeColor))
+            {
+                talent = talent.Where(ent => ent.EyeColor.ToLower().Contains(EyeColor.ToLower())).ToList();
+            }
+            if (talent != null)
+            {
+                Mapper.CreateMap<Talent, VmTalentEntity>().ForMember(d => d.RegionName, o => o.MapFrom(s => s.Region.RegionName))
+                    .ForMember(d => d.vmMainSkills, o => o.MapFrom(s => s.JobTalentCategories.Where(x => x.IsDeleted == null || x.IsDeleted == false).Select(a =>
+                        new VmMainSkills
+                        {
+                            MainSkil = a.SubCategory.SubCategoryValue,
+                            Skills = a.JobTalentSkills.Select(x => new VmSkills { Description = x.Description, SkillName = x.SubCategory.SubCategoryValue }).ToList()
+                        }))).ForMember(d => d.vmMedias, o => o.MapFrom(s => s.Media.Where(x => x.IsDeleted == null || x.IsDeleted == false).Select(a => new VmMedias
+                        {
+                            MediaId = a.MediaId,
+                            MediaPath = a.FilePath,
+                            MediaType = a.MediaType,
+                            isProfilePic = a.IsProfilePic,
+                            MediaName = a.FileName
+                        }))).ForMember(d => d.Languages, o => o.MapFrom(s => s.JobTalentLanguages.Where(x => x.IsDeleted == null || x.IsDeleted == false).Select(a => a.SubCategory.SubCategoryValue)));
+
+                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent).OrderBy(x=>x.FirstName).ToList();
+                return talentModel;
+            }
+            return null;
+
+        }
+
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents(string searchKeyword = null)
         {
             List<Talent> talent;
             if (String.IsNullOrEmpty(searchKeyword))
@@ -90,7 +135,7 @@ namespace BusinessServices.Services
                             MediaName = a.FileName
                         }))).ForMember(d => d.Languages, o => o.MapFrom(s => s.JobTalentLanguages.Where(x => x.IsDeleted == null || x.IsDeleted == false).Select(a => a.SubCategory.SubCategoryValue)));
 
-                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent);
+                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent).OrderBy(x => x.FirstName).ToList();
                 return talentModel;
             }
             return null;

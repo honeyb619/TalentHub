@@ -345,18 +345,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-stronglabel col-xs-6">
-                                    @Html.DisplayNameFor(model => model.Hobbies)
-                                </div>
-                                <div class="form-stronglabel col-xs-6">
-                                    @Html.DisplayFor(model => model.Hobbies)
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div id="skills" class="tabdiv" style="display: none;">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 profile-info">
+                            <h3>Experiences</h3>
+                                </div>
+                        </div>
                         @{
                             if (Model != null && Model.vmMainSkills != null)
                             {
@@ -364,19 +359,19 @@
                                 {
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12 profile-info">
-                                    <h3>@Html.Raw(element.MainSkil)</h3>
+                                   @* <h3>@Html.Raw(element.MainSkil)</h3>*@
                                     @if (element.Skills != null)
                                     {
 
                                         foreach (var childelement in element.Skills)
                                         {
                                
-                                        <p>@Html.Raw(childelement.SkillName)
-                                        </p>
+                                        @*<p>@Html.Raw(childelement.SkillName)
+                                        </p>*@
                                             if (!string.IsNullOrEmpty(childelement.Description))
                                             {
                                         <p>
-                                            Description :  @Html.Raw(childelement.Description ?? "")
+                                            @Html.Raw(childelement.Description ?? "")
                                         </p>
                                             }
 
@@ -403,6 +398,13 @@
                                     }
                                 }
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 profile-info">
+                                <h3>Training and life skills</h3>
+                                @Html.DisplayFor(model => model.Hobbies)
+                            </div>
+
                         </div>
 
                     </div>

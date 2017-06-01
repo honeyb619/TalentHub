@@ -1,10 +1,15 @@
 ﻿@model List<BusinessEntities.ViewModel.VmTalentEntity>
 @{
     ViewBag.Title = "Talents";
+    WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", canPage: false);  
 }
 <style type="text/css">
     .slider {
         display: none;
+    }
+
+    .btn {
+        min-width: 1em;
     }
 
     .btnwrapper {
@@ -38,6 +43,53 @@
         padding-right: 1em!important;
         text-align: center;
     }
+
+    .ui-dialog-titlebar-close {
+        display: none;
+    }
+
+    .ui-dialog-titlebar {
+        background-color: #ea6153!important;
+        color: whitesmoke;
+    }
+
+    .table > thead > tr > td, .table > thead > tr > th {
+        width: auto!important;
+    }
+
+    .dropdown.dropdown-lg .dropdown-menu {
+        margin-top: -1px;
+        padding: 6px 20px;
+    }
+
+    .input-group-btn .btn-group {
+        display: flex !important;
+    }
+
+    .btn-group .btn {
+        border-radius: 0;
+        margin-left: -1px;
+    }
+
+        .btn-group .btn:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .form-group .form-control:last-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
 </style>
 <script src="~/Content/JS/linq.js"></script>
 <script>
@@ -48,59 +100,109 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3>Talents</h3>
+                <h3>Talent</h3>
             </div>
         </div>
     </div>
 </div>
 <div class="content">
     <div class="container">
-        <div id='dialog'></div>
-        <div class="row titlerow">
+        <!-- ui-dialog -->
+        <div id="dialog" title="Assigned Jobs">
+            <div id="AssignedJobs" style="text-align: center;">
+            </div>
+        </div>
+    </div>
+    <div class="row titlerow">
 
-            <div class="col-sm-4 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" id="searchTxt" placeholder="Search" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
 
-                <div class="input-group stylish-input-group">
-                    <div class="row">
-                        <div class="col-sm-8 col-xs-12">
-                            <input type="text" id="searchTxt" class="form-control" style="width: 80%" placeholder="Search" />
+                            <div class="dropdown-menu dropdown-menu-right" style="background-color: whitesmoke; min-width: 15em;" role="menu">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="contain">Region</label>
+                                        <select class="form-control" id="regiontxt">
+                                            <option value="">--select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Ethicity</label>
+                                        <input class="form-control" id="ethicitytxt" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="filter">Filter by</label>
+                                        <select class="form-control" id="searchcondition">
+                                            <option value="" selected>--Select--</option>
+                                            <option value="HairColor">Hair Color</option>
+                                            <option value="EyeColor">Eye Color</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Search Text</label>
+                                        <input class="form-control" id="conditiontxt" type="text" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="return advancedSearch()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="col-sm-2 col-xs-12">
-                            <span class="input-group-addon">
-                                <a href="#" onclick='return SearchTalent()'>GO
-                                </a>
-
-                            </span>
-                        </div>
-                        <div class="col-sm-2 col-xs-12">
-                            <span style="margin-left: 1em; background-color: #5cb85c;" class="input-group-addon">
-                                <a href="#" onclick='return ResetTalent()'>Reset
-                                </a>
-
-                            </span>
-
-                        </div>
+                        <button type="button" class="btn btn-primary" onclick="return SearchTalent()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-primary" onclick="return ResetTalent()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 col-xs-12" style="padding: 7px 0;">
+            @* <div class="input-group stylish-input-group">
                 <div class="row">
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" id="searchTxt" class="form-control" style="width: 80%" placeholder="Search" />
                     </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <input type="button" class="form-control btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Send Profiles" onclick="sendTalent();" />
-                        <input type="button" class="form-control btn btn-success" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
+                    <div class="col-sm-2 col-xs-12">
+                        <span class="input-group-addon">
+                            <a href="#" onclick='return SearchTalent()'>GO
+                            </a>
+
+                        </span>
                     </div>
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="col-sm-2 col-xs-12">
+                        <span style="margin-left: 1em; background-color: #5cb85c;" class="input-group-addon">
+                            <a href="#" onclick='return ResetTalent()'>Reset
+                            </a>
+
+                        </span>
+
                     </div>
+                </div>
+            </div>*@
+
+
+
+        </div>
+        <div class="col-sm-8 col-xs-12" style="padding: 7px 0;">
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <input type="button" class="form-control btn btn-primary" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Send Profiles" onclick="sendTalent();" />
+                    <input type="button" class="form-control btn btn-success" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Talent" onclick="AddTalent();" />
+                </div>
+                <div class="col-sm-3 col-xs-12">
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-sm-12 col-xs-12">
         <div class="col-sm-12 col-xs-12">
-            <div id="custom-table" class="table">
-                @{  
-                    WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", canPage: false);  
-                    @grid.GetHtml(
+            <div class="col-xs-2" style="margin-bottom: 1em; background: #ea6153!important; color: whitesmoke;"><strong>Talent Count :  @grid.TotalRowCount </strong></div>
+        </div>
+        <div id="custom-table" class="table">
+            @{  
+                
+                @grid.GetHtml(
          tableStyle: "table",
          columns: new[] {  
          grid.Column(format: (item) =>{
@@ -124,14 +226,17 @@
           grid.Column("TalentId", header: "Action", canSort:false,  
            
          format: @<text>
-                    @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
-                    &nbsp;
+                @Html.Raw("<i class='fa fa-eye' aria-hidden='true' onclick='ViewTalent(" + item.TalentId + ")' ></i>")
+                &nbsp;
             @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteTalent(" + item.TalentId + ")' ></i>")
-                    &nbsp;
+                &nbsp;
             @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditTalent(" + item.TalentId + ")' ></i>")
-                    &nbsp;
+                &nbsp;
+                  @Html.Raw("<i class='fa fa-briefcase' aria-hidden='true' onclick='OpenJobs(" + item.TalentId + ")' ></i>")
+                &nbsp;
             @Html.Raw("<input type='checkbox' class='profileSelect' aria-hidden='true' data-label='" + item.TalentId + "' />")
-                    </text>  
+
+                </text>  
         )  
          //, canSort:false,  
            
@@ -141,13 +246,27 @@
             </text>  
         )  */
      })  
-                }
-            </div>
+            }
         </div>
     </div>
-
 </div>
+
 <script>
+
+    $(document).ready(function(){
+        $.get('/Admin/GetRegions',
+                function (data) {
+                    Enumerable.From(data).ForEach(function(opt){          
+                        $('#regiontxt').append($('<option>',
+         {
+             value: opt.RegionName,
+             text : opt.RegionName 
+         }));
+                    });
+
+                });
+    });
+
     function AddTalent() {
         window.location = "/Home/RegisterTalent";
     }
@@ -174,6 +293,21 @@
     function SearchTalent() {
         var searchKey = $("#searchTxt").val();
         window.location = "/Admin/Talents?Search=" + searchKey;
+    }
+
+    function advancedSearch(){
+        var advancedsearchparam="/Admin/Talents?AdvancedSearch=true&";
+        if($("#regiontxt").val()){
+            advancedsearchparam =advancedsearchparam+"Region="+$("#regiontxt").val()+"&";
+        }
+        if($("#ethicitytxt").val()){
+            advancedsearchparam =advancedsearchparam+"Ethicity="+$("#ethicitytxt").val()+"&";
+        }
+        if($("#searchcondition").val()&& $("#conditiontxt").val()){
+            advancedsearchparam =advancedsearchparam+$("#searchcondition").val()+"="+$("#conditiontxt").val();
+        }
+        if(advancedsearchparam !="/Admin/Talents?AdvancedSearch=true&")
+            window.location = advancedsearchparam;
     }
 
     function ResetTalent() {
@@ -229,6 +363,35 @@
         });
     }
 
+    function OpenJobs(TalentId){
+        var url = '/Admin/GetJobsbyTalentId?TalentId=' + TalentId;
+        $.ajax({
+            url: url,
+            type: "GET",
+            cache: false,
+            datatype: "json",
+            success: function (data) {
+                var lisofJobs='<table class="table"><tr style="background-color: darkgrey;"><th>Job Name</th><th>Job Status</th></tr>'
+                if(data.length>0){
+                    for(var x in data){
+                        lisofJobs=lisofJobs+'<tr><td>'+data[x].JobName+'</td><td>'+data[x].JobStatus+'</td></tr>'
+                    }
+                    lisofJobs=lisofJobs+'</table>'
+                    $("#AssignedJobs").html(lisofJobs);
+                }
+                else{
+                    lisofJobs='<p>No active jobs tagged to selected talent.</p>'
+                    $("#AssignedJobs").html(lisofJobs);
+                }
+                $("#dialog").dialog("open");
+            },
+            error: function (xhr) {
+                alert('Please try after some time.');
+            }
+        });
+        
+    }
+
     function sendEnquiry(messageObj) {
         return $.ajax({
             url: '/Admin/SendEmail',
@@ -246,5 +409,21 @@
         });
 
     }
+
+    $(document).ready(function () {
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            width: 700,
+            buttons: [
+            {
+                text: "Close",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }
+            ]
+        });
+    });
 
 </script>

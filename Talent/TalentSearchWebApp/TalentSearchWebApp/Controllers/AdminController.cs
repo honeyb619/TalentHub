@@ -141,6 +141,13 @@ namespace TalentSearchWebApp.Controllers
             return View();
         }
 
+        [AuthorizeWithSession]
+        public JsonResult GetRegions() {
+            IRegion objRegion = new RegionServices();
+            var regions = objRegion.GetAllRegions();
+            return Json(regions, JsonRequestBehavior.AllowGet);
+        }
+
         //public JsonResult Delete(Int32 empid)  
         //{  
         //    EmployeeData emp = db.EmployeeDatas.Where(x => x.EmpID == empid).FirstOrDefault();  
@@ -384,11 +391,21 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents(string search = null)
+        public ActionResult Talents(string search = null,bool AdvancedSearch=false,string Region = null,string Ethicity=null,string HairColor=null,string EyeColor=null)
         {
             ITalentServices talentObj = new TalentServices();
-            var talents = talentObj.GetAllTalents(search);
-            return View(talents);
+            if (AdvancedSearch)
+            {
+                var talents = talentObj.GetAllTalentsbyAdvancedSearch(Region, Ethicity, HairColor, EyeColor);
+                return View(talents);
+           
+            }
+            else
+            {
+                var talents = talentObj.GetAllTalents(search);
+                return View(talents);
+            }
+           
         }
 
         [AuthorizeWithSessionAttribute]

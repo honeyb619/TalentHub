@@ -139,7 +139,7 @@ namespace BusinessServices.Services
                     .ForMember(x => x.RegionName, opt =>
                     opt.MapFrom(src => src.Region.RegionName));
 
-                objGridVmJobsList.ListJobEntity = Mapper.Map<List<Job>, List<JobEntity>>(jobs);
+                objGridVmJobsList.ListJobEntity = Mapper.Map<List<Job>, List<JobEntity>>(jobs).OrderBy(x=>x.JobName).ToList();
             }
 
             return objGridVmJobsList;

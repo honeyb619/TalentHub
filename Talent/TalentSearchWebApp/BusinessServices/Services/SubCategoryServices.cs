@@ -48,7 +48,7 @@ namespace BusinessServices.Services
             if (subCategories.Any())
             {
                 Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories);
+                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x=>x.SubCategoryName).ToList();
                 return subCategoriesModel;
             }
             return null;
@@ -62,7 +62,7 @@ namespace BusinessServices.Services
             if (subCategories.Any())
             {
                 Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories);
+                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x=>x.SubCategoryName).ToList();
                 return subCategoriesModel;
             }
             return null;

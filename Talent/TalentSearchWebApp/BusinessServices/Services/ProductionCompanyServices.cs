@@ -89,7 +89,7 @@ namespace BusinessServices.Services
             if (products.Any())
             {
                 Mapper.CreateMap<ProductionCompany, ProductionCompanyEntitiy>().ForMember(x => x.RegionName, opt => opt.MapFrom(src => src.Region.RegionName));
-                objProductionCompanyList.ListProductionCompanyEntitiy = Mapper.Map<List<ProductionCompany>, List<ProductionCompanyEntitiy>>(products);
+                objProductionCompanyList.ListProductionCompanyEntitiy = Mapper.Map<List<ProductionCompany>, List<ProductionCompanyEntitiy>>(products).OrderBy(x=>x.ProductionCompanyName).ToList();
             }
 
             return objProductionCompanyList;

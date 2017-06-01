@@ -11,6 +11,7 @@ namespace BusinessServices.Interfaces
     {
         VmTalentEntity GetTalentById(long talentId);
         List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalents(string search=null);
+        List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null,string Ethicity=null,string HairColor=null,string EyeColor=null);
         long CreateTalent(VmInsertTalent talentEntity);
         long UpdateTalent(VmInsertTalent talentEntity);
         bool DeleteTalent(long talentId);
