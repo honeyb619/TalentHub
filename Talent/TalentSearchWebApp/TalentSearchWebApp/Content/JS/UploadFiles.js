@@ -10,6 +10,7 @@ var profileUrl = "";
 var emailEnquiryPic = "";
 var sendEnquiryFlag = false;
 var alreadyUploadedFiles = [];
+var isProfileUpdate = false;
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
@@ -76,6 +77,7 @@ function submitFiles() {
         var url = "/Home/RegisterTalent";
         if (JSON.parse(profile).TalentId) {
             url = "/Admin/UpdateTalent";
+            isProfileUpdate = true;
         }
         $.ajax({
             url: url,
@@ -139,14 +141,16 @@ function sendTalent() {
         processData: false,
         cache: false,
         success: function (data) {
-            EnquiryObj = {};
-            EnquiryObj["Message"] = data;
-            EnquiryObj["Subject"] = "Registeration Notification";
-            sendEnquiry(EnquiryObj).then(function () {
-                console.log("Message Sent Successfully")
-            }, function (error) {
-                //   alert('Please try after some time.');
-            });
+            if (!isProfileUpdate) {
+                EnquiryObj = {};
+                EnquiryObj["Message"] = data;
+                EnquiryObj["Subject"] = "Registeration Notification";
+                sendEnquiry(EnquiryObj).then(function () {
+                    console.log("Message Sent Successfully")
+                }, function (error) {
+                    //   alert('Please try after some time.');
+                });
+            }
         },
         error: function (xhr) {
             // alert('Please try after some time.');
