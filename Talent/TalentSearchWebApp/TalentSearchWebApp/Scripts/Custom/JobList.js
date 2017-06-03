@@ -315,7 +315,7 @@ function saveJobTalentAssociation() {
     jobTalentAssociationObj.TalentStatusIds = [];
 
     $('#tblAssignedTalents tbody tr').each(function () {
-        var obj = $(this).find("td:last");
+        var obj = $(this).find("select");
         var statusValue = $(obj).find(":selected").val();
         var statustext = $(obj).find(":selected").text();
 
