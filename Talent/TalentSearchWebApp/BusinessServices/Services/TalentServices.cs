@@ -56,7 +56,7 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null)
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
 
             List<Talent> talent;
@@ -77,6 +77,31 @@ namespace BusinessServices.Services
             {
                 talent = talent.Where(ent => ent.EyeColor.ToLower().Contains(EyeColor.ToLower())).ToList();
             }
+            if (!string.IsNullOrEmpty(Age))
+            {
+                var minAge = Int32.Parse(Age.Split('-')[0]);
+                var maxAge = Int32.Parse(Age.Split('-')[1]);
+                talent = talent.Where(ent => ent.Age >= minAge && ent.Age <= maxAge).ToList();
+            }
+            if (!string.IsNullOrEmpty(Waist))
+            {
+                var minWaist = Int32.Parse(Waist.Split('-')[0]);
+                var maxWaist = Int32.Parse(Waist.Split('-')[1]);
+                talent = talent.Where(ent => ent.Waist >= minWaist && ent.Age <= maxWaist).ToList();
+            }
+            if (!string.IsNullOrEmpty(Hip))
+            {
+                var minHip = Int32.Parse(Hip.Split('-')[0]);
+                var maxHip = Int32.Parse(Hip.Split('-')[1]);
+                talent = talent.Where(ent => ent.HipSize >= minHip && ent.Age <= maxHip).ToList();
+            }
+            if (!string.IsNullOrEmpty(ChestBust))
+            {
+                var minChestBust = Int32.Parse(ChestBust.Split('-')[0]);
+                var maxChestBust = Int32.Parse(ChestBust.Split('-')[1]);
+                talent = talent.Where(ent => ent.ChestSize >= minChestBust && ent.Age <= maxChestBust).ToList();
+            }
+
             if (talent != null)
             {
                 Mapper.CreateMap<Talent, VmTalentEntity>().ForMember(d => d.RegionName, o => o.MapFrom(s => s.Region.RegionName))
@@ -94,7 +119,7 @@ namespace BusinessServices.Services
                             MediaName = a.FileName
                         }))).ForMember(d => d.Languages, o => o.MapFrom(s => s.JobTalentLanguages.Where(x => x.IsDeleted == null || x.IsDeleted == false).Select(a => a.SubCategory.SubCategoryValue)));
 
-                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent).OrderBy(x=>x.FirstName).ToList();
+                var talentModel = Mapper.Map<List<Talent>, List<VmTalentEntity>>(talent).OrderBy(x => x.FirstName).ToList();
                 return talentModel;
             }
             return null;

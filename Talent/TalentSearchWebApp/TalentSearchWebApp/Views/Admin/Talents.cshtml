@@ -123,7 +123,7 @@
                         <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
 
-                            <div class="dropdown-menu dropdown-menu-right" style="background-color: whitesmoke; min-width: 15em;" role="menu">
+                            <div class="dropdown-menu dropdown-menu-right" style="background-color: whitesmoke; min-width: 15em; overflow:scroll; height:25em;" role="menu">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label for="contain">Region</label>
@@ -136,7 +136,7 @@
                                         <input class="form-control" id="ethicitytxt" type="text" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="filter">Filter by</label>
+                                        <label for="filter">Text Filter by</label>
                                         <select class="form-control" id="searchcondition">
                                             <option value="" selected>--Select--</option>
                                             <option value="HairColor">Hair Color</option>
@@ -146,6 +146,24 @@
                                     <div class="form-group">
                                         <label for="contain">Search Text</label>
                                         <input class="form-control" id="conditiontxt" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="filter">Range Filter by</label>
+                                        <select class="form-control" id="rangesearchcondition">
+                                            <option value="" selected>--Select--</option>
+                                            <option value="Age">Age</option>
+                                            <option value="Waist">Waist</option>
+                                            <option value="Hip">Hip</option>
+                                            <option value="ChestBust">Chest/Bust</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Min</label>
+                                        <input class="form-control" id="minconditiontxt" type="number" min="0"  />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Max</label>
+                                        <input class="form-control" id="maxconditiontxt" type="number" min="0" />
                                     </div>
                                     <button type="button" class="btn btn-primary" onclick="return advancedSearch()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </form>
@@ -306,6 +324,10 @@
         if($("#searchcondition").val()&& $("#conditiontxt").val()){
             advancedsearchparam =advancedsearchparam+$("#searchcondition").val()+"="+$("#conditiontxt").val();
         }
+        if($("#rangesearchcondition").val()&& $("#minconditiontxt").val() && $("#maxconditiontxt").val()){
+            advancedsearchparam =advancedsearchparam+$("#rangesearchcondition").val()+"="+$("#minconditiontxt").val()+'-'+$("#maxconditiontxt").val();
+        }
+
         if(advancedsearchparam !="/Admin/Talents?AdvancedSearch=true&")
             window.location = advancedsearchparam;
     }
