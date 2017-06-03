@@ -105,6 +105,18 @@ $(document).ready(function () {
         var param = $(this).attr('href').split('?')[1];
         PageSortJobData(param);
     });
+
+    $.get('/Admin/GetRegions',
+               function (data) {
+                   Enumerable.From(data).ForEach(function (opt) {
+                       $('#regiontxt').append($('<option>',
+        {
+            value: opt.RegionName,
+            text: opt.RegionName
+        }));
+                   });
+
+               });
 });
 
 function QueryStringToJSON(list, params) {
@@ -396,7 +408,7 @@ function setAddNotificationObj(btnObj) {
                 jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
             });
 
-            
+
         }
     }
 
