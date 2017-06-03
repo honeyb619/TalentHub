@@ -1,6 +1,7 @@
 ﻿var jobTalentStatus = "";
 var jobIdForTalentAssociation = 0;
 var jobTalentAssociationObj = {};
+var clickedJobId = "";
 
 $(document).ready(function () {
 
@@ -17,6 +18,7 @@ $(document).ready(function () {
 		{
 		    text: "Close",
 		    click: function () {
+		        ResetSearch();
 		        $(this).dialog("close");
 		    }
 		}
@@ -169,8 +171,52 @@ function DeleteJob(J_ID) {
     }
 }
 
+
+function ResetSearch() {
+    $("#regiontxt").val("");
+    $("#ethicitytxt").val("");
+    $("#searchcondition").val("");
+    $("#conditiontxt").val("");
+    $("#rangesearchcondition").val("");
+    $("#minconditiontxt").val("");
+    $("#maxconditiontxt").val("");
+}
+
+function ResetJobs() {
+    ResetSearch();
+    GetTalentsForJob();
+}
+
+function advancedSearch(jobId) {
+    var advancedsearchparam = "/Admin/GetTalentsForJob?jobId=" + jobId + "&AdvancedSearch=true&";
+    if ($("#regiontxt").val()) {
+        advancedsearchparam = advancedsearchparam + "Region=" + $("#regiontxt").val() + "&";
+    }
+    if ($("#ethicitytxt").val()) {
+        advancedsearchparam = advancedsearchparam + "Ethicity=" + $("#ethicitytxt").val() + "&";
+    }
+    if ($("#searchcondition").val() && $("#conditiontxt").val()) {
+        advancedsearchparam = advancedsearchparam + $("#searchcondition").val() + "=" + $("#conditiontxt").val();
+    }
+    if ($("#rangesearchcondition").val() && $("#minconditiontxt").val() && $("#maxconditiontxt").val()) {
+        advancedsearchparam = advancedsearchparam + $("#rangesearchcondition").val() + "=" + $("#minconditiontxt").val() + '-' + $("#maxconditiontxt").val();
+    }
+
+    if (advancedsearchparam != "/Admin/GetTalentsForJob?jobId=" + jobId + "&AdvancedSearch=true&")
+        return advancedsearchparam;
+    else
+        return '/Admin/GetTalentsForJob?jobId=' + jobId;
+}
+
 function GetTalentsForJob(jobId) {
-    var url = '/Admin/GetTalentsForJob?jobId=' + jobId;
+    if (jobId) {
+        clickedJobId = jobId;
+    }
+    else {
+        jobId = clickedJobId;
+    }
+
+    var url = advancedSearch(jobId);
 
     jobIdForTalentAssociation = jobId;
 
@@ -188,6 +234,8 @@ function GetTalentsForJob(jobId) {
                 alert('Talent does not exist!');
             }
             else {
+                $("#list1").empty();
+                $("#list2").empty();
                 var obj = jQuery.parseJSON(data);
 
                 for (var i = 0, l = obj.length; i < l; i++) {
@@ -313,6 +361,7 @@ function saveJobTalentAssociation() {
 
 function setAddNotificationObj(btnObj) {
     var notificationType = "";
+    var notificationUrl = "";
     if (jobIdForTalentAssociation == 0) {
         alert("Something went wrong. Please try after some time!");
         return;
@@ -336,13 +385,30 @@ function setAddNotificationObj(btnObj) {
         return false;
     }
     else {
+        if (notificationType == 'talent') {
+            var talentId = $(obj).closest("tr").attr('id').split('_')[1];
+            jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+        }
+        else {
+            $("#tblAssignedTalents tbody tr").each(function () {
+                var talentId = $(this).attr('id').split('_')[1];
+                var statusValue = $(this).find(":selected").val();
+                jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+            });
 
-        var talentId = $(obj).closest("tr").attr('id').split('_')[1];
-        jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+            
+        }
+    }
+
+    if (notificationType == 'talent') {
+        notificationUrl = '/Admin/GetNotificationDetails';
+    }
+    else {
+        notificationUrl = '/Admin/GetCompanyNotificationDetails';
     }
 
     $.ajax({
-        url: '/Admin/GetNotificationDetails',
+        url: notificationUrl,
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(jobTalentAssociationObj),
@@ -366,7 +432,7 @@ function GetNotificationMessage(notifyData, notificationType) {
     var EnquiryObj = {};
     if (notificationType == 'company') {
         url = "/Email/ProductionCompanyEmail"
-        EnquiryObj["EmailId"] = notifyData["ProductionEmail"];
+        EnquiryObj["EmailId"] = notifyData[0]["ProductionEmail"];
     }
     else {
         url = "/Email/TalentEmail";

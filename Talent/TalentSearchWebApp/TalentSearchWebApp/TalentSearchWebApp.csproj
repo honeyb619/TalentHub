@@ -156,6 +156,7 @@
     <Content Include="Content\css\font-google.css" />
     <Content Include="Content\css\Form.css" />
     <Content Include="Content\css\Jadestyle.css" />
+    <Content Include="Content\css\jqueryui.css" />
     <Content Include="Content\css\skel.css" />
     <Content Include="Content\css\style-large.css" />
     <Content Include="Content\css\style-medium.css" />

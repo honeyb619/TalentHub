@@ -470,9 +470,12 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
-        public JsonResult GetTalentsForJob(long jobId)
+        public JsonResult GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             ITalentServices objTalentServices = new TalentServices();
+            if (AdvancedSearch) {
+                return Json(objTalentServices.GetTalentsForJob(jobId,AdvancedSearch,Region ,Ethicity,HairColor,EyeColor,Age,Waist,Hip,ChestBust), JsonRequestBehavior.AllowGet);
+            }
             return Json(objTalentServices.GetTalentsForJob(jobId), JsonRequestBehavior.AllowGet);
         }
 
@@ -514,6 +517,34 @@ namespace TalentSearchWebApp.Controllers
             NotificationDetails["JobName"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobName;
             NotificationDetails["TalentId"] = Talent.TalentId.ToString();
             NotificationDetails["Region"] = Talent.RegionName;
+            return Json(NotificationDetails);
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpPost]
+        public JsonResult GetCompanyNotificationDetails(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation)
+        {
+
+            List<Dictionary<string, string>> NotificationDetails = new List<Dictionary<string, string>>();
+            IJobs ObjJobService = new JobServices();
+            ITalentServices ObjTalentService = new TalentServices();
+            IProductionCompanyServices ObjProductionCompany = new ProductionCompanyServices();
+            ISubCategory ObjSubCategory = new SubCategoryServices();
+            foreach (var TalentObj in objVmSaveJobTalentAssociation.TalentStatusIds)
+            {
+                Dictionary<string, string> NotificationDetail = new Dictionary<string, string>();
+                VmTalentEntity Talent = ObjTalentService.GetTalentById(TalentObj.TalentId);
+                NotificationDetail["ProductionEmail"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).Email;
+                NotificationDetail["ProductionComanyName"] = ObjProductionCompany.GetProductById(ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).ProductionCompanyId).ProductionCompanyName;
+                NotificationDetail["TalentName"] = Talent.FirstName + " " + Talent.LastName;
+                NotificationDetail["JobStatus"] = ObjSubCategory.GetSubCategoryById(TalentObj.StatusId).SubCategoryName;
+                NotificationDetail["TalentEmail"] = Talent.EmailId;
+                NotificationDetail["JobDescription"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobDescription;
+                NotificationDetail["JobName"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobName;
+                NotificationDetail["TalentId"] = Talent.TalentId.ToString();
+                NotificationDetail["Region"] = Talent.RegionName;
+                NotificationDetails.Add(NotificationDetail);
+            }
             return Json(NotificationDetails);
         }
 

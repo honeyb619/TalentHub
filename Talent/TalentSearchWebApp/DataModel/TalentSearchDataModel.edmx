@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TalentSearchModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="TalentSearchModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TalentSearchModelStoreContainer">
           <EntitySet Name="Category" EntityType="TalentSearchModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ContactUs" EntityType="TalentSearchModel.Store.ContactUs" store:Type="Tables" Schema="dbo" />
@@ -193,7 +193,7 @@
           <Property Name="modifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="IsDeleted" Type="bit" />
-          <Property Name="Email" Type="nchar" MaxLength="1000" />
+          <Property Name="Email" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="JobTalentAssociation">
           <Key>
@@ -715,17 +715,15 @@
         <Function Name="usp_GetTalentsForJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobId" Type="bigint" Mode="In" />
         </Function>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TalentSearchModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="TalentSearchEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="usp_GetPublicTalent" ReturnType="Collection(TalentSearchModel.usp_GetPublicTalent_Result)">
-            <Parameter Name="Category" Mode="In" Type="String" />
-            <Parameter Name="SubCategory" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="Categories" EntityType="TalentSearchModel.Category" />
           <EntitySet Name="ContactUs" EntityType="TalentSearchModel.ContactU" />
+          <EntitySet Name="ErrorTracers" EntityType="TalentSearchModel.ErrorTracer" />
           <EntitySet Name="Jobs" EntityType="TalentSearchModel.Job" />
           <EntitySet Name="JobTalentAssociations" EntityType="TalentSearchModel.JobTalentAssociation" />
           <EntitySet Name="JobTalentCategories" EntityType="TalentSearchModel.JobTalentCategory" />
@@ -749,39 +747,39 @@
           </AssociationSet>
           <AssociationSet Name="FK_ContactUs_SubCategory" Association="TalentSearchModel.FK_ContactUs_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
-            <End Role="ContactU" EntitySet="ContactUs" />
+            <End Role="ContactUs" EntitySet="ContactUs" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_ProductionCompany" Association="TalentSearchModel.FK_Jobs_ProductionCompany">
             <End Role="ProductionCompany" EntitySet="ProductionCompanies" />
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_Region" Association="TalentSearchModel.FK_Jobs_Region">
             <End Role="Region" EntitySet="Regions" />
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
           </AssociationSet>
           <AssociationSet Name="FK_Jobs_SubCategory" Association="TalentSearchModel.FK_Jobs_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentAssociation_Jobs" Association="TalentSearchModel.FK_JobTalentAssociation_Jobs">
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
             <End Role="JobTalentAssociation" EntitySet="JobTalentAssociations" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentCategory_Jobs" Association="TalentSearchModel.FK_JobTalentCategory_Jobs">
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
             <End Role="JobTalentCategory" EntitySet="JobTalentCategories" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentLanguage_Jobs" Association="TalentSearchModel.FK_JobTalentLanguage_Jobs">
-            <End Role="Job" EntitySet="Jobs" />
+            <End Role="Jobs" EntitySet="Jobs" />
             <End Role="JobTalentLanguage" EntitySet="JobTalentLanguages" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentSkills_Jobs" Association="TalentSearchModel.FK_JobTalentSkills_Jobs">
-            <End Role="Job" EntitySet="Jobs" />
-            <End Role="JobTalentSkill" EntitySet="JobTalentSkills" />
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobTalentSkills" EntitySet="JobTalentSkills" />
           </AssociationSet>
           <AssociationSet Name="FK_Media_Jobs" Association="TalentSearchModel.FK_Media_Jobs">
-            <End Role="Job" EntitySet="Jobs" />
-            <End Role="Medium" EntitySet="Media" />
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="Media" EntitySet="Media" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentAssociation_SubCategory" Association="TalentSearchModel.FK_JobTalentAssociation_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
@@ -801,7 +799,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentSkills_JobTalentCategory" Association="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory">
             <End Role="JobTalentCategory" EntitySet="JobTalentCategories" />
-            <End Role="JobTalentSkill" EntitySet="JobTalentSkills" />
+            <End Role="JobTalentSkills" EntitySet="JobTalentSkills" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentLanguage_SubCategory" Association="TalentSearchModel.FK_JobTalentLanguage_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
@@ -813,15 +811,15 @@
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentSkills_SubCategory" Association="TalentSearchModel.FK_JobTalentSkills_SubCategory">
             <End Role="SubCategory" EntitySet="SubCategories" />
-            <End Role="JobTalentSkill" EntitySet="JobTalentSkills" />
+            <End Role="JobTalentSkills" EntitySet="JobTalentSkills" />
           </AssociationSet>
           <AssociationSet Name="FK_JobTalentSkills_Talent" Association="TalentSearchModel.FK_JobTalentSkills_Talent">
             <End Role="Talent" EntitySet="Talents" />
-            <End Role="JobTalentSkill" EntitySet="JobTalentSkills" />
+            <End Role="JobTalentSkills" EntitySet="JobTalentSkills" />
           </AssociationSet>
           <AssociationSet Name="FK_Media_Talent" Association="TalentSearchModel.FK_Media_Talent">
             <End Role="Talent" EntitySet="Talents" />
-            <End Role="Medium" EntitySet="Media" />
+            <End Role="Media" EntitySet="Media" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductionCompany_Region" Association="TalentSearchModel.FK_ProductionCompany_Region">
             <End Role="Region" EntitySet="Regions" />
@@ -841,40 +839,47 @@
           </AssociationSet>
           <AssociationSet Name="FK_Tokens_User" Association="TalentSearchModel.FK_Tokens_User">
             <End Role="User" EntitySet="Users" />
-            <End Role="Token" EntitySet="Tokens" />
+            <End Role="Tokens" EntitySet="Tokens" />
           </AssociationSet>
-          <EntitySet Name="ErrorTracers" EntityType="TalentSearchModel.ErrorTracer" />
-          <FunctionImport Name="Proc_InsertErrorDetails" />
-          <FunctionImport Name="usp_GetTalentsForJob" ReturnType="Collection(TalentSearchModel.usp_GetTalentsForJob_Result)">
-          <Parameter Name="JobId" Mode="In" Type="Int64" />
-          </FunctionImport>
+          <FunctionImport Name="GetJobs" ReturnType="Collection(Int32)" />
           <FunctionImport Name="JobTalentAssociationFromXML" ReturnType="Collection(Int32)">
             <Parameter Name="UpdateXmlData" Mode="In" Type="String" />
             <Parameter Name="UserId" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="Proc_InsertErrorDetails" />
           <FunctionImport Name="UpdateJobFromXML" ReturnType="Collection(Int32)">
             <Parameter Name="UpdateXmlData" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteJob" ReturnType="Collection(Int32)">
+            <Parameter Name="JobId" Mode="In" Type="Int64" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteProductionCompany">
+            <Parameter Name="ProductionCompanyId" Mode="In" Type="Int64" />
             <Parameter Name="UserId" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteTalent" ReturnType="Collection(Int32)">
             <Parameter Name="TalentId" Mode="In" Type="Int64" />
             <Parameter Name="UserId" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetPublicTalent" ReturnType="Collection(TalentSearchModel.usp_GetPublicTalent_Result)">
+            <Parameter Name="Category" Mode="In" Type="String" />
+            <Parameter Name="SubCategory" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetTalentsForJob" ReturnType="Collection(TalentSearchModel.usp_GetTalentsForJob_Result)">
+            <Parameter Name="JobId" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="usp_GetPublicTalent_Result">
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
-          <Property Type="Int64" Name="TalentId" Nullable="false" />
-          <Property Type="String" Name="FilePath" Nullable="true" MaxLength="1000" />
-        </ComplexType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
-          <Property Type="Int64" Name="CategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="MasterCategoryName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CategoryValue" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CategoryDescription" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MasterCategoryName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryValue" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryDescription" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="MasterCategory" Relationship="TalentSearchModel.FK_Category_MasterCategory" FromRole="Category" ToRole="MasterCategory" />
           <NavigationProperty Name="SubCategories" Relationship="TalentSearchModel.FK_SubCategory_Category" FromRole="Category" ToRole="SubCategory" />
         </EntityType>
@@ -882,68 +887,83 @@
           <Key>
             <PropertyRef Name="ContactId" />
           </Key>
-          <Property Type="Int64" Name="ContactId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="ContactPersonName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ContactPersonEmail" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Subject" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AdminComments" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Int64" Name="ContactStatus" />
-          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_ContactUs_SubCategory" FromRole="ContactU" ToRole="SubCategory" />
+          <Property Name="ContactId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactPersonName" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ContactPersonEmail" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="AdminComments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ContactStatus" Type="Int64" />
+          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_ContactUs_SubCategory" FromRole="ContactUs" ToRole="SubCategory" />
+        </EntityType>
+        <EntityType Name="ErrorTracer">
+          <Key>
+            <PropertyRef Name="iErrorID" />
+          </Key>
+          <Property Name="iErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vErrorNumber" Type="Int32" />
+          <Property Name="vErrorState" Type="Int32" />
+          <Property Name="vErrorSeverity" Type="Int32" />
+          <Property Name="vErrorLine" Type="Int32" />
+          <Property Name="vErrorProc" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="vErrorMsg" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="vUserName" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="vHostName" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="dErrorDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Job">
           <Key>
             <PropertyRef Name="JobId" />
           </Key>
-          <Property Type="Int64" Name="JobId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="JobName" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="ProductionCompanyId" Nullable="false" />
-          <Property Type="Int64" Name="StatusId" />
-          <Property Type="Int64" Name="RegionId" />
-          <Property Type="String" Name="JobDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Gender" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="MinAge" Nullable="false" />
-          <Property Type="Int64" Name="MaxAge" Nullable="false" />
-          <Property Type="String" Name="EyeColor" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="Height" />
-          <Property Type="Int64" Name="Waist" />
-          <Property Type="String" Name="HairColor" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="ChestSize" />
-          <Property Type="Int64" Name="HipSize" />
-          <Property Type="String" Name="Ethicity" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Pay" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="NumberOfDays" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="ProductionCompany" Relationship="TalentSearchModel.FK_Jobs_ProductionCompany" FromRole="Job" ToRole="ProductionCompany" />
-          <NavigationProperty Name="Region" Relationship="TalentSearchModel.FK_Jobs_Region" FromRole="Job" ToRole="Region" />
-          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_Jobs_SubCategory" FromRole="Job" ToRole="SubCategory" />
-          <NavigationProperty Name="JobTalentAssociations" Relationship="TalentSearchModel.FK_JobTalentAssociation_Jobs" FromRole="Job" ToRole="JobTalentAssociation" />
-          <NavigationProperty Name="JobTalentCategories" Relationship="TalentSearchModel.FK_JobTalentCategory_Jobs" FromRole="Job" ToRole="JobTalentCategory" />
-          <NavigationProperty Name="JobTalentLanguages" Relationship="TalentSearchModel.FK_JobTalentLanguage_Jobs" FromRole="Job" ToRole="JobTalentLanguage" />
-          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_Jobs" FromRole="Job" ToRole="JobTalentSkill" />
-          <NavigationProperty Name="Media" Relationship="TalentSearchModel.FK_Media_Jobs" FromRole="Job" ToRole="Medium" />
-          <Property Type="String" Name="Email" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="JobId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobName" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="ProductionCompanyId" Type="Int64" Nullable="false" />
+          <Property Name="StatusId" Type="Int64" />
+          <Property Name="RegionId" Type="Int64" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MinAge" Type="Int64" Nullable="false" />
+          <Property Name="MaxAge" Type="Int64" Nullable="false" />
+          <Property Name="EyeColor" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Height" Type="Int64" />
+          <Property Name="Waist" Type="Int64" />
+          <Property Name="HairColor" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ChestSize" Type="Int64" />
+          <Property Name="HipSize" Type="Int64" />
+          <Property Name="Ethicity" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Pay" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="NumberOfDays" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ProductionCompany" Relationship="TalentSearchModel.FK_Jobs_ProductionCompany" FromRole="Jobs" ToRole="ProductionCompany" />
+          <NavigationProperty Name="Region" Relationship="TalentSearchModel.FK_Jobs_Region" FromRole="Jobs" ToRole="Region" />
+          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_Jobs_SubCategory" FromRole="Jobs" ToRole="SubCategory" />
+          <NavigationProperty Name="JobTalentAssociations" Relationship="TalentSearchModel.FK_JobTalentAssociation_Jobs" FromRole="Jobs" ToRole="JobTalentAssociation" />
+          <NavigationProperty Name="JobTalentCategories" Relationship="TalentSearchModel.FK_JobTalentCategory_Jobs" FromRole="Jobs" ToRole="JobTalentCategory" />
+          <NavigationProperty Name="JobTalentLanguages" Relationship="TalentSearchModel.FK_JobTalentLanguage_Jobs" FromRole="Jobs" ToRole="JobTalentLanguage" />
+          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_Jobs" FromRole="Jobs" ToRole="JobTalentSkills" />
+          <NavigationProperty Name="Media" Relationship="TalentSearchModel.FK_Media_Jobs" FromRole="Jobs" ToRole="Media" />
         </EntityType>
         <EntityType Name="JobTalentAssociation">
           <Key>
             <PropertyRef Name="JobTalentAssociationId" />
           </Key>
-          <Property Type="Int64" Name="JobTalentAssociationId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="JobId" Nullable="false" />
-          <Property Type="Int64" Name="TalentId" Nullable="false" />
-          <Property Type="Int64" Name="Status" Nullable="false" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="ModifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentAssociation_Jobs" FromRole="JobTalentAssociation" ToRole="Job" />
+          <Property Name="JobTalentAssociationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobId" Type="Int64" Nullable="false" />
+          <Property Name="TalentId" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentAssociation_Jobs" FromRole="JobTalentAssociation" ToRole="Jobs" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentAssociation_SubCategory" FromRole="JobTalentAssociation" ToRole="SubCategory" />
           <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentAssociation_Talent" FromRole="JobTalentAssociation" ToRole="Talent" />
         </EntityType>
@@ -951,34 +971,34 @@
           <Key>
             <PropertyRef Name="JobTalentCategoryId" />
           </Key>
-          <Property Type="Int64" Name="JobTalentCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="CategoryId" Nullable="false" />
-          <Property Type="Int64" Name="JobId" />
-          <Property Type="Int64" Name="TalentId" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentCategory_Jobs" FromRole="JobTalentCategory" ToRole="Job" />
+          <Property Name="JobTalentCategoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" />
+          <Property Name="JobId" Type="Int64" />
+          <Property Name="TalentId" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentCategory_Jobs" FromRole="JobTalentCategory" ToRole="Jobs" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentCategory_SubCategory" FromRole="JobTalentCategory" ToRole="SubCategory" />
           <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentCategory_Talent" FromRole="JobTalentCategory" ToRole="Talent" />
-          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" FromRole="JobTalentCategory" ToRole="JobTalentSkill" />
+          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" FromRole="JobTalentCategory" ToRole="JobTalentSkills" />
         </EntityType>
         <EntityType Name="JobTalentLanguage">
           <Key>
             <PropertyRef Name="JobTalentLanguageId" />
           </Key>
-          <Property Type="Int64" Name="JobTalentLanguageId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="LanguageId" Nullable="false" />
-          <Property Type="Int64" Name="JobId" />
-          <Property Type="Int64" Name="TalentId" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentLanguage_Jobs" FromRole="JobTalentLanguage" ToRole="Job" />
+          <Property Name="JobTalentLanguageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="JobId" Type="Int64" />
+          <Property Name="TalentId" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentLanguage_Jobs" FromRole="JobTalentLanguage" ToRole="Jobs" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentLanguage_SubCategory" FromRole="JobTalentLanguage" ToRole="SubCategory" />
           <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentLanguage_Talent" FromRole="JobTalentLanguage" ToRole="Talent" />
         </EntityType>
@@ -986,77 +1006,77 @@
           <Key>
             <PropertyRef Name="JobTalentSkillsId" />
           </Key>
-          <Property Type="Int64" Name="JobTalentSkillsId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="ParentCategoryId" Nullable="false" />
-          <Property Type="Int64" Name="SkillId" Nullable="false" />
-          <Property Type="Int64" Name="JobId" />
-          <Property Type="Int64" Name="TalentId" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentSkills_Jobs" FromRole="JobTalentSkill" ToRole="Job" />
-          <NavigationProperty Name="JobTalentCategory" Relationship="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" FromRole="JobTalentSkill" ToRole="JobTalentCategory" />
-          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentSkills_SubCategory" FromRole="JobTalentSkill" ToRole="SubCategory" />
-          <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentSkills_Talent" FromRole="JobTalentSkill" ToRole="Talent" />
+          <Property Name="JobTalentSkillsId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentCategoryId" Type="Int64" Nullable="false" />
+          <Property Name="SkillId" Type="Int64" Nullable="false" />
+          <Property Name="JobId" Type="Int64" />
+          <Property Name="TalentId" Type="Int64" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentSkills_Jobs" FromRole="JobTalentSkills" ToRole="Jobs" />
+          <NavigationProperty Name="JobTalentCategory" Relationship="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" FromRole="JobTalentSkills" ToRole="JobTalentCategory" />
+          <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentSkills_SubCategory" FromRole="JobTalentSkills" ToRole="SubCategory" />
+          <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentSkills_Talent" FromRole="JobTalentSkills" ToRole="Talent" />
         </EntityType>
         <EntityType Name="MasterCategory">
           <Key>
             <PropertyRef Name="MasterCategoryName" />
           </Key>
-          <Property Type="String" Name="MasterCategoryName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="MasterCategoryDescription" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="MasterCategoryName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="MasterCategoryDescription" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Categories" Relationship="TalentSearchModel.FK_Category_MasterCategory" FromRole="MasterCategory" ToRole="Category" />
         </EntityType>
         <EntityType Name="Medium">
           <Key>
             <PropertyRef Name="MediaId" />
           </Key>
-          <Property Type="Int64" Name="MediaId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="MediaType" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="TalentId" />
-          <Property Type="Int64" Name="JobId" />
-          <Property Type="String" Name="MimeType" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="FileName" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="IsProfilePic" />
-          <Property Type="String" Name="FilePath" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_Media_Jobs" FromRole="Medium" ToRole="Job" />
-          <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_Media_Talent" FromRole="Medium" ToRole="Talent" />
+          <Property Name="MediaId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediaType" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="TalentId" Type="Int64" />
+          <Property Name="JobId" Type="Int64" />
+          <Property Name="MimeType" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="IsProfilePic" Type="Boolean" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_Media_Jobs" FromRole="Media" ToRole="Jobs" />
+          <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_Media_Talent" FromRole="Media" ToRole="Talent" />
         </EntityType>
         <EntityType Name="ProductionCompany">
           <Key>
             <PropertyRef Name="ProductionCompanyId" />
           </Key>
-          <Property Type="Int64" Name="ProductionCompanyId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="ProductionCompanyName" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="RegionId" />
-          <Property Type="String" Name="ContactPerson" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EmailId" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="DescriptionNotes" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
-          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_ProductionCompany" FromRole="ProductionCompany" ToRole="Job" />
+          <Property Name="ProductionCompanyId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionCompanyName" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="RegionId" Type="Int64" />
+          <Property Name="ContactPerson" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="DescriptionNotes" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_ProductionCompany" FromRole="ProductionCompany" ToRole="Jobs" />
           <NavigationProperty Name="Region" Relationship="TalentSearchModel.FK_ProductionCompany_Region" FromRole="ProductionCompany" ToRole="Region" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
             <PropertyRef Name="RegionId" />
           </Key>
-          <Property Type="Int64" Name="RegionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="RegionName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="RegionCode" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_Region" FromRole="Region" ToRole="Job" />
+          <Property Name="RegionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="RegionCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_Region" FromRole="Region" ToRole="Jobs" />
           <NavigationProperty Name="ProductionCompanies" Relationship="TalentSearchModel.FK_ProductionCompany_Region" FromRole="Region" ToRole="ProductionCompany" />
           <NavigationProperty Name="Talents" Relationship="TalentSearchModel.FK_Talent_Region" FromRole="Region" ToRole="Talent" />
         </EntityType>
@@ -1064,24 +1084,24 @@
           <Key>
             <PropertyRef Name="SubCategoryId" />
           </Key>
-          <Property Type="Int64" Name="SubCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="CategoryId" Nullable="false" />
-          <Property Type="String" Name="SubCategoryName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="SubCategoryValue" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="SubCategoryDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int64" Name="ParentId" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
+          <Property Name="SubCategoryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" />
+          <Property Name="SubCategoryName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="SubCategoryValue" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="SubCategoryDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Category" Relationship="TalentSearchModel.FK_SubCategory_Category" FromRole="SubCategory" ToRole="Category" />
-          <NavigationProperty Name="ContactUs" Relationship="TalentSearchModel.FK_ContactUs_SubCategory" FromRole="SubCategory" ToRole="ContactU" />
-          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_SubCategory" FromRole="SubCategory" ToRole="Job" />
+          <NavigationProperty Name="ContactUs" Relationship="TalentSearchModel.FK_ContactUs_SubCategory" FromRole="SubCategory" ToRole="ContactUs" />
+          <NavigationProperty Name="Jobs" Relationship="TalentSearchModel.FK_Jobs_SubCategory" FromRole="SubCategory" ToRole="Jobs" />
           <NavigationProperty Name="JobTalentAssociations" Relationship="TalentSearchModel.FK_JobTalentAssociation_SubCategory" FromRole="SubCategory" ToRole="JobTalentAssociation" />
           <NavigationProperty Name="JobTalentCategories" Relationship="TalentSearchModel.FK_JobTalentCategory_SubCategory" FromRole="SubCategory" ToRole="JobTalentCategory" />
           <NavigationProperty Name="JobTalentLanguages" Relationship="TalentSearchModel.FK_JobTalentLanguage_SubCategory" FromRole="SubCategory" ToRole="JobTalentLanguage" />
-          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_SubCategory" FromRole="SubCategory" ToRole="JobTalentSkill" />
+          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_SubCategory" FromRole="SubCategory" ToRole="JobTalentSkills" />
           <NavigationProperty Name="Talents" Relationship="TalentSearchModel.FK_Talent_SubCategory" FromRole="SubCategory" ToRole="Talent" />
           <NavigationProperty Name="Talents1" Relationship="TalentSearchModel.FK_Talent_SubCategory1" FromRole="SubCategory" ToRole="Talent" />
         </EntityType>
@@ -1089,41 +1109,41 @@
           <Key>
             <PropertyRef Name="TalentId" />
           </Key>
-          <Property Type="Int64" Name="TalentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="LastName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="StatusId" />
-          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AlternateEmailId" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Gender" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="Age" Nullable="false" />
-          <Property Type="String" Name="Hobbies" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="Acsent" />
-          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PostalAddress" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="RegionId" Nullable="false" />
-          <Property Type="String" Name="EmergencyName" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EmergencyNumber" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="Height" />
-          <Property Type="String" Name="Nationality" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EyeColor" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Ethnicity" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="Waist" />
-          <Property Type="String" Name="HairColor" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="ChestSize" />
-          <Property Type="Int64" Name="HipSize" />
-          <Property Type="Boolean" Name="IsPublic" />
-          <Property Type="Int64" Name="CreatedBy" Nullable="false" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="0" />
-          <Property Type="Int64" Name="modifiedBy" />
-          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
-          <Property Type="Boolean" Name="IsDeleted" />
+          <Property Name="TalentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="StatusId" Type="Int64" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="AlternateEmailId" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Age" Type="Int64" Nullable="false" />
+          <Property Name="Hobbies" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Acsent" Type="Int64" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PostalAddress" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="RegionId" Type="Int64" Nullable="false" />
+          <Property Name="EmergencyName" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="EmergencyNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Height" Type="Int64" />
+          <Property Name="Nationality" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EyeColor" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Ethnicity" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Waist" Type="Int64" />
+          <Property Name="HairColor" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ChestSize" Type="Int64" />
+          <Property Name="HipSize" Type="Int64" />
+          <Property Name="IsPublic" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="modifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="JobTalentAssociations" Relationship="TalentSearchModel.FK_JobTalentAssociation_Talent" FromRole="Talent" ToRole="JobTalentAssociation" />
           <NavigationProperty Name="JobTalentCategories" Relationship="TalentSearchModel.FK_JobTalentCategory_Talent" FromRole="Talent" ToRole="JobTalentCategory" />
           <NavigationProperty Name="JobTalentLanguages" Relationship="TalentSearchModel.FK_JobTalentLanguage_Talent" FromRole="Talent" ToRole="JobTalentLanguage" />
-          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_Talent" FromRole="Talent" ToRole="JobTalentSkill" />
-          <NavigationProperty Name="Media" Relationship="TalentSearchModel.FK_Media_Talent" FromRole="Talent" ToRole="Medium" />
+          <NavigationProperty Name="JobTalentSkills" Relationship="TalentSearchModel.FK_JobTalentSkills_Talent" FromRole="Talent" ToRole="JobTalentSkills" />
+          <NavigationProperty Name="Media" Relationship="TalentSearchModel.FK_Media_Talent" FromRole="Talent" ToRole="Media" />
           <NavigationProperty Name="Region" Relationship="TalentSearchModel.FK_Talent_Region" FromRole="Talent" ToRole="Region" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_Talent_SubCategory" FromRole="Talent" ToRole="SubCategory" />
           <NavigationProperty Name="SubCategory1" Relationship="TalentSearchModel.FK_Talent_SubCategory1" FromRole="Talent" ToRole="SubCategory" />
@@ -1132,27 +1152,27 @@
           <Key>
             <PropertyRef Name="TokenId" />
           </Key>
-          <Property Type="Int32" Name="TokenId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="String" Name="AuthToken" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="IssuedOn" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="ExpiresOn" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="TalentSearchModel.FK_Tokens_User" FromRole="Token" ToRole="User" />
+          <Property Name="TokenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AuthToken" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="IssuedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="TalentSearchModel.FK_Tokens_User" FromRole="Tokens" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tokens" Relationship="TalentSearchModel.FK_Tokens_User" FromRole="User" ToRole="Token" />
-          <Property Type="String" Name="Email" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="1000" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Tokens" Relationship="TalentSearchModel.FK_Tokens_User" FromRole="User" ToRole="Tokens" />
         </EntityType>
         <Association Name="FK_Category_MasterCategory">
-          <End Type="TalentSearchModel.MasterCategory" Role="MasterCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.Category" Role="Category" Multiplicity="*" />
+          <End Role="MasterCategory" Type="TalentSearchModel.MasterCategory" Multiplicity="1" />
+          <End Role="Category" Type="TalentSearchModel.Category" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MasterCategory">
               <PropertyRef Name="MasterCategoryName" />
@@ -1163,8 +1183,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubCategory_Category">
-          <End Type="TalentSearchModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="*" />
+          <End Role="Category" Type="TalentSearchModel.Category" Multiplicity="1" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryId" />
@@ -1175,58 +1195,58 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContactUs_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.ContactU" Role="ContactU" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="0..1" />
+          <End Role="ContactUs" Type="TalentSearchModel.ContactU" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
             </Principal>
-            <Dependent Role="ContactU">
+            <Dependent Role="ContactUs">
               <PropertyRef Name="ContactStatus" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Jobs_ProductionCompany">
-          <End Type="TalentSearchModel.ProductionCompany" Role="ProductionCompany" Multiplicity="1" />
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="*" />
+          <End Role="ProductionCompany" Type="TalentSearchModel.ProductionCompany" Multiplicity="1" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductionCompany">
               <PropertyRef Name="ProductionCompanyId" />
             </Principal>
-            <Dependent Role="Job">
+            <Dependent Role="Jobs">
               <PropertyRef Name="ProductionCompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Jobs_Region">
-          <End Type="TalentSearchModel.Region" Role="Region" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="*" />
+          <End Role="Region" Type="TalentSearchModel.Region" Multiplicity="0..1" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Region">
               <PropertyRef Name="RegionId" />
             </Principal>
-            <Dependent Role="Job">
+            <Dependent Role="Jobs">
               <PropertyRef Name="RegionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Jobs_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="0..1" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
             </Principal>
-            <Dependent Role="Job">
+            <Dependent Role="Jobs">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentAssociation_Jobs">
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentAssociation" Role="JobTalentAssociation" Multiplicity="*" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="1" />
+          <End Role="JobTalentAssociation" Type="TalentSearchModel.JobTalentAssociation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Job">
+            <Principal Role="Jobs">
               <PropertyRef Name="JobId" />
             </Principal>
             <Dependent Role="JobTalentAssociation">
@@ -1235,10 +1255,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentCategory_Jobs">
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentCategory" Role="JobTalentCategory" Multiplicity="*" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="0..1" />
+          <End Role="JobTalentCategory" Type="TalentSearchModel.JobTalentCategory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Job">
+            <Principal Role="Jobs">
               <PropertyRef Name="JobId" />
             </Principal>
             <Dependent Role="JobTalentCategory">
@@ -1247,10 +1267,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentLanguage_Jobs">
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentLanguage" Role="JobTalentLanguage" Multiplicity="*" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="0..1" />
+          <End Role="JobTalentLanguage" Type="TalentSearchModel.JobTalentLanguage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Job">
+            <Principal Role="Jobs">
               <PropertyRef Name="JobId" />
             </Principal>
             <Dependent Role="JobTalentLanguage">
@@ -1259,32 +1279,32 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentSkills_Jobs">
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentSkill" Role="JobTalentSkill" Multiplicity="*" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="0..1" />
+          <End Role="JobTalentSkills" Type="TalentSearchModel.JobTalentSkill" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Job">
+            <Principal Role="Jobs">
               <PropertyRef Name="JobId" />
             </Principal>
-            <Dependent Role="JobTalentSkill">
+            <Dependent Role="JobTalentSkills">
               <PropertyRef Name="JobId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Media_Jobs">
-          <End Type="TalentSearchModel.Job" Role="Job" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Medium" Role="Medium" Multiplicity="*" />
+          <End Role="Jobs" Type="TalentSearchModel.Job" Multiplicity="0..1" />
+          <End Role="Media" Type="TalentSearchModel.Medium" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Job">
+            <Principal Role="Jobs">
               <PropertyRef Name="JobId" />
             </Principal>
-            <Dependent Role="Medium">
+            <Dependent Role="Media">
               <PropertyRef Name="JobId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentAssociation_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentAssociation" Role="JobTalentAssociation" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="1" />
+          <End Role="JobTalentAssociation" Type="TalentSearchModel.JobTalentAssociation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
@@ -1295,8 +1315,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentAssociation_Talent">
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentAssociation" Role="JobTalentAssociation" Multiplicity="*" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="1" />
+          <End Role="JobTalentAssociation" Type="TalentSearchModel.JobTalentAssociation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talent">
               <PropertyRef Name="TalentId" />
@@ -1307,8 +1327,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentCategory_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentCategory" Role="JobTalentCategory" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="1" />
+          <End Role="JobTalentCategory" Type="TalentSearchModel.JobTalentCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
@@ -1319,8 +1339,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentCategory_Talent">
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentCategory" Role="JobTalentCategory" Multiplicity="*" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="0..1" />
+          <End Role="JobTalentCategory" Type="TalentSearchModel.JobTalentCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talent">
               <PropertyRef Name="TalentId" />
@@ -1331,20 +1351,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentSkills_JobTalentCategory">
-          <End Type="TalentSearchModel.JobTalentCategory" Role="JobTalentCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentSkill" Role="JobTalentSkill" Multiplicity="*" />
+          <End Role="JobTalentCategory" Type="TalentSearchModel.JobTalentCategory" Multiplicity="1" />
+          <End Role="JobTalentSkills" Type="TalentSearchModel.JobTalentSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="JobTalentCategory">
               <PropertyRef Name="JobTalentCategoryId" />
             </Principal>
-            <Dependent Role="JobTalentSkill">
+            <Dependent Role="JobTalentSkills">
               <PropertyRef Name="ParentCategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentLanguage_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentLanguage" Role="JobTalentLanguage" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="1" />
+          <End Role="JobTalentLanguage" Type="TalentSearchModel.JobTalentLanguage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
@@ -1355,8 +1375,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentLanguage_Talent">
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentLanguage" Role="JobTalentLanguage" Multiplicity="*" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="0..1" />
+          <End Role="JobTalentLanguage" Type="TalentSearchModel.JobTalentLanguage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talent">
               <PropertyRef Name="TalentId" />
@@ -1367,44 +1387,44 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentSkills_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="1" />
-          <End Type="TalentSearchModel.JobTalentSkill" Role="JobTalentSkill" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="1" />
+          <End Role="JobTalentSkills" Type="TalentSearchModel.JobTalentSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
             </Principal>
-            <Dependent Role="JobTalentSkill">
+            <Dependent Role="JobTalentSkills">
               <PropertyRef Name="SkillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_JobTalentSkills_Talent">
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.JobTalentSkill" Role="JobTalentSkill" Multiplicity="*" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="0..1" />
+          <End Role="JobTalentSkills" Type="TalentSearchModel.JobTalentSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talent">
               <PropertyRef Name="TalentId" />
             </Principal>
-            <Dependent Role="JobTalentSkill">
+            <Dependent Role="JobTalentSkills">
               <PropertyRef Name="TalentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Media_Talent">
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Medium" Role="Medium" Multiplicity="*" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="0..1" />
+          <End Role="Media" Type="TalentSearchModel.Medium" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talent">
               <PropertyRef Name="TalentId" />
             </Principal>
-            <Dependent Role="Medium">
+            <Dependent Role="Media">
               <PropertyRef Name="TalentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductionCompany_Region">
-          <End Type="TalentSearchModel.Region" Role="Region" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.ProductionCompany" Role="ProductionCompany" Multiplicity="*" />
+          <End Role="Region" Type="TalentSearchModel.Region" Multiplicity="0..1" />
+          <End Role="ProductionCompany" Type="TalentSearchModel.ProductionCompany" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Region">
               <PropertyRef Name="RegionId" />
@@ -1415,8 +1435,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Talent_Region">
-          <End Type="TalentSearchModel.Region" Role="Region" Multiplicity="1" />
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="*" />
+          <End Role="Region" Type="TalentSearchModel.Region" Multiplicity="1" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Region">
               <PropertyRef Name="RegionId" />
@@ -1427,8 +1447,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Talent_SubCategory">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="0..1" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
@@ -1439,8 +1459,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Talent_SubCategory1">
-          <End Type="TalentSearchModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
-          <End Type="TalentSearchModel.Talent" Role="Talent" Multiplicity="*" />
+          <End Role="SubCategory" Type="TalentSearchModel.SubCategory" Multiplicity="0..1" />
+          <End Role="Talent" Type="TalentSearchModel.Talent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategory">
               <PropertyRef Name="SubCategoryId" />
@@ -1451,32 +1471,22 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tokens_User">
-          <End Type="TalentSearchModel.User" Role="User" Multiplicity="1" />
-          <End Type="TalentSearchModel.Token" Role="Token" Multiplicity="*" />
+          <End Role="User" Type="TalentSearchModel.User" Multiplicity="1" />
+          <End Role="Tokens" Type="TalentSearchModel.Token" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Token">
+            <Dependent Role="Tokens">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ErrorTracer">
-          <Key>
-            <PropertyRef Name="iErrorID" />
-          </Key>
-          <Property Type="Int32" Name="iErrorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="vErrorNumber" />
-          <Property Type="Int32" Name="vErrorState" />
-          <Property Type="Int32" Name="vErrorSeverity" />
-          <Property Type="Int32" Name="vErrorLine" />
-          <Property Type="String" Name="vErrorProc" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="vErrorMsg" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="vUserName" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="vHostName" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="dErrorDate" Precision="3" />
-        </EntityType>
+        <ComplexType Name="usp_GetPublicTalent_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
+          <Property Type="Int64" Name="TalentId" Nullable="false" />
+          <Property Type="String" Name="FilePath" Nullable="false" MaxLength="1000" />
+        </ComplexType>
         <ComplexType Name="usp_GetTalentsForJob_Result">
           <Property Type="Int64" Name="TalentId" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="201" />
@@ -1484,13 +1494,291 @@
           <Property Type="Int64" Name="StatusId" Nullable="false" />
           <Property Type="String" Name="StatusText" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="IsAssigned" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="RegionName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Ethnicity" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HairColor" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EyeColor" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="Age" Nullable="false" />
+          <Property Type="Int64" Name="Waist" Nullable="true" />
+          <Property Type="Int64" Name="HipSize" Nullable="true" />
+          <Property Type="Int64" Name="ChestSize" Nullable="true" />
         </ComplexType>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TalentSearchModelStoreContainer" CdmEntityContainer="TalentSearchEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TalentSearchModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="MasterCategoryName" ColumnName="MasterCategoryName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryValue" ColumnName="CategoryValue" />
+                <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactUs">
+            <EntityTypeMapping TypeName="TalentSearchModel.ContactU">
+              <MappingFragment StoreEntitySet="ContactUs">
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
+                <ScalarProperty Name="ContactPersonEmail" ColumnName="ContactPersonEmail" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="AdminComments" ColumnName="AdminComments" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ContactStatus" ColumnName="ContactStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorTracers">
+            <EntityTypeMapping TypeName="TalentSearchModel.ErrorTracer">
+              <MappingFragment StoreEntitySet="ErrorTracer">
+                <ScalarProperty Name="iErrorID" ColumnName="iErrorID" />
+                <ScalarProperty Name="vErrorNumber" ColumnName="vErrorNumber" />
+                <ScalarProperty Name="vErrorState" ColumnName="vErrorState" />
+                <ScalarProperty Name="vErrorSeverity" ColumnName="vErrorSeverity" />
+                <ScalarProperty Name="vErrorLine" ColumnName="vErrorLine" />
+                <ScalarProperty Name="vErrorProc" ColumnName="vErrorProc" />
+                <ScalarProperty Name="vErrorMsg" ColumnName="vErrorMsg" />
+                <ScalarProperty Name="vUserName" ColumnName="vUserName" />
+                <ScalarProperty Name="vHostName" ColumnName="vHostName" />
+                <ScalarProperty Name="dErrorDate" ColumnName="dErrorDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="TalentSearchModel.Job">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+                <ScalarProperty Name="ProductionCompanyId" ColumnName="ProductionCompanyId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+                <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
+                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Waist" ColumnName="Waist" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="ChestSize" ColumnName="ChestSize" />
+                <ScalarProperty Name="HipSize" ColumnName="HipSize" />
+                <ScalarProperty Name="Ethicity" ColumnName="Ethicity" />
+                <ScalarProperty Name="Pay" ColumnName="Pay" />
+                <ScalarProperty Name="NumberOfDays" ColumnName="NumberOfDays" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTalentAssociations">
+            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentAssociation">
+              <MappingFragment StoreEntitySet="JobTalentAssociation">
+                <ScalarProperty Name="JobTalentAssociationId" ColumnName="JobTalentAssociationId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTalentCategories">
+            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentCategory">
+              <MappingFragment StoreEntitySet="JobTalentCategory">
+                <ScalarProperty Name="JobTalentCategoryId" ColumnName="JobTalentCategoryId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTalentLanguages">
+            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentLanguage">
+              <MappingFragment StoreEntitySet="JobTalentLanguage">
+                <ScalarProperty Name="JobTalentLanguageId" ColumnName="JobTalentLanguageId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTalentSkills">
+            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentSkill">
+              <MappingFragment StoreEntitySet="JobTalentSkills">
+                <ScalarProperty Name="JobTalentSkillsId" ColumnName="JobTalentSkillsId" />
+                <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterCategories">
+            <EntityTypeMapping TypeName="TalentSearchModel.MasterCategory">
+              <MappingFragment StoreEntitySet="MasterCategory">
+                <ScalarProperty Name="MasterCategoryName" ColumnName="MasterCategoryName" />
+                <ScalarProperty Name="MasterCategoryDescription" ColumnName="MasterCategoryDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Media">
+            <EntityTypeMapping TypeName="TalentSearchModel.Medium">
+              <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="IsProfilePic" ColumnName="IsProfilePic" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionCompanies">
+            <EntityTypeMapping TypeName="TalentSearchModel.ProductionCompany">
+              <MappingFragment StoreEntitySet="ProductionCompany">
+                <ScalarProperty Name="ProductionCompanyId" ColumnName="ProductionCompanyId" />
+                <ScalarProperty Name="ProductionCompanyName" ColumnName="ProductionCompanyName" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="DescriptionNotes" ColumnName="DescriptionNotes" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="TalentSearchModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="RegionCode" ColumnName="RegionCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategories">
+            <EntityTypeMapping TypeName="TalentSearchModel.SubCategory">
+              <MappingFragment StoreEntitySet="SubCategory">
+                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
+                <ScalarProperty Name="SubCategoryValue" ColumnName="SubCategoryValue" />
+                <ScalarProperty Name="SubCategoryDescription" ColumnName="SubCategoryDescription" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Talents">
+            <EntityTypeMapping TypeName="TalentSearchModel.Talent">
+              <MappingFragment StoreEntitySet="Talent">
+                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="AlternateEmailId" ColumnName="AlternateEmailId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="Acsent" ColumnName="Acsent" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PostalAddress" ColumnName="PostalAddress" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="EmergencyName" ColumnName="EmergencyName" />
+                <ScalarProperty Name="EmergencyNumber" ColumnName="EmergencyNumber" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="Waist" ColumnName="Waist" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="ChestSize" ColumnName="ChestSize" />
+                <ScalarProperty Name="HipSize" ColumnName="HipSize" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="TalentSearchModel.Token">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AuthToken" ColumnName="AuthToken" />
+                <ScalarProperty Name="IssuedOn" ColumnName="IssuedOn" />
+                <ScalarProperty Name="ExpiresOn" ColumnName="ExpiresOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TalentSearchModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetJobs" FunctionName="TalentSearchModel.Store.GetJobs" />
+          <FunctionImportMapping FunctionImportName="JobTalentAssociationFromXML" FunctionName="TalentSearchModel.Store.JobTalentAssociationFromXML" />
+          <FunctionImportMapping FunctionImportName="Proc_InsertErrorDetails" FunctionName="TalentSearchModel.Store.Proc_InsertErrorDetails" />
+          <FunctionImportMapping FunctionImportName="UpdateJobFromXML" FunctionName="TalentSearchModel.Store.UpdateJobFromXML" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteJob" FunctionName="TalentSearchModel.Store.usp_DeleteJob" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteProductionCompany" FunctionName="TalentSearchModel.Store.usp_DeleteProductionCompany" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteTalent" FunctionName="TalentSearchModel.Store.usp_DeleteTalent" />
           <FunctionImportMapping FunctionImportName="usp_GetPublicTalent" FunctionName="TalentSearchModel.Store.usp_GetPublicTalent">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TalentSearchModel.usp_GetPublicTalent_Result">
@@ -1500,270 +1788,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="TalentSearchModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
-                <ScalarProperty Name="CategoryValue" ColumnName="CategoryValue" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="MasterCategoryName" ColumnName="MasterCategoryName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ContactUs">
-            <EntityTypeMapping TypeName="TalentSearchModel.ContactU">
-              <MappingFragment StoreEntitySet="ContactUs">
-                <ScalarProperty Name="ContactStatus" ColumnName="ContactStatus" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="AdminComments" ColumnName="AdminComments" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="ContactPersonEmail" ColumnName="ContactPersonEmail" />
-                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
-                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Jobs">
-            <EntityTypeMapping TypeName="TalentSearchModel.Job">
-              <MappingFragment StoreEntitySet="Jobs">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="NumberOfDays" ColumnName="NumberOfDays" />
-                <ScalarProperty Name="Pay" ColumnName="Pay" />
-                <ScalarProperty Name="Ethicity" ColumnName="Ethicity" />
-                <ScalarProperty Name="HipSize" ColumnName="HipSize" />
-                <ScalarProperty Name="ChestSize" ColumnName="ChestSize" />
-                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
-                <ScalarProperty Name="Waist" ColumnName="Waist" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
-                <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
-                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="ProductionCompanyId" ColumnName="ProductionCompanyId" />
-                <ScalarProperty Name="JobName" ColumnName="JobName" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobTalentAssociations">
-            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentAssociation">
-              <MappingFragment StoreEntitySet="JobTalentAssociation">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="JobTalentAssociationId" ColumnName="JobTalentAssociationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobTalentCategories">
-            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentCategory">
-              <MappingFragment StoreEntitySet="JobTalentCategory">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="JobTalentCategoryId" ColumnName="JobTalentCategoryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobTalentLanguages">
-            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentLanguage">
-              <MappingFragment StoreEntitySet="JobTalentLanguage">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="JobTalentLanguageId" ColumnName="JobTalentLanguageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobTalentSkills">
-            <EntityTypeMapping TypeName="TalentSearchModel.JobTalentSkill">
-              <MappingFragment StoreEntitySet="JobTalentSkills">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
-                <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
-                <ScalarProperty Name="JobTalentSkillsId" ColumnName="JobTalentSkillsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MasterCategories">
-            <EntityTypeMapping TypeName="TalentSearchModel.MasterCategory">
-              <MappingFragment StoreEntitySet="MasterCategory">
-                <ScalarProperty Name="MasterCategoryDescription" ColumnName="MasterCategoryDescription" />
-                <ScalarProperty Name="MasterCategoryName" ColumnName="MasterCategoryName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Media">
-            <EntityTypeMapping TypeName="TalentSearchModel.Medium">
-              <MappingFragment StoreEntitySet="Media">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-                <ScalarProperty Name="IsProfilePic" ColumnName="IsProfilePic" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
-                <ScalarProperty Name="JobId" ColumnName="JobId" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
-                <ScalarProperty Name="MediaId" ColumnName="MediaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductionCompanies">
-            <EntityTypeMapping TypeName="TalentSearchModel.ProductionCompany">
-              <MappingFragment StoreEntitySet="ProductionCompany">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DescriptionNotes" ColumnName="DescriptionNotes" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="ProductionCompanyName" ColumnName="ProductionCompanyName" />
-                <ScalarProperty Name="ProductionCompanyId" ColumnName="ProductionCompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="TalentSearchModel.Region">
-              <MappingFragment StoreEntitySet="Region">
-                <ScalarProperty Name="RegionCode" ColumnName="RegionCode" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubCategories">
-            <EntityTypeMapping TypeName="TalentSearchModel.SubCategory">
-              <MappingFragment StoreEntitySet="SubCategory">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="SubCategoryDescription" ColumnName="SubCategoryDescription" />
-                <ScalarProperty Name="SubCategoryValue" ColumnName="SubCategoryValue" />
-                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Talents">
-            <EntityTypeMapping TypeName="TalentSearchModel.Talent">
-              <MappingFragment StoreEntitySet="Talent">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
-                <ScalarProperty Name="HipSize" ColumnName="HipSize" />
-                <ScalarProperty Name="ChestSize" ColumnName="ChestSize" />
-                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
-                <ScalarProperty Name="Waist" ColumnName="Waist" />
-                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
-                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
-                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="EmergencyNumber" ColumnName="EmergencyNumber" />
-                <ScalarProperty Name="EmergencyName" ColumnName="EmergencyName" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="PostalAddress" ColumnName="PostalAddress" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Acsent" ColumnName="Acsent" />
-                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="AlternateEmailId" ColumnName="AlternateEmailId" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="TalentId" ColumnName="TalentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tokens">
-            <EntityTypeMapping TypeName="TalentSearchModel.Token">
-              <MappingFragment StoreEntitySet="Tokens">
-                <ScalarProperty Name="ExpiresOn" ColumnName="ExpiresOn" />
-                <ScalarProperty Name="IssuedOn" ColumnName="IssuedOn" />
-                <ScalarProperty Name="AuthToken" ColumnName="AuthToken" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TokenId" ColumnName="TokenId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="TalentSearchModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ErrorTracers">
-            <EntityTypeMapping TypeName="TalentSearchModel.ErrorTracer">
-              <MappingFragment StoreEntitySet="ErrorTracer">
-                <ScalarProperty Name="dErrorDate" ColumnName="dErrorDate" />
-                <ScalarProperty Name="vHostName" ColumnName="vHostName" />
-                <ScalarProperty Name="vUserName" ColumnName="vUserName" />
-                <ScalarProperty Name="vErrorMsg" ColumnName="vErrorMsg" />
-                <ScalarProperty Name="vErrorProc" ColumnName="vErrorProc" />
-                <ScalarProperty Name="vErrorLine" ColumnName="vErrorLine" />
-                <ScalarProperty Name="vErrorSeverity" ColumnName="vErrorSeverity" />
-                <ScalarProperty Name="vErrorState" ColumnName="vErrorState" />
-                <ScalarProperty Name="vErrorNumber" ColumnName="vErrorNumber" />
-                <ScalarProperty Name="iErrorID" ColumnName="iErrorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Proc_InsertErrorDetails" FunctionName="TalentSearchModel.Store.Proc_InsertErrorDetails" />
           <FunctionImportMapping FunctionImportName="usp_GetTalentsForJob" FunctionName="TalentSearchModel.Store.usp_GetTalentsForJob">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TalentSearchModel.usp_GetTalentsForJob_Result">
@@ -1773,12 +1797,17 @@
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="StatusText" ColumnName="StatusText" />
                 <ScalarProperty Name="IsAssigned" ColumnName="IsAssigned" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Waist" ColumnName="Waist" />
+                <ScalarProperty Name="HipSize" ColumnName="HipSize" />
+                <ScalarProperty Name="ChestSize" ColumnName="ChestSize" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="JobTalentAssociationFromXML" FunctionName="TalentSearchModel.Store.JobTalentAssociationFromXML" />
-          <FunctionImportMapping FunctionImportName="UpdateJobFromXML" FunctionName="TalentSearchModel.Store.UpdateJobFromXML" />
-          <FunctionImportMapping FunctionImportName="usp_DeleteTalent" FunctionName="TalentSearchModel.Store.usp_DeleteTalent" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1799,269 +1828,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram Name="TalentSearchDataModel">
-        <EntityTypeShape EntityType="TalentSearchModel.Category" Width="1.5" PointX="3" PointY="15.875" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="TalentSearchModel.ContactU" Width="1.5" PointX="7.5" PointY="15.625" Height="2.9417936197916674" />
-        <EntityTypeShape EntityType="TalentSearchModel.Job" Width="1.5" PointX="10.5" PointY="13.5" Height="6.9801236979166674" />
-        <EntityTypeShape EntityType="TalentSearchModel.JobTalentAssociation" Width="1.5" PointX="15.75" PointY="15.375" Height="3.3263964843750031" />
-        <EntityTypeShape EntityType="TalentSearchModel.JobTalentCategory" Width="1.5" PointX="18.75" PointY="15.25" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="TalentSearchModel.JobTalentLanguage" Width="1.5" PointX="15.75" PointY="10.375" Height="3.3263964843750031" />
-        <EntityTypeShape EntityType="TalentSearchModel.JobTalentSkill" Width="1.5" PointX="21" PointY="15.125" Height="3.903300781249996" />
-        <EntityTypeShape EntityType="TalentSearchModel.MasterCategory" Width="1.5" PointX="0.75" PointY="16.25" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="TalentSearchModel.Medium" Width="1.5" PointX="15.75" PointY="20.125" Height="3.9033007812500102" />
-        <EntityTypeShape EntityType="TalentSearchModel.ProductionCompany" Width="1.5" PointX="8.25" PointY="9.125" Height="3.7109993489583388" />
-        <EntityTypeShape EntityType="TalentSearchModel.Region" Width="1.5" PointX="6" PointY="10" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="TalentSearchModel.SubCategory" Width="1.5" PointX="5.25" PointY="14.625" Height="4.8648079427083246" />
-        <EntityTypeShape EntityType="TalentSearchModel.Talent" Width="1.5" PointX="13.5" PointY="12.875" Height="8.3262337239583388" />
-        <EntityTypeShape EntityType="TalentSearchModel.Token" Width="1.5" PointX="3" PointY="0.875" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="TalentSearchModel.User" Width="1.5" PointX="0.75" PointY="1" Height="1.9802864583333246" />
-        <AssociationConnector Association="TalentSearchModel.FK_Category_MasterCategory" >
-          <ConnectorPoint PointX="2.25" PointY="17.047841796874998" />
-          <ConnectorPoint PointX="3" PointY="17.047841796874998" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_SubCategory_Category" >
-          <ConnectorPoint PointX="4.5" PointY="17.057444661458334" />
-          <ConnectorPoint PointX="5.25" PointY="17.057444661458334" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_ContactUs_SubCategory" >
-          <ConnectorPoint PointX="6.75" PointY="17.095896809895834" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="17.095896809895834" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="17.095896809895834" />
-          <ConnectorPoint PointX="7.5" PointY="17.095896809895834" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Jobs_ProductionCompany" >
-          <ConnectorPoint PointX="9.75" PointY="10.980499674479169" />
-          <ConnectorPoint PointX="11.25" PointY="10.980499674479169" />
-          <ConnectorPoint PointX="11.25" PointY="13.5" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Jobs_Region" >
-          <ConnectorPoint PointX="7.125" PointY="12.17258789062501" />
-          <ConnectorPoint PointX="7.125" PointY="14.03125" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="14.03125" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="14.03125" />
-          <ConnectorPoint PointX="10.166666666666666" PointY="14.03125" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="14.03125" />
-          <ConnectorPoint PointX="10.5" PointY="14.03125" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Jobs_SubCategory" >
-          <ConnectorPoint PointX="6.75" PointY="15.09375" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="15.09375" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="15.09375" />
-          <ConnectorPoint PointX="10.5" PointY="15.09375" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_Jobs" >
-          <ConnectorPoint PointX="11.25" PointY="20.480123697916667" />
-          <ConnectorPoint PointX="11.25" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="15.333333333333334" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="15.375" PointY="21.451233723958339" />
-          <ConnectorPoint PointX="15.375" PointY="17.0381982421875" />
-          <ConnectorPoint PointX="15.75" PointY="17.0381982421875" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_Jobs" >
-          <ConnectorPoint PointX="11.656252" PointY="13.5" />
-          <ConnectorPoint PointX="11.656252" PointY="12.625" />
-          <ConnectorPoint PointX="13.166666666666666" PointY="12.625" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="12.625" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="12.625" />
-          <ConnectorPoint PointX="15.333333333333334" PointY="12.625" />
-          <ConnectorPoint PointX="15.5" PointY="12.625" />
-          <ConnectorPoint PointX="15.5" PointY="13.951396484375003" />
-          <ConnectorPoint PointX="18.375" PointY="13.951396484375003" />
-          <ConnectorPoint PointX="18.375" PointY="17.009348958333334" />
-          <ConnectorPoint PointX="18.75" PointY="17.009348958333334" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_Jobs" >
-          <ConnectorPoint PointX="10.8437475" PointY="13.5" />
-          <ConnectorPoint PointX="10.8437475" PointY="11.802749837239585" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="11.802749837239585" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="11.802749837239585" />
-          <ConnectorPoint PointX="13.166666666666666" PointY="11.802749837239585" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="11.802749837239585" />
-          <ConnectorPoint PointX="15.75" PointY="11.802749837239585" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_Jobs" >
-          <ConnectorPoint PointX="11.656252" PointY="20.480123697916667" />
-          <ConnectorPoint PointX="11.656252" PointY="21.701233723958339" />
-          <ConnectorPoint PointX="15.5" PointY="21.701233723958339" />
-          <ConnectorPoint PointX="15.5" PointY="19.875" />
-          <ConnectorPoint PointX="15.541666666666666" PointY="19.875" />
-          <ConnectorPoint PointX="15.708333333333334" PointY="19.875" />
-          <ConnectorPoint PointX="20.625" PointY="19.875" />
-          <ConnectorPoint PointX="20.625" PointY="17.076650390624998" />
-          <ConnectorPoint PointX="21" PointY="17.076650390624998" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Media_Jobs" >
-          <ConnectorPoint PointX="10.8437475" PointY="20.480123697916667" />
-          <ConnectorPoint PointX="10.8437475" PointY="22.864767252604175" />
-          <ConnectorPoint PointX="15.75" PointY="22.864767252604175" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_SubCategory" >
-          <ConnectorPoint PointX="6" PointY="19.489807942708325" />
-          <ConnectorPoint PointX="6" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="15.25" PointY="21.576233723958339" />
-          <ConnectorPoint PointX="15.25" PointY="16.175347121093758" />
-          <ConnectorPoint PointX="15.75" PointY="16.175347121093758" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_Talent" >
-          <ConnectorPoint PointX="15" PointY="17.932297363281251" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="17.932297363281251" />
-          <ConnectorPoint PointX="15.458333333333334" PointY="17.932297363281251" />
-          <ConnectorPoint PointX="15.75" PointY="17.932297363281251" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_SubCategory" >
-          <ConnectorPoint PointX="6" PointY="14.625" />
-          <ConnectorPoint PointX="6" PointY="14.375" />
-          <ConnectorPoint PointX="6.3229186666666672" PointY="14.375" />
-          <ConnectorPoint PointX="6.4895853333333333" PointY="14.375" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="14.375" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="14.375" />
-          <ConnectorPoint PointX="10.25" PointY="14.375" />
-          <ConnectorPoint PointX="10.25" PointY="12.375" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="12.375" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="12.375" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="12.375" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="12.375" />
-          <ConnectorPoint PointX="13.166666666666666" PointY="12.375" />
-          <ConnectorPoint PointX="13.333333333333334" PointY="12.375" />
-          <ConnectorPoint PointX="15.25" PointY="12.375" />
-          <ConnectorPoint PointX="15.25" PointY="14.201396484375003" />
-          <ConnectorPoint PointX="18.125" PointY="14.201396484375003" />
-          <ConnectorPoint PointX="18.125" PointY="16.098422479166672" />
-          <ConnectorPoint PointX="18.291666666666668" PointY="16.098422479166672" />
-          <ConnectorPoint PointX="18.458333333333332" PointY="16.098422479166672" />
-          <ConnectorPoint PointX="18.75" PointY="16.098422479166672" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_Talent" >
-          <ConnectorPoint PointX="15" PointY="15.28125" />
-          <ConnectorPoint PointX="18.041666666666668" PointY="15.28125" />
-          <ConnectorPoint PointX="18.208333333333332" PointY="15.28125" />
-          <ConnectorPoint PointX="18.291666666666668" PointY="15.28125" />
-          <ConnectorPoint PointX="18.458333333333332" PointY="15.28125" />
-          <ConnectorPoint PointX="18.75" PointY="15.28125" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" >
-          <ConnectorPoint PointX="20.25" PointY="16.1008251953125" />
-          <ConnectorPoint PointX="21" PointY="16.1008251953125" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_SubCategory" >
-          <ConnectorPoint PointX="6.406252" PointY="14.625" />
-          <ConnectorPoint PointX="6.406252" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="10.166666666666666" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="13.25" PointY="13.085999348958339" />
-          <ConnectorPoint PointX="13.25" PointY="11.0576229186198" />
-          <ConnectorPoint PointX="15.75" PointY="11.0576229186198" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_Talent" >
-          <ConnectorPoint PointX="15" PointY="13.288198242187502" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="13.288198242187502" />
-          <ConnectorPoint PointX="15.333333333333334" PointY="13.288198242187502" />
-          <ConnectorPoint PointX="15.416666666666666" PointY="13.288198242187502" />
-          <ConnectorPoint PointX="15.583333333333334" PointY="13.288198242187502" />
-          <ConnectorPoint PointX="15.75" PointY="13.288198242187502" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_SubCategory" >
-          <ConnectorPoint PointX="6.406252" PointY="19.489807942708325" />
-          <ConnectorPoint PointX="6.406252" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="15.583333333333334" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="15.625" PointY="21.326233723958339" />
-          <ConnectorPoint PointX="15.625" PointY="19.625" />
-          <ConnectorPoint PointX="20.541666666666668" PointY="19.625" />
-          <ConnectorPoint PointX="20.708333333333332" PointY="19.625" />
-          <ConnectorPoint PointX="20.75" PointY="19.625" />
-          <ConnectorPoint PointX="20.75" PointY="18.083727585937488" />
-          <ConnectorPoint PointX="21" PointY="18.083727585937488" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_Talent" >
-          <ConnectorPoint PointX="15" PointY="18.929749348958332" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="18.929749348958332" />
-          <ConnectorPoint PointX="15.458333333333334" PointY="18.929749348958332" />
-          <ConnectorPoint PointX="20.541666666666668" PointY="18.929749348958332" />
-          <ConnectorPoint PointX="20.833333333333332" PointY="18.929749348958332" />
-          <ConnectorPoint PointX="21" PointY="18.929749348958332" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Media_Talent" >
-          <ConnectorPoint PointX="15" PointY="20.663116861979169" />
-          <ConnectorPoint PointX="15.166666666666666" PointY="20.663116861979166" />
-          <ConnectorPoint PointX="15.708333333333334" PointY="20.663116861979169" />
-          <ConnectorPoint PointX="15.75" PointY="20.663116861979169" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_ProductionCompany_Region" >
-          <ConnectorPoint PointX="7.5" PointY="11.086293945312505" />
-          <ConnectorPoint PointX="8.25" PointY="11.086293945312505" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Talent_Region" >
-          <ConnectorPoint PointX="7.3125025" PointY="12.17258789062501" />
-          <ConnectorPoint PointX="7.3125025" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="20.871928710937503" />
-          <ConnectorPoint PointX="13.5" PointY="20.871928710937503" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Talent_SubCategory" >
-          <ConnectorPoint PointX="5.5937475" PointY="19.489807942708325" />
-          <ConnectorPoint PointX="5.5937475" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="6.3229186666666672" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="6.4895853333333333" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="6.526045166666667" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="6.6927118333333331" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="7.2291691666666669" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="7.3958358333333329" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="20.676023704427092" />
-          <ConnectorPoint PointX="13.5" PointY="20.676023704427092" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Talent_SubCategory1" >
-          <ConnectorPoint PointX="6.6093785" PointY="19.489807942708325" />
-          <ConnectorPoint PointX="6.6093785" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="10.760414166666665" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="10.927080833333333" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="11.166666666666666" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="11.333333333333334" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="11.572918666666666" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="11.739585333333334" PointY="21.067833717447915" />
-          <ConnectorPoint PointX="13.5" PointY="21.067833717447915" />
-        </AssociationConnector>
-        <AssociationConnector Association="TalentSearchModel.FK_Tokens_User" >
-          <ConnectorPoint PointX="2.25" PointY="1.9901432291666623" />
-          <ConnectorPoint PointX="3" PointY="1.9901432291666623" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="TalentSearchModel.ErrorTracer" Width="1.5" PointX="0.87441531050690224" PointY="22.015166337608903" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

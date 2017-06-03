@@ -19,5 +19,13 @@ namespace DataModel
         public long StatusId { get; set; }
         public string StatusText { get; set; }
         public string IsAssigned { get; set; }
+        public string RegionName { get; set; }
+        public string Ethnicity { get; set; }
+        public string HairColor { get; set; }
+        public string EyeColor { get; set; }
+        public long Age { get; set; }
+        public Nullable<long> Waist { get; set; }
+        public Nullable<long> HipSize { get; set; }
+        public Nullable<long> ChestSize { get; set; }
     }
 }

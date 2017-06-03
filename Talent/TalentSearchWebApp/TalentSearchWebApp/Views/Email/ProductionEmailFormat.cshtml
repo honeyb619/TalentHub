@@ -35,11 +35,11 @@
                         {
                         <tr>
                             <td>
-                                @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + profile.ProfileId + "'><img src='http://jadetalent.co.nz/Content/Files/Image/" + profile.profilePicPath + "' alternate='" + profile.CandidateName + "' height='100px' width='100px' ");
+                                @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + profile.ProfileId + "'><img src='http://jadetalent.co.nz/Content/Files/Image/" + profile.profilePicPath + "' alternate='" + profile.CandidateName + "' height='100px' width='100px' /></a>")
                             </td>
                             <td>
-                                <ul style="list-style:none">
-                                    <li><span>Name : </span><span>@Html.Raw(profile.CandidateName)</span></li>
+                                <ul style="list-style: none">
+                                    <li>@Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + profile.ProfileId + "'><span>Name : </span><span>" + profile.CandidateName + "</span></a>")</li>
                                     <li><span>Region : </span><span>@Html.Raw(profile.RegionName)</span></li>
                                 </ul>
                             </td>
@@ -52,11 +52,15 @@
 
                 Thanks<br />
                 Jade Admin  
-                <br />PO BOX 23-123
-                <br />Mt Wellington, Auckland NZ 1060 
-                <br /><i class="fa-envelope">enquiries@jadetalent.co.nz </i> 
-                <br /><i class="fa-phone">021 1855321</i>
-                
+                <br />
+                PO BOX 23-123
+                <br />
+                Mt Wellington, Auckland NZ 1060 
+                <br />
+                <i class="fa-envelope">enquiries@jadetalent.co.nz </i>
+                <br />
+                <i class="fa-phone">021 1855321</i>
+
 
             </td>
 

@@ -30,6 +30,7 @@ namespace DataModel
     
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContactU> ContactUs { get; set; }
+        public DbSet<ErrorTracer> ErrorTracers { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobTalentAssociation> JobTalentAssociations { get; set; }
         public DbSet<JobTalentCategory> JobTalentCategories { get; set; }
@@ -43,33 +44,10 @@ namespace DataModel
         public DbSet<Talent> Talents { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<ErrorTracer> ErrorTracers { get; set; }
     
-        public virtual ObjectResult<usp_GetPublicTalent_Result> usp_GetPublicTalent(string category, string subCategory)
+        public virtual ObjectResult<Nullable<int>> GetJobs()
         {
-            var categoryParameter = category != null ?
-                new ObjectParameter("Category", category) :
-                new ObjectParameter("Category", typeof(string));
-    
-            var subCategoryParameter = subCategory != null ?
-                new ObjectParameter("SubCategory", subCategory) :
-                new ObjectParameter("SubCategory", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPublicTalent_Result>("usp_GetPublicTalent", categoryParameter, subCategoryParameter);
-        }
-    
-        public virtual int Proc_InsertErrorDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Proc_InsertErrorDetails");
-        }
-    
-        public virtual ObjectResult<usp_GetTalentsForJob_Result> usp_GetTalentsForJob(Nullable<long> jobId)
-        {
-            var jobIdParameter = jobId.HasValue ?
-                new ObjectParameter("JobId", jobId) :
-                new ObjectParameter("JobId", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTalentsForJob_Result>("usp_GetTalentsForJob", jobIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetJobs");
         }
     
         public virtual ObjectResult<Nullable<int>> JobTalentAssociationFromXML(string updateXmlData, Nullable<long> userId)
@@ -85,6 +63,11 @@ namespace DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("JobTalentAssociationFromXML", updateXmlDataParameter, userIdParameter);
         }
     
+        public virtual int Proc_InsertErrorDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Proc_InsertErrorDetails");
+        }
+    
         public virtual ObjectResult<Nullable<int>> UpdateJobFromXML(string updateXmlData, Nullable<long> userId)
         {
             var updateXmlDataParameter = updateXmlData != null ?
@@ -98,6 +81,32 @@ namespace DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateJobFromXML", updateXmlDataParameter, userIdParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> usp_DeleteJob(Nullable<long> jobId, Nullable<long> userId)
+        {
+            var jobIdParameter = jobId.HasValue ?
+                new ObjectParameter("JobId", jobId) :
+                new ObjectParameter("JobId", typeof(long));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_DeleteJob", jobIdParameter, userIdParameter);
+        }
+    
+        public virtual int usp_DeleteProductionCompany(Nullable<long> productionCompanyId, Nullable<long> userId)
+        {
+            var productionCompanyIdParameter = productionCompanyId.HasValue ?
+                new ObjectParameter("ProductionCompanyId", productionCompanyId) :
+                new ObjectParameter("ProductionCompanyId", typeof(long));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteProductionCompany", productionCompanyIdParameter, userIdParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> usp_DeleteTalent(Nullable<long> talentId, Nullable<long> userId)
         {
             var talentIdParameter = talentId.HasValue ?
@@ -109,6 +118,28 @@ namespace DataModel
                 new ObjectParameter("UserId", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("usp_DeleteTalent", talentIdParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPublicTalent_Result> usp_GetPublicTalent(string category, string subCategory)
+        {
+            var categoryParameter = category != null ?
+                new ObjectParameter("Category", category) :
+                new ObjectParameter("Category", typeof(string));
+    
+            var subCategoryParameter = subCategory != null ?
+                new ObjectParameter("SubCategory", subCategory) :
+                new ObjectParameter("SubCategory", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPublicTalent_Result>("usp_GetPublicTalent", categoryParameter, subCategoryParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTalentsForJob_Result> usp_GetTalentsForJob(Nullable<long> jobId)
+        {
+            var jobIdParameter = jobId.HasValue ?
+                new ObjectParameter("JobId", jobId) :
+                new ObjectParameter("JobId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTalentsForJob_Result>("usp_GetTalentsForJob", jobIdParameter);
         }
     }
 }

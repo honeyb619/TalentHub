@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9e88ed0573214cabb97d299fadfef6f9" Name="Diagram1">
+        <EntityTypeShape EntityType="TalentSearchModel.Category" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.ContactU" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.ErrorTracer" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.Job" Width="1.5" PointX="10.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.JobTalentAssociation" Width="1.5" PointX="15.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.JobTalentCategory" Width="1.5" PointX="18.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.JobTalentLanguage" Width="1.5" PointX="15.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.JobTalentSkill" Width="1.5" PointX="21" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.MasterCategory" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.Medium" Width="1.5" PointX="15.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.ProductionCompany" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.Region" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.SubCategory" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.Talent" Width="1.5" PointX="13.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.Token" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TalentSearchModel.User" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="TalentSearchModel.FK_Category_MasterCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_SubCategory_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_ContactUs_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Jobs_ProductionCompany" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Jobs_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Jobs_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Media_Jobs" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentAssociation_Talent" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentCategory_Talent" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_JobTalentCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentLanguage_Talent" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_JobTalentSkills_Talent" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Media_Talent" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_ProductionCompany_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Talent_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Talent_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Talent_SubCategory1" ManuallyRouted="false" />
+        <AssociationConnector Association="TalentSearchModel.FK_Tokens_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

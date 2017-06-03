@@ -426,7 +426,7 @@ namespace BusinessServices.Services
         }
 
 
-        public List<VmTalentsForJob> GetTalentsForJob(long jobId)
+        public List<VmTalentsForJob> GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             var jobIdForTalent = new SqlParameter("@JobId", jobId);
             var publicTalents = _unitOfWork.Usp_GetTalentsForJob_ResultRepository.GetWithRawSql("exec usp_GetTalentsForJob @JobId", jobIdForTalent).ToList();
@@ -435,6 +435,52 @@ namespace BusinessServices.Services
             {
                 Mapper.CreateMap<usp_GetTalentsForJob_Result, VmTalentsForJob>();
                 var publicTalentsModel = Mapper.Map<List<usp_GetTalentsForJob_Result>, List<VmTalentsForJob>>(publicTalents);
+
+                if (AdvancedSearch)
+                {
+                    if (!(String.IsNullOrEmpty(Region)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.RegionName != null ? talent.RegionName.ToLower().Contains(Region.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(Ethicity)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.Ethnicity != null ? talent.Ethnicity.ToLower().Contains(Ethicity.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(HairColor)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.HairColor != null ? talent.HairColor.ToLower().Contains(HairColor.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(EyeColor)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.EyeColor != null ? talent.EyeColor.ToLower().Contains(EyeColor.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(Age)))
+                    {
+                        var min = Int32.Parse(Age.Split('-')[0]);
+                        var max = Int32.Parse(Age.Split('-')[1]);
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.Age != null ? (talent.Age >= min && talent.Age <= max) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(Waist)))
+                    {
+                        var min = Int32.Parse(Waist.Split('-')[0]);
+                        var max = Int32.Parse(Waist.Split('-')[1]);
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.Waist != null ? (talent.Waist >= min && talent.Waist <= max) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(Hip)))
+                    {
+                        var min = Int32.Parse(Hip.Split('-')[0]);
+                        var max = Int32.Parse(Hip.Split('-')[1]);
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.HipSize != null ? (talent.HipSize >= min && talent.HipSize <= max) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(ChestBust)))
+                    {
+                        var min = Int32.Parse(ChestBust.Split('-')[0]);
+                        var max = Int32.Parse(ChestBust.Split('-')[1]);
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.ChestSize != null ? (talent.ChestSize >= min && talent.ChestSize <= max) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+
+                }
+
                 return publicTalentsModel;
             }
 

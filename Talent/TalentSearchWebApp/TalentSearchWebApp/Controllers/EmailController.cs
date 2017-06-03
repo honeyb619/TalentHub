@@ -47,7 +47,7 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProductionCompanyEmail(NotificationEmail emailData)
+        public ActionResult ProductionCompanyEmail(List<NotificationEmail> emailData)
         {
             return View(emailData);
         }
