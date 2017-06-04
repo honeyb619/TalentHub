@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit Category";
 }
 <style type="text/css">
-   .slider {
+    .slider {
         display: none;
     }
 </style>
@@ -15,7 +15,22 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Edit Category</h3>
+                        @{
+                            string ActionLink = ViewBag.CategoryName;
+
+                            switch (ActionLink)
+                            {
+                                case "Language":
+                            @Html.Raw("<h3 class='panel-title'>Edit Language</h3>")
+                                    break;
+                                case null:
+                            @Html.Raw("<h3 class='panel-title'>Edit Category</h3>")
+                                    break;
+
+
+                            }
+                        }
+
                     </div>
                     <div class="panel-body">
                         <div class="col-xs-12">
@@ -55,7 +70,21 @@
                                 </form>
 
                                 <div>
-                                    @Html.ActionLink("Back to List", "Categories")
+                                    @{
+                                        switch (ActionLink)
+                                        {
+                                            case "Language":
+                                        @Html.ActionLink("Back to List", "Languages")
+                                                break;
+                                            case null:
+                                        @Html.ActionLink("Back to List", "Categories")
+                                                break;
+
+
+                                        }
+                                       
+                                        
+                                    }
                                 </div>
 
                             </div>

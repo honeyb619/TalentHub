@@ -71,7 +71,19 @@
                                 </form>
 
                                 <div class="col-xs-12 form-group">
-                                    @Html.ActionLink("Back to List", "Categories")
+                                    @{
+                                        string ActionLink = ViewBag.CategoryName;
+                                        switch (ActionLink)
+                                        {
+                                            case "Language":
+                                                @Html.ActionLink("Back to List","Languages")
+                                                break;
+                                    
+                                                
+                                        }
+                                       
+                                        
+                                    }
                                 </div>
                             </div>
                         </div>

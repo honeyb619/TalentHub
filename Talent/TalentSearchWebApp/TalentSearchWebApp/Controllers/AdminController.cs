@@ -175,10 +175,11 @@ namespace TalentSearchWebApp.Controllers
 
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult EditCategories(Int32 CategoryId)
+        public ActionResult EditCategories(Int32 CategoryId,string CategoryName=null)
         {
             ISubCategory categoryObj = new SubCategoryServices();
             var category = categoryObj.GetSubCategoryById(CategoryId);
+            ViewBag.CategoryName = CategoryName;
             return View(category);
         }
 
