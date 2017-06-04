@@ -17,7 +17,24 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Add @ViewBag.CategoryName </h3>
+                        @{
+                            string ActionLink = ViewBag.CategoryName;
+
+                            switch (ActionLink)
+                            {
+                                case "Language":
+                            @Html.Raw("<h3 class='panel-title'>Add Language</h3>")
+                                    break;
+                                case "ETHNICITY":
+                            @Html.Raw("<h3 class='panel-title'>Add Ethicity</h3>")   
+                                    break;
+                                case null:
+                            @Html.Raw("<h3 class='panel-title'>Add Category</h3>")
+                                    break;
+
+
+                            }
+                        }
                     </div>
                     <div class="panel-body">
                         <div class="col-xs-6">
@@ -72,14 +89,19 @@
 
                                 <div class="col-xs-12 form-group">
                                     @{
-                                        string ActionLink = ViewBag.CategoryName;
                                         switch (ActionLink)
                                         {
                                             case "Language":
-                                                @Html.ActionLink("Back to List","Languages")
+                                        @Html.ActionLink("Back to List", "Languages")
                                                 break;
-                                    
-                                                
+                                            case "ETHNICITY":
+                                        @Html.ActionLink("Back to List", "Ethicity") 
+                                                break;
+                                            case null:
+                                        @Html.ActionLink("Back to List", "Categories")
+                                                break;
+
+
                                         }
                                        
                                         
@@ -118,13 +140,23 @@
         categoryObj["SubCategoryDescription"] = $("#SubCategoryDescription").val();
         categoryObj["CategoryId"] = $("#MainCategory").val();
         $.post('/Admin/SaveIndependentCategory', categoryObj,
-           function (data) {
-               if (data == true && CategoryName.indexOf("Language") == -1)
-                   location = "/Admin/Categories";
-               else if (data == true && CategoryName.indexOf("Language") > -1)
-                   location = "/Admin/Languages";
-               else
-                   alert("Not delete something Wrong");
-           });
+          function (data) {
+              if (data == true) {
+                  switch (CategoryName) {
+                      case "Language":
+                          location = "/Admin/Languages";
+                          break;
+                      case "ETHNICITY":
+                          location = "/Admin/Ethicity";
+                          break;
+                      case null:
+                          location = "/Admin/Categories";
+                          break;
+                  }
+              }
+
+              else
+                  alert("Not delete something Wrong");
+          });
     }
 </script>

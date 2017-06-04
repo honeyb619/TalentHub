@@ -1,0 +1,85 @@
+﻿@model  List<BusinessEntities.Model.SubCategoryEntity>
+@{
+    ViewBag.Title = "Ethicity";
+}
+<style type="text/css">
+    .slider {
+        display: none;
+    }
+</style>
+
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Ethicity</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="row titlerow">
+            <div class="col-xs-12" style="padding: 7px 0;">
+                 <input type="button" class="btn btn-success" style="float: right; margin-bottom: 2%; margin-left: 2em;" value="Add Ethicity" onclick="AddEthicity();" />
+            </div>
+
+            <div class="col-xs-12">
+                <div id="gridArea" class="table">
+                    @{  
+                        WebGrid grid = new WebGrid(Model);  
+                        @grid.GetHtml(
+         tableStyle: "grid",
+         fillEmptyRows: false,
+         mode: WebGridPagerModes.All,
+         firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
+         columns: new[] {  
+         grid.Column("SubCategoryName",header: "Category Name"),  
+         grid.Column("ParentName",header: "Parent"),  
+         grid.Column("SubCategoryDescription", header: "Description"),  
+         grid.Column("SubCategoryValue",header: "Value"),
+         grid.Column("SubCategoryId", header: "Action", canSort:false,  
+           
+         format: @<text>
+                        @Html.Raw("<i class='fa fa-pencil' aria-hidden='true' onclick='EditCategories(" + item.SubCategoryId + ")' ></i>")
+                        @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteCategories(" + item.SubCategoryId + ")' ></i>")
+                        </text>  
+        )  
+     })  
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+
+        function EditCategories(P_ID) {
+            window.location = "/Admin/EditCategories?CategoryId=" + P_ID + "&CategoryName=ETHNICITY";
+        }
+
+        function AddEthicity() {
+            window.location = "/Admin/AddIndependentcategories?CategoryName=ETHNICITY";
+        }
+       
+
+        function DeleteCategories(E_ID) {
+            if (confirm("Are You Sure Delete Selected Category and all associated child records?")) {
+                $.get('/Admin/DeleteCategories?CategoryId=' + E_ID,
+                function (data) {
+                    if (data == true)
+                        location = location.href;
+                    else
+                        alert("Not delete something Wrong");
+                });
+            }
+        }
+
+
+    </script>
+

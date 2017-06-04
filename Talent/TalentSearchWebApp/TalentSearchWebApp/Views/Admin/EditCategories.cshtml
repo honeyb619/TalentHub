@@ -23,6 +23,9 @@
                                 case "Language":
                             @Html.Raw("<h3 class='panel-title'>Edit Language</h3>")
                                     break;
+                                case "ETHNICITY":
+                            @Html.Raw("<h3 class='panel-title'>Edit Ethicity</h3>")   
+                                    break;
                                 case null:
                             @Html.Raw("<h3 class='panel-title'>Edit Category</h3>")
                                     break;
@@ -76,6 +79,9 @@
                                             case "Language":
                                         @Html.ActionLink("Back to List", "Languages")
                                                 break;
+                                            case "ETHNICITY":
+                                        @Html.ActionLink("Back to List", "Ethicity") 
+                                                break;
                                             case null:
                                         @Html.ActionLink("Back to List", "Categories")
                                                 break;
@@ -120,10 +126,20 @@
         categoryObj["SubCategoryId"] = $("#SubCategoryId").val();
         $.post('/Admin/UpdateCategoryDetails', categoryObj,
            function (data) {
-               if (data == true && CategoryName.indexOf("Language") == -1)
-                   location = "/Admin/Categories";
-               else if (data == true && CategoryName.indexOf("Language") > -1)
-                   location = "/Admin/Languages";
+               if (data == true) {
+                   switch (CategoryName) {
+                       case "Language":
+                           location = "/Admin/Languages";
+                           break;
+                       case "ETHNICITY":
+                           location = "/Admin/Ethicity";
+                           break;
+                       case null:
+                           location = "/Admin/Categories";
+                           break;
+                   }
+               }
+
                else
                    alert("Not delete something Wrong");
            });

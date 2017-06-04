@@ -561,6 +561,14 @@ namespace TalentSearchWebApp.Controllers
             return View(categoryentities);
         }
 
+        public ActionResult Ethicity()
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetParentChildSubCategoriesWithWhere(new String[] { "New Zealand Ethincity" }, new String[] { "ETHNICITY" }).OrderBy(x => x.SubCategoryName).ToList();
+            return View(categoryentities);
+        }
+
+
         public ActionResult AddIndependentcategories(string CategoryName) {
              ISubCategory categoryObj = new SubCategoryServices();
              var masterCategory = categoryObj.getMasterCategories(CategoryName);
