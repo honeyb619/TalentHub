@@ -554,6 +554,7 @@ namespace TalentSearchWebApp.Controllers
             return Json(NotificationDetails);
         }
 
+        [AuthorizeWithSession]        
         public ActionResult Languages()
         {
             ISubCategory categoryObj = new SubCategoryServices();
@@ -561,6 +562,7 @@ namespace TalentSearchWebApp.Controllers
             return View(categoryentities);
         }
 
+        [AuthorizeWithSession]        
         public ActionResult Ethicity()
         {
             ISubCategory categoryObj = new SubCategoryServices();
@@ -568,7 +570,7 @@ namespace TalentSearchWebApp.Controllers
             return View(categoryentities);
         }
 
-
+        [AuthorizeWithSession]        
         public ActionResult AddIndependentcategories(string CategoryName) {
              ISubCategory categoryObj = new SubCategoryServices();
              var masterCategory = categoryObj.getMasterCategories(CategoryName);
