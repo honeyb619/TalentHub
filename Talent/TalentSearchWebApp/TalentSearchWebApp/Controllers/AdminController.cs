@@ -594,11 +594,13 @@ namespace TalentSearchWebApp.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        [AuthorizeWithSession]
         public ActionResult ChangeBackGround()
         {
             return View();
         }
 
+        [AuthorizeWithSession]
         [HttpPost]
         public ActionResult UploadBackGroundFile(HttpPostedFileBase fileObj)
         {
