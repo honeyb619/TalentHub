@@ -366,6 +366,7 @@
     <Content Include="Views\Admin\Languages.cshtml" />
     <Content Include="Views\Admin\AddIndependentcategories.cshtml" />
     <Content Include="Views\Admin\Ethicity.cshtml" />
+    <Content Include="Views\Admin\ChangeBackGround.cshtml" />
     <None Include="Web.config.install.xdt" />
     <None Include="Web.config.uninstall.xdt" />
   </ItemGroup>

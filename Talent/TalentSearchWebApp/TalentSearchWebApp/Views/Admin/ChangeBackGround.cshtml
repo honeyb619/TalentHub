@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "UploadFiles";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<style>
+    .slider {
+        display: none;
+    }
+
+    .fileinput-button {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter: 'alpha(opacity=0)';
+        font-size: 200px !important;
+        direction: ltr;
+        cursor: pointer;
+    }
+
+    div {
+        margin: 0 0 0.75em 0;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+        input[type="radio"] + label {
+            color: brown;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+            input[type="radio"] + label span {
+                display: inline-block;
+                width: 19px;
+                height: 19px;
+                margin: -1px 4px 0 0;
+                vertical-align: middle;
+                cursor: pointer;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+
+            input[type="radio"] + label span {
+                background-color: gray;
+            }
+
+        input[type="radio"]:checked + label span {
+            background-color: green;
+        }
+
+        input[type="radio"] + label span,
+        input[type="radio"]:checked + label span {
+            -webkit-transition: background-color 0.4s linear;
+            -o-transition: background-color 0.4s linear;
+            -moz-transition: background-color 0.4s linear;
+            transition: background-color 0.4s linear;
+        }
+</style>
+<div class="content">
+    <div class="container">
+        <div class="row" id="uploadContent" style="padding-top: 5%">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Change Background</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select file...</span>
+                                    <input id="fileupload" type="file" name="files[]">
+                                </span>
+                                <input type="button" class="btn btn-primary submit" id="load" data-loading-text="Processing...." value="Confirm" onclick="FileSubmit()" />
+                            </div>
+                            <div id="selectedImage" class="col-xs-12">
+                            </div>
+                            <div class="col-xs-12">
+                                <span>Note: Please Upload the file with jpg format only and dimensions should be 1300*900px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var filesObj = {};
+    var formData = new FormData();
+    document.addEventListener("DOMContentLoaded", init, false);
+
+    function init() {
+        document.querySelector('#fileupload').addEventListener('change', handleFileSelect, false);
+        $("#load").hide();
+    }
+    function handleFileSelect(e) {
+
+        if (!e.target.files) {
+            $("#load").hide();
+            return;
+        }
+        else {
+            var file = e.target.files[0];
+            if (file.name.indexOf(".jpg") > -1) {
+                $("#selectedImage").html("<span> Background File Name : " + file.name + "</span>");
+                $("#load").show();
+                formData.append("fileObj", file);
+            }
+            else {
+                $("#load").hide();
+            }
+        }
+    }
+
+
+    function FileSubmit() {
+        var postUrl = "/Admin/UploadBackGroundFile";
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", postUrl, true);
+        xhr.addEventListener("load", function (evt) {
+            alert(evt.target.responseText);
+            location = location.href;
+        }, false);
+        xhr.addEventListener("error", function (evt) {
+            alert("not uploaded successfully");
+        }, false);
+        xhr.send(formData);
+    }
+
+</script>

@@ -4,6 +4,7 @@ using BusinessServices.Interfaces;
 using BusinessServices.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -175,7 +176,7 @@ namespace TalentSearchWebApp.Controllers
 
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult EditCategories(Int32 CategoryId,string CategoryName=null)
+        public ActionResult EditCategories(Int32 CategoryId, string CategoryName = null)
         {
             ISubCategory categoryObj = new SubCategoryServices();
             var category = categoryObj.GetSubCategoryById(CategoryId);
@@ -554,15 +555,15 @@ namespace TalentSearchWebApp.Controllers
             return Json(NotificationDetails);
         }
 
-        [AuthorizeWithSession]        
+        [AuthorizeWithSession]
         public ActionResult Languages()
         {
             ISubCategory categoryObj = new SubCategoryServices();
-            List<SubCategoryEntity> categoryentities = categoryObj.GetParentChildSubCategoriesWithWhere(new String[] { "New Zealand Language" }, new String[] { "LANGUAGE" }).OrderBy(x=>x.SubCategoryName).ToList();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetParentChildSubCategoriesWithWhere(new String[] { "New Zealand Language" }, new String[] { "LANGUAGE" }).OrderBy(x => x.SubCategoryName).ToList();
             return View(categoryentities);
         }
 
-        [AuthorizeWithSession]        
+        [AuthorizeWithSession]
         public ActionResult Ethicity()
         {
             ISubCategory categoryObj = new SubCategoryServices();
@@ -570,16 +571,18 @@ namespace TalentSearchWebApp.Controllers
             return View(categoryentities);
         }
 
-        [AuthorizeWithSession]        
-        public ActionResult AddIndependentcategories(string CategoryName) {
-             ISubCategory categoryObj = new SubCategoryServices();
-             var masterCategory = categoryObj.getMasterCategories(CategoryName);
-             if (masterCategory.Count > 0) {
-                 ViewBag.Mastercategory = masterCategory[0];
-                 ViewBag.CategoryName = CategoryName;
-                 return View();
-             }
-             return Content("Category not Found");
+        [AuthorizeWithSession]
+        public ActionResult AddIndependentcategories(string CategoryName)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            var masterCategory = categoryObj.getMasterCategories(CategoryName);
+            if (masterCategory.Count > 0)
+            {
+                ViewBag.Mastercategory = masterCategory[0];
+                ViewBag.CategoryName = CategoryName;
+                return View();
+            }
+            return Content("Category not Found");
         }
 
         [AuthorizeWithSession]
@@ -589,6 +592,23 @@ namespace TalentSearchWebApp.Controllers
             ISubCategory categoryObj = new SubCategoryServices();
             categoryObj.AddIndependentCategory(entity);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ChangeBackGround()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadBackGroundFile(HttpPostedFileBase fileObj)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = Path.Combine(Server.MapPath("~/Content/images"), "bg.jpg");
+                fileObj.SaveAs(path);
+                return Content("File Saved Successfully");
+            }
+            return Content("File Not  Saved Successfully");
         }
 
 
