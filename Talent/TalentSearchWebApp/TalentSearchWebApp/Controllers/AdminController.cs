@@ -142,7 +142,8 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSession]
-        public JsonResult GetRegions() {
+        public JsonResult GetRegions()
+        {
             IRegion objRegion = new RegionServices();
             var regions = objRegion.GetAllRegions();
             return Json(regions, JsonRequestBehavior.AllowGet);
@@ -209,7 +210,10 @@ namespace TalentSearchWebApp.Controllers
         public ActionResult AddChildCategory()
         {
             ISubCategory categoryObj = new SubCategoryServices();
-            List<SubCategoryEntity> categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+            List<SubCategoryEntity> categoryentities = new List<SubCategoryEntity>();
+
+            categoryentities = categoryObj.GetParentCategories(new String[] { "Category" }, new String[] { "CATEGORY" }).ToList();
+
             ViewBag.AvaiableEnums = categoryentities.Select(x =>
                                     new SelectListItem()
                                     {
@@ -391,21 +395,21 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents(string search = null, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age=null, string Waist=null, string Hip=null, string ChestBust=null)
+        public ActionResult Talents(string search = null, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             ITalentServices talentObj = new TalentServices();
             if (AdvancedSearch)
             {
-                var talents = talentObj.GetAllTalentsbyAdvancedSearch(Region, Ethicity, HairColor, EyeColor,Age,Waist,Hip,ChestBust);
+                var talents = talentObj.GetAllTalentsbyAdvancedSearch(Region, Ethicity, HairColor, EyeColor, Age, Waist, Hip, ChestBust);
                 return View(talents);
-           
+
             }
             else
             {
                 var talents = talentObj.GetAllTalents(search);
                 return View(talents);
             }
-           
+
         }
 
         [AuthorizeWithSessionAttribute]
@@ -473,8 +477,9 @@ namespace TalentSearchWebApp.Controllers
         public JsonResult GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             ITalentServices objTalentServices = new TalentServices();
-            if (AdvancedSearch) {
-                return Json(objTalentServices.GetTalentsForJob(jobId,AdvancedSearch,Region ,Ethicity,HairColor,EyeColor,Age,Waist,Hip,ChestBust), JsonRequestBehavior.AllowGet);
+            if (AdvancedSearch)
+            {
+                return Json(objTalentServices.GetTalentsForJob(jobId, AdvancedSearch, Region, Ethicity, HairColor, EyeColor, Age, Waist, Hip, ChestBust), JsonRequestBehavior.AllowGet);
             }
             return Json(objTalentServices.GetTalentsForJob(jobId), JsonRequestBehavior.AllowGet);
         }
@@ -509,7 +514,7 @@ namespace TalentSearchWebApp.Controllers
             ISubCategory ObjSubCategory = new SubCategoryServices();
             VmTalentEntity Talent = ObjTalentService.GetTalentById(objVmSaveJobTalentAssociation.TalentStatusIds[0].TalentId);
             NotificationDetails["ProductionEmail"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).Email;
-            NotificationDetails["ProductionComanyName"] = ObjProductionCompany.GetProductById(ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).ProductionCompanyId).ProductionCompanyName;           
+            NotificationDetails["ProductionComanyName"] = ObjProductionCompany.GetProductById(ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).ProductionCompanyId).ProductionCompanyName;
             NotificationDetails["TalentName"] = Talent.FirstName + " " + Talent.LastName;
             NotificationDetails["JobStatus"] = ObjSubCategory.GetSubCategoryById(objVmSaveJobTalentAssociation.TalentStatusIds[0].StatusId).SubCategoryName;
             NotificationDetails["TalentEmail"] = Talent.EmailId;
@@ -547,6 +552,34 @@ namespace TalentSearchWebApp.Controllers
             }
             return Json(NotificationDetails);
         }
+
+        public ActionResult Languages()
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            List<SubCategoryEntity> categoryentities = categoryObj.GetParentChildSubCategoriesWithWhere(new String[] { "New Zealand Language" }, new String[] { "LANGUAGE" }).OrderBy(x=>x.SubCategoryName).ToList();
+            return View(categoryentities);
+        }
+
+        public ActionResult AddIndependentcategories(string CategoryName) {
+             ISubCategory categoryObj = new SubCategoryServices();
+             var masterCategory = categoryObj.getMasterCategories(CategoryName);
+             if (masterCategory.Count > 0) {
+                 ViewBag.Mastercategory = masterCategory[0];
+                 ViewBag.CategoryName = CategoryName;
+                 return View();
+             }
+             return Content("Category not Found");
+        }
+
+        [AuthorizeWithSession]
+        [HttpPost]
+        public ActionResult SaveIndependentCategory(SubCategoryEntity entity)
+        {
+            ISubCategory categoryObj = new SubCategoryServices();
+            categoryObj.AddIndependentCategory(entity);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

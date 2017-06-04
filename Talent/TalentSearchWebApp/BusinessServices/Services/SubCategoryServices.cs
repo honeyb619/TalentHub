@@ -48,7 +48,7 @@ namespace BusinessServices.Services
             if (subCategories.Any())
             {
                 Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x=>x.SubCategoryName).ToList();
+                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x => x.SubCategoryName).ToList();
                 return subCategoriesModel;
             }
             return null;
@@ -62,7 +62,7 @@ namespace BusinessServices.Services
             if (subCategories.Any())
             {
                 Mapper.CreateMap<SubCategory, SubCategoryEntity>().ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.CategoryName));
-                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x=>x.SubCategoryName).ToList();
+                var subCategoriesModel = Mapper.Map<List<SubCategory>, List<SubCategoryEntity>>(subCategories).OrderBy(x => x.SubCategoryName).ToList();
                 return subCategoriesModel;
             }
             return null;
@@ -278,6 +278,35 @@ namespace BusinessServices.Services
                 return false;
             }
 
+        }
+
+        public List<CategoryEntity> getMasterCategories(string CategoryName)
+        {
+            Mapper.CreateMap<Category, CategoryEntity>();
+            var masterCategories = _unitOfWork.CategoryRepository.GetManyQueryable(x => x.MasterCategoryName.ToLower().Contains(CategoryName.ToLower())).ToList();
+            return Mapper.Map<List<Category>, List<CategoryEntity>>(masterCategories).ToList();
+        }
+
+
+        public bool AddIndependentCategory(SubCategoryEntity entity)
+        {
+            try
+            {
+                Mapper.CreateMap<SubCategoryEntity, SubCategory>();
+                var subCategoriesModel = Mapper.Map<SubCategoryEntity, SubCategory>(entity);
+                subCategoriesModel.CreatedBy = 1;
+                subCategoriesModel.CreatedDate = DateTime.Now;
+                subCategoriesModel.ModifiedDate = DateTime.Now;
+                subCategoriesModel.modifiedBy = 1;
+                subCategoriesModel.IsDeleted = false;
+                _unitOfWork.SubCategoryRepository.Insert(subCategoriesModel);
+                _unitOfWork.Save();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -20,6 +20,8 @@ namespace BusinessServices.Interfaces
         IEnumerable<BusinessEntities.Model.SubCategoryEntity> GetParentChildSubCategoriesWithWhere(string[] categoryNames, string[] masterCategoryNames);
         bool AddMainCategory(SubCategoryEntity entity);
         bool AddChildCategory(SubCategoryEntity entity);
+        bool AddIndependentCategory(SubCategoryEntity entity);
+        List<CategoryEntity> getMasterCategories(string CategoryName);
 
     }
 }

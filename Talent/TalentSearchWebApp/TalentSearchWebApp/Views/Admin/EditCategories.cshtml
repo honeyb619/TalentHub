@@ -67,12 +67,23 @@
     </div>
 </div>
 <script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
     function SaveCategory() {
         var $myForm = $('#Talentform');
         if (!$myForm.context.forms[0].checkValidity()) {
             $("#formsubmit").click();
             return;
         }
+        var CategoryName = getParameterByName('CategoryName');
         var categoryObj = {};
         categoryObj["SubCategoryName"] = $("#SubCategoryName").val();
         categoryObj["SubCategoryValue"] = $("#SubCategoryValue").val();
@@ -80,8 +91,10 @@
         categoryObj["SubCategoryId"] = $("#SubCategoryId").val();
         $.post('/Admin/UpdateCategoryDetails', categoryObj,
            function (data) {
-               if (data == true)
+               if (data == true && CategoryName.indexOf("Language") == -1)
                    location = "/Admin/Categories";
+               else if (data == true && CategoryName.indexOf("Language") > -1)
+                   location = "/Admin/Languages";
                else
                    alert("Not delete something Wrong");
            });
