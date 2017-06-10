@@ -125,7 +125,7 @@
 
                                 <div class="col-xs-12 col-sm-6 form-group">
                                     <label for="HobbiesField">Training and life skills</label>
-                                    <textarea class="form-control" id="HobbiesField" placeholder="Training and life skills" style="height:8em;" required name="HobbiesField" tabindex="20"></textarea>
+                                    <textarea class="form-control" id="HobbiesField" placeholder="Training and life skills" style="height: 8em;" required name="HobbiesField" tabindex="20"></textarea>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-6 form-group">
@@ -135,13 +135,17 @@
 
                                 </div>
 
-                                <div class="col-xs-12 col-sm-6 form-group">
-                                    <label for="EthicityField">Ethicity</label>
-                                    <input type="text" class="form-control" id="EthicityField" placeholder="Eithicity" tabindex="22">
-                                </div>
-                                <div class="col-xs-12 col-sm-6 form-group">
-                                    <label for="NationalityField">Nationality</label>
-                                    <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="23">
+                                <div class="col-xs-12 col-sm-12 form-group" style="height: 8em;padding-left:0;padding-right:0;">
+                                    <div class="col-xs-12 col-sm-6 form-group">
+                                        <label for="EthicityField">Ethicity</label>
+                                        @Html.DropDownListFor(model => model.Ethnicity, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Ethincity"), "SubCategoryValue", "SubCategoryValue"), "--Please Select--",
+                                                                                                                 new { @size = "5", @style = "height: 8em;", @id = "EthicityField", @name = "EthicityField", @class = "form-control", @tabindex = "22", required = "" })
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 form-group">
+                                        <label for="NationalityField">Nationality</label>
+                                        <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="23">
+                                    </div>
+
                                 </div>
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="panel panel-default">
@@ -230,11 +234,10 @@
                             if (User.Identity.IsAuthenticated)
                             {
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3 form-group" style="background:rgba(0,0,0,0.5);">
+                            <div class="col-xs-12 col-sm-3 form-group" style="background: rgba(0,0,0,0.5);">
                                 @Html.ActionLink("Back To List", "../Admin/Talents")
                             </div>
-                            <div class="col-xs-12 col-sm-9" >
-
+                            <div class="col-xs-12 col-sm-9">
                             </div>
                         </div>
                             }

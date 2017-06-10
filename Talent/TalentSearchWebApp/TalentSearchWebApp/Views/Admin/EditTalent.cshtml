@@ -128,14 +128,17 @@
                                                                                                                  new { multiple = "multiple", @size = "5", @style = "height: 8em;", @id = "AccentField", @name = "AccentField", @class = "form-control multiselect", @tabindex = "21", required = "" })
 
                                                 </div>
-                                                <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="EthicityField">Ethicity</label>
-                                                    <input type="text" class="form-control" id="EthicityField" placeholder="Eithicity" tabindex="22">
-                                                </div>
+                                                <div class="col-xs-12 col-sm-12 form-group" style="height: 8em; padding-left: 0; padding-right: 0;">
+                                                    <div class="col-xs-12 col-sm-6 form-group">
+                                                        <label for="EthicityField">Ethicity</label>
+                                                        @Html.DropDownListFor(model => model.Ethnicity, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Ethincity"), "SubCategoryValue", "SubCategoryValue"), "--Please Select--",
+                                                                                                                 new { @size = "5", @style = "height: 8em;", @id = "EthicityField", @name = "EthicityField", @class = "form-control", @tabindex = "22", required = "" })
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 form-group">
+                                                        <label for="NationalityField">Nationality</label>
+                                                        <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="23">
+                                                    </div>
 
-                                                <div class="col-xs-12 col-sm-6 form-group">
-                                                    <label for="NationalityField">Nationality</label>
-                                                    <input type="text" class="form-control" id="NationalityField" placeholder="Nationality" required value="" size="14" tabindex="23">
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-6 form-group">
@@ -248,8 +251,13 @@
        $("#MobileField").val(talentProfile.Mobile);
        $("#PhoneField").val(talentProfile.Phone);
        $("#PostalField").val(talentProfile.PostalAddress);
-       $("select#RegionField").find("option").each(function (opt) {
+       $("select#EthicityField").find("option").each(function (opt) {
            if (this.text == talentProfile.RegionName) {
+               $(this).attr("selected", "selected");
+           }
+       });
+       $("select#RegionField").find("option").each(function (opt) {
+           if (this.text == talentProfile.Ethnicity) {
                $(this).attr("selected", "selected");
            }
        });
@@ -258,7 +266,6 @@
        $("#HeightField").val(talentProfile.Height);
        $("#NationalityField").val(talentProfile.Nationality);
        $("#EyeColorField").val(talentProfile.EyeColor);
-       $("#EthicityField").val(talentProfile.Ethnicity);
        $("#WaistField").val(talentProfile.Waist);
        $("#HairColorField").val(talentProfile.HairColor);
        $("#ChestSizeField").val(talentProfile.ChestSize);

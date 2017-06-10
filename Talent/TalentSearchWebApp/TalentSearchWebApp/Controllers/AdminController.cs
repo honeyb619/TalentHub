@@ -434,8 +434,8 @@ namespace TalentSearchWebApp.Controllers
             ITalentServices objJobServices = new TalentServices();
             var talent = objJobServices.GetTalentById(TalentId);
             ViewBag.talent = talent;
-            string[] categoryNames = { "New Zealand Language", "Category" };
-            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY" };
+            string[] categoryNames = { "New Zealand Language", "Category", "New Zealand Ethincity" };
+            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY", "ETHNICITY" };
             VmInsertTalent objVmInsertTalent = new VmInsertTalent();
             ISubCategory objSubCategory = new SubCategoryServices();
             objVmInsertTalent.SubCategoryEntities = objSubCategory.GetSubCategoriesWithWhere(categoryNames, masterCategoryNames).ToList();

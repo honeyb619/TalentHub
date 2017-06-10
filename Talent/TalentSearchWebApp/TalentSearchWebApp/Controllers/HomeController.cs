@@ -61,8 +61,8 @@ namespace JADE_TALENT.Controllers
         [HttpGet]
         public ActionResult RegisterTalent()
         {
-            string[] categoryNames = { "New Zealand Language", "Category" };
-            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY" };
+            string[] categoryNames = { "New Zealand Language", "Category", "New Zealand Ethincity" };
+            string[] masterCategoryNames = { "LANGUAGE", "CATEGORY", "ETHNICITY" };
 
             VmInsertTalent objVmInsertTalent = new VmInsertTalent();
             ISubCategory objSubCategory = new SubCategoryServices();
