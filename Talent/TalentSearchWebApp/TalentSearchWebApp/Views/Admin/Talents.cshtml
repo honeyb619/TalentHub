@@ -199,7 +199,7 @@
          columns: new[] {  
          grid.Column(format: (item) =>{
              var talentModel = Model.Where(x => x.TalentId == item.TalentId).FirstOrDefault();
-             var media = (talentModel.vmMedias).Where(x => x.isProfilePic == true);
+             var media = talentModel.vmMedias;
              if (media.Count() >0)
     {
         return @Html.Raw("<img src='" + media.FirstOrDefault().MediaPath + "' alt='Image' style='height:80px;width:80px' />");

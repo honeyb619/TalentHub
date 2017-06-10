@@ -252,12 +252,13 @@
        $("#PhoneField").val(talentProfile.Phone);
        $("#PostalField").val(talentProfile.PostalAddress);
        $("select#EthicityField").find("option").each(function (opt) {
-           if (this.text == talentProfile.RegionName) {
+           if (this.text == talentProfile.Ethnicity) {
                $(this).attr("selected", "selected");
            }
        });
+       
        $("select#RegionField").find("option").each(function (opt) {
-           if (this.text == talentProfile.Ethnicity) {
+           if (this.text == talentProfile.RegionName) {
                $(this).attr("selected", "selected");
            }
        });
