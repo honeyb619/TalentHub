@@ -139,7 +139,7 @@
                                     <div class="col-xs-12 col-sm-6 form-group">
                                         <label for="EthicityField">Ethicity</label>
                                         @Html.DropDownListFor(model => model.Ethnicity, new SelectList(Model.SubCategoryEntities.Where(x => x.CategoryName == "New Zealand Ethincity"), "SubCategoryValue", "SubCategoryValue"), "--Please Select--",
-                                                                                                                 new { @size = "5", @style = "height: 8em;", @id = "EthicityField", @name = "EthicityField", @class = "form-control", @tabindex = "22", required = "" })
+                                                                                                                 new {  @id = "EthicityField", @name = "EthicityField", @class = "form-control  no-selection", @tabindex = "22", required = "" })
                                     </div>
                                     <div class="col-xs-12 col-sm-6 form-group">
                                         <label for="NationalityField">Nationality</label>
