@@ -348,7 +348,7 @@
                 EnquiryObj={};
                 EnquiryObj["Message"] = data;
                 sendEnquiry(EnquiryObj).then(function () {
-                    window.location = "../Home/MessagePage?messageKey=EnquirySent";
+                    alert("An email has been sent to your mailbox.");
                 }, function (error) {
                     alert('Please try after some time.');
                 });

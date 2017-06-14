@@ -453,7 +453,7 @@ namespace TalentSearchWebApp.Controllers
 
             if (!String.IsNullOrEmpty(email.Message))
             {
-                JadeEmail.SendMessage(email.Message);
+                JadeEmail.SendMessage(email.Message,email.Subject);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
 

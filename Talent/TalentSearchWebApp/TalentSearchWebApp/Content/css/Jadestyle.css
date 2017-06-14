@@ -194,7 +194,7 @@ header {
     .content h2 {
         font-size: 30px;
         font-family: "lato",serif;
-        color: whitesmoke;
+        color: #de291e;
         font-weight: bold;
         text-transform: uppercase;
         margin: 0px;
@@ -245,6 +245,7 @@ footer {
     float: left;
     font-size: 13px;
     padding: 5px 0px;
+    z-index:1000;
 }
 
     footer a {
@@ -279,6 +280,10 @@ footer {
     /* background: url(/Images/tback_03.jpg) repeat;*/
     height: 80px;
 }
+
+    .page-title h3 {
+    color:#de291e;
+    }
 
 .breadcrumb {
     background: transparent;
@@ -350,6 +355,12 @@ a {
         color: black;
     }
 
+@media (min-width: 768px) {
+    .transparent-bg {
+        opacity: 0.9;
+    }
+}
+
 @media (max-width: 768px) {
     .hideImg {
         display: none;
@@ -405,10 +416,10 @@ a {
 .transparent-bg {
     background-image: url(/Content/images/bg.jpg);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
     background-attachment: fixed;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.9);    
 }
 
     .transparent-bg > div.container {

@@ -35,7 +35,7 @@ namespace TalentSearchWebApp.Common
             message.From = new MailAddress(emailObj.EmailId);
             message.Body = emailObj.Message;
             message.Subject = emailObj.Subject;
-            message.To.Add(new MailAddress("stacey@jadetalent.co.nz"));
+            message.To.Add(new MailAddress("honeybansal98@gmail.com"));
             message.IsBodyHtml = true;
             JadeEmail.sendEmail(message);
         }
@@ -51,14 +51,14 @@ namespace TalentSearchWebApp.Common
             JadeEmail.sendEmail(message);
         }
 
-        public static void SendMessage(string messageBody)
+        public static void SendMessage(string messageBody, string subject = null)
         {
             MailMessage message = new MailMessage();
             message.From = new MailAddress("info@jadetalent.co.nz");
-            message.To.Add(new MailAddress("stacey@jadetalent.co.nz"));
+            message.To.Add(new MailAddress("honeybansal98@gmail.com"));
             message.Body = messageBody;
             message.IsBodyHtml = true;
-            message.Subject = "Selected Profiles";
+            message.Subject = subject ?? "Selected Profiles";
             JadeEmail.sendEmail(message);
         }
 
