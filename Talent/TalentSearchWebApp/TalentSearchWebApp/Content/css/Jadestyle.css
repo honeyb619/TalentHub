@@ -66,7 +66,7 @@ header {
 }
 
 .navbar-default .navbar-toggle {
-    background-color: transparent;
+    background-color: whitesmoke;
     border: none;
 }
 
@@ -140,10 +140,6 @@ header {
 }
 
 
-.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-    background-color: rgba(0,0,0,0.5);
-}
-
 .navbar-toggle {
     margin-top: 25px;
 }
@@ -164,7 +160,7 @@ header {
     height: auto;
     padding: 0px;
     position: relative;
-   /* z-index: 999;*/
+    /* z-index: 999;*/
 }
 
 .slider {
@@ -409,9 +405,10 @@ a {
 .transparent-bg {
     background-image: url(/Content/images/bg.jpg);
     background-repeat: no-repeat;
-    background-position: top;
+    background-position: center;
     background-size: cover;
     background-attachment: fixed;
+    background-color: rgba(0,0,0,0.9);
 }
 
     .transparent-bg > div.container {
