@@ -91,7 +91,7 @@ header {
 }
 
 .carousel-indicators {
-    left: 10em;
+    left: 50%;
     z-index: 1;
 }
 
@@ -474,6 +474,7 @@ a {
 
 .form-stronglabel {
     text-align: left;
+    word-wrap:break-word;
 }
 
 .profile-info {
