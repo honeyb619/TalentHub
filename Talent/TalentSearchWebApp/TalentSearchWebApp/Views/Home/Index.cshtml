@@ -2,20 +2,28 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .video-img {
+        width: 100px;
+        overflow: hidden;
+        margin: 0 auto 15px;
+        display: block;
+    }
+</style>
 <div class="talent row" style="background-color: rgba(0,0,0,0.8)">
     <div class="slider">
-        <div id="myCarousel" class="carousel slide">
+        <div id="myCarousel" class="carousel slide" style="height:26em;">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="" contenteditable="false"></li>
                 <li data-target="#myCarousel" data-slide-to="1" class="active" contenteditable="false"></li>
-                <li data-target="#myCarousel" data-slide-to="2" class="" contenteditable="false"></li>
+                @*         <li data-target="#myCarousel" data-slide-to="2" class="" contenteditable="false"></li>*@
             </ol>
             <div class="carousel-inner">
-                <div class="item" style="">
-                    <img src="/Content/images/banner_03.jpg" alt="" class="">
+                <div class="item" style="height:35em">
+                    <img src="/Content/images/Collage1.JPG" style="height:80%;width:100%;">
                 </div>
-                <div class="item active">
-                    <img src="/Content/images/banner_03.jpg" alt="" class="">
+                <div class="item active" style="height:35em">
+                    <img src="/Content/images/Collage2.jpg" style="height:80%;width:100%;"/>
                     <div class="carousel-caption">
                         <!--  <h4 class="">Second Slide Title</h4>
 
@@ -24,11 +32,11 @@
                 </p>-->
                     </div>
                 </div>
-                <div class="item" style="">
+                @*   <div class="item" style="">
                     <img src="/Content/images/banner_03.jpg" alt="" class="" />
                     <div class="carousel-caption">
                     </div>
-                </div>
+                </div>*@
             </div>
 
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -46,8 +54,8 @@
 
     </div>
     <div class="row text-center">
-        <div class="col-xs-12">
-            <h1>Welcome to Jade Talent</h1>
+        <div class="col-xs-12" style="margin-top:4em;">
+            <h1>Welcome to Jade</h1>
         </div>
         <div class="col-sm-6 col-xs-12 homewidget">
             <h2>About Jade</h2>
@@ -55,22 +63,37 @@
 
             <div class="row" style="text-align: left;">
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" style="margin-bottom: 4em;">
+                    <h4 style="text-align: center; margin-bottom: 2em;"><q>JADE is the people and the people are JADE.</q></h4>
+                    <p style="margin-bottom: 2em;">The essence of JADE. The birth of an era. The agency called JADE. Representing a collective of quality models and talent, in this world we live vain.</p>
 
-                    <p style="text-align: left;">
-                        The essence of JADE
+                    <p style="margin-bottom: 2em;">JADE thrives on innovation, yet it oozes heart and depth. Passionate about people, connection is paramount here. JADE lives to embrace and encourage, to ignite the individuality and the indigenous within. It's seasoning, organic at its best.</p>
 
-The birth of an era. The agency called JADE. Representing a collective of quality models and talent, in this world we live vain.
-JADE thrives on innovation, yet it oozes depth. Passionate about people is paramount here. JADE lives to embrace and encourage, to ignite the individuality and the indigenous within. The seasoning, it's organic at its best.Don't be surprised if JADE recognizes your better self, even when you thought there was nothing there. Let JADE help you see your potential because here we face all our fears.JADE is the people and the people are JADE. 
-​
-​
-JADE is New Zealand's newest premier talent management agency.
-​
-With an eye for quality JADE currently focuses on authentic indigenous individuals to the modelling, tv and film industry throughout New Zealand 
-​
-​
-                    </p>
+
+
+
+                    <p style="margin-bottom: 2em;">JADE is New Zealand's newest premier talent management agency. ​ With an eye for quality JADE currently focuses on supplying authentic ethnic indigenous individuals to the modelling, tv and film industry.</p>
+
+                    <p style="margin-bottom: 2em;">JADE currently represents individuals through out New Zealand and is ready for its clients to be booked 7 days a week.</p>
+
                 </div>
+                <div class="col-xs-12" style="margin-bottom: 1em;">
+                    <div class="col-xs-3">
+                        <div class="video-img">
+                            <img src="/Content/images/stacey.jpg" alt="Customer Video" style="max-width: 100%; height: auto;" width="180" height="180">
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+
+                        <p>With a determination to succeed JADE is managed by the director, with over 8 years experience in the industry from recruitment, to directing photoshoots, styling, hair and makeup and working in front of the camera. She leads by example.</p>
+                        <div class="col-xs-12" style="text-align: right;">
+                            <span class="glyphicon glyphicon-pencil" style="text-align: right; color: #de291e;"></span>
+                            <span style="font-family: cursive; color: #de291e;">Stacey Jade Houkamau,Director</span>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-sm-6 col-xs-12 homewidget">
@@ -78,42 +101,73 @@ With an eye for quality JADE currently focuses on authentic indigenous individu
             <br />
             <div class="row" style="text-align: left;">
 
-                <div class="col-xs-12">
-                    <p>If you are a stone with a dream of being a Jade, come to Jade Talent. Jade Talent can discover your shinning part, make it into art.</p>
-                    <div class="col-xs-12" style="text-align: right;">
-                        <span class="glyphicon glyphicon-pencil" style="text-align: right;"></span>
-                        <span style="font-family:cursive;">Sunny</span>
+                <div class="col-xs-12" style="margin-bottom: 1em;">
+                    <div class="col-xs-3">
+                        <div class="video-img">
+                            <img src="/Content/images/sunny.jpg" alt="Customer Video" style="max-width: 100%; height: auto;" width="180" height="180">
+                        </div>
+
+                    </div>
+                    <div class="col-xs-9">
+                        <p>If you are a stone with a dream of being a Jade, come to Jade Talent. Jade Talent can discover your shinning part, make it into art.</p>
+                        <div class="col-xs-12" style="text-align: right; color: #de291e;">
+                            <span class="glyphicon glyphicon-pencil" style="text-align: right;"></span>
+                            <span style="font-family: cursive; color: #de291e;">Sunny</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-bottom: 1em;">
+                    <div class="col-xs-3">
+                        <div class="video-img">
+                            <img src="/Content/images/walter.jpg" alt="Customer Video" style="max-width: 100%; height: auto;" width="180" height="180">
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+
+                        <p>
+                            My experiences with Jade have been truly amazing so far. I look forward to the journey and greater experiences ahead. Jade is an honest and reliable agency. 
+                        </p>
+                        <div class="col-xs-12" style="text-align: right;">
+                            <span class="glyphicon glyphicon-pencil" style="text-align: right; color: #de291e;"></span>
+                            <span style="font-family: cursive; color: #de291e;">Walter</span>
+                        </div>
                     </div>
                     <br />
                     <br />
                 </div>
-                <div class="col-xs-12">
-
-                    <p>
-                        My experiences with Jade have been truly amazing so far. I look forward to the journey and greater experiences ahead. Walter
-Can you change the Jade Talent to just Jade
-Delete that last one: 
-My experiences with Jade have been truly amazing so far. I look forward to the journey and greater experiences ahead. Jade is an honest and reliable agency. Walter
-                    </p>
-                    <div class="col-xs-12" style="text-align: right;">
-                        <span class="glyphicon glyphicon-pencil" style="text-align: right;"></span>
-                        <span style="font-family:cursive;">Walter</span>
+                <div class="col-xs-12" style="margin-bottom: 1em;">
+                    <div class="col-xs-3">
+                        <div class="video-img">
+                            <img src="/Content/images/ayan.jpg" alt="Customer Video" style="max-width: 100%; height: auto;" width="180" height="180">
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                </div>
-                <div class="col-xs-12">
+                    <div class="col-xs-9">
 
-                    <p>My first time on set and I had an awesome experience. Met nice people that day. Enjoyed being in a friendly environment. Thank you Jade.</p>
-
-                    <div class="col-xs-12" style="text-align: right;">
-                        <span class="glyphicon glyphicon-pencil" style="text-align: right;"></span>
-                        <span style="font-family:cursive;">Ayaan</span>
+                        <p>My first time on set and I had an awesome experience. Met nice people that day. Enjoyed being in a friendly environment. Thank you Jade.</p>
+                        <div class="col-xs-12" style="text-align: right;">
+                            <span class="glyphicon glyphicon-pencil" style="text-align: right; color: #de291e;"></span>
+                            <span style="font-family: cursive; color: #de291e;">Ayaan</span>
+                        </div>
                     </div>
-
-                    <br />
-                    <br />
                 </div>
+
+                <div class="col-xs-12" style="margin-bottom: 1em;">
+                    <div class="col-xs-3">
+                        <div class="video-img">
+                            <img src="/Content/images/neumark.jpg" alt="Customer Video" style="max-width: 100%; height: auto;" width="180" height="180">
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+
+                        <p>Love working with JADE Talent. I believe when I joined JADE that success is already in my hand.</p>
+                        <div class="col-xs-12" style="text-align: right;">
+                            <span class="glyphicon glyphicon-pencil" style="text-align: right; color: #de291e;"></span>
+                            <span style="font-family: cursive; color: #de291e;">Neumark</span>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 
