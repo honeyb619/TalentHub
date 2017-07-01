@@ -137,6 +137,10 @@ header {
         text-align: center;
         padding-top: 0px;
     }
+
+    .transparent-bg {
+        background-image: none;
+    }
 }
 
 
@@ -245,7 +249,7 @@ footer {
     float: left;
     font-size: 13px;
     padding: 5px 0px;
-    z-index:1000;
+    z-index: 1000;
 }
 
     footer a {
@@ -282,7 +286,7 @@ footer {
 }
 
     .page-title h3 {
-    color:#de291e;
+        color: #de291e;
     }
 
 .breadcrumb {
@@ -419,7 +423,7 @@ a {
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
-    background-color: rgba(0,0,0,0.9);    
+    background-color: rgba(0,0,0,0.9);
 }
 
     .transparent-bg > div.container {
@@ -474,7 +478,7 @@ a {
 
 .form-stronglabel {
     text-align: left;
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
 .profile-info {

@@ -84,6 +84,43 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label for="Role">Role</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            @Html.TextBoxFor(model => model.Role
+                                        , new
+                                        {
+                                            @class = "form-control",
+                                            @tabindex = "19",
+                                            @id = "Role",
+                                            @name = "Role",
+                                            required = ""
+                                        })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <label for="EmailField">Contact Email Address</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            @Html.TextBoxFor(model => model.Email, new
+                                   {
+                                       @class = "form-control",
+                                       @tabindex = "20",
+                                       @id = "EmailField",
+                                       @name = "EmailField",
+                                       required = ""
+                                   })
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-xs-12">
                                     <div class="row">
                                         <div class="col-xs-6">
@@ -278,7 +315,7 @@
                                     </div>
                                 </div>
 
-                                  
+
                                 <div class="col-xs-12">
                                     <div class="row">
                                         <div class="col-xs-6">
@@ -308,66 +345,7 @@ new { multiple = "multiple", @size = "5", @style = "height: 1%;", @id = "skill1N
                                         </div>
                                     </div>
                                 </div>
-                                @*<span>
-                                        <label for="skill1DescField">Share your experiences</label>
-                                         @Html.TextAreaFor(model => model.Skills[0].Description, new
-                                    {
-                                        @class = "form-control",
-                                        @tabindex = "17",
-                                        @id = "skill1DescField",
-                                        @name = "Skills[0].Description",
-                                        required = ""
-                                    })
-                                    </span>*@
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="PayField">Pay</label>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            @Html.TextBoxFor(model => model.Pay, new
-                                   {
-                                       @class = "form-control",
-                                       @tabindex = "18",
-                                       @id = "PayField",
-                                       @name = "Pay"
-                                   })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="Role">Role</label>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            @Html.TextBoxFor(model => model.Role
-                                        , new
-                                        {
-                                            @class = "form-control",
-                                            @tabindex = "19",
-                                            @id = "Role",
-                                            @name = "Role"
-                                        })
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <label for="EmailField">Email</label>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            @Html.TextBoxFor(model => model.Email, new
-                                   {
-                                       @class = "form-control",
-                                       @tabindex = "20",
-                                       @id = "EmailField",
-                                       @name = "EmailField"
-                                   })
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-xs-12">
                                     @if (ViewBag.PageAction == "Update")
                                     {
