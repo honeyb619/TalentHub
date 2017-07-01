@@ -18,6 +18,7 @@ namespace DataModel
         public string EmailId { get; set; }
         public long StatusId { get; set; }
         public string StatusText { get; set; }
+        public string Role { get; set; }
         public string IsAssigned { get; set; }
         public string RegionName { get; set; }
         public string Ethnicity { get; set; }

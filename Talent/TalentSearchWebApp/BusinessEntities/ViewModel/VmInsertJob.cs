@@ -45,5 +45,6 @@ namespace BusinessEntities.ViewModel
         public List<VmSkills> Skills { get; set; }
         public List<RegionEntity> RegionEntities { get; set; }
         public List<SubCategoryEntity> SubCategoryEntities { get; set; }
+        public string Role { get; set; }
     }
 }

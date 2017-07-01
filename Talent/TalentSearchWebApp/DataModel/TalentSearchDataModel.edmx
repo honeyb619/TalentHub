@@ -194,6 +194,7 @@
           <Property Name="ModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="Email" Type="varchar" MaxLength="1000" />
+          <Property Name="Role" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="JobTalentAssociation">
           <Key>
@@ -208,6 +209,7 @@
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="IsDeleted" Type="bit" />
+          <Property Name="Role" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="JobTalentCategory">
           <Key>
@@ -941,6 +943,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="Email" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Role" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="ProductionCompany" Relationship="TalentSearchModel.FK_Jobs_ProductionCompany" FromRole="Jobs" ToRole="ProductionCompany" />
           <NavigationProperty Name="Region" Relationship="TalentSearchModel.FK_Jobs_Region" FromRole="Jobs" ToRole="Region" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_Jobs_SubCategory" FromRole="Jobs" ToRole="SubCategory" />
@@ -963,6 +966,7 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
           <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Role" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Job" Relationship="TalentSearchModel.FK_JobTalentAssociation_Jobs" FromRole="JobTalentAssociation" ToRole="Jobs" />
           <NavigationProperty Name="SubCategory" Relationship="TalentSearchModel.FK_JobTalentAssociation_SubCategory" FromRole="JobTalentAssociation" ToRole="SubCategory" />
           <NavigationProperty Name="Talent" Relationship="TalentSearchModel.FK_JobTalentAssociation_Talent" FromRole="JobTalentAssociation" ToRole="Talent" />
@@ -1493,6 +1497,7 @@
           <Property Type="String" Name="EmailId" Nullable="false" MaxLength="200" />
           <Property Type="Int64" Name="StatusId" Nullable="false" />
           <Property Type="String" Name="StatusText" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="1000" />
           <Property Type="String" Name="IsAssigned" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="RegionName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="Ethnicity" Nullable="true" MaxLength="100" />
@@ -1578,6 +1583,7 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1593,6 +1599,7 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1796,6 +1803,7 @@
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="StatusText" ColumnName="StatusText" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="IsAssigned" ColumnName="IsAssigned" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />

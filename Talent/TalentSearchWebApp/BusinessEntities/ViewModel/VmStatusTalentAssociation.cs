@@ -9,5 +9,6 @@ namespace BusinessEntities.ViewModel
     {
         public long TalentId { get; set; }
         public long StatusId { get; set; }
+        public string Role { get; set; }
     }
 }

@@ -31,5 +31,6 @@ namespace BusinessEntities.Model
         public Nullable<long> ChestSize { get; set; }
         public Nullable<long> HipSize { get; set; }
         public string Email { get; set; }
+        public string Role { get; set; }
     }
 }

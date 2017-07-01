@@ -1,11 +1,11 @@
 ﻿@model  BusinessEntities.GridVm.GridVmJobsList
-            @{
-                var grid = new WebGrid(rowsPerPage: Model.PageSize);
-                grid.Bind(Model.ListJobEntity, autoSortAndPage: true,  rowCount: Model.TotalRecord);
-            }
- 
-                @grid.GetHtml(
-                tableStyle:"gridtable",
+@{
+    var grid = new WebGrid(rowsPerPage: Model.PageSize);
+    grid.Bind(Model.ListJobEntity, autoSortAndPage: true, rowCount: Model.TotalRecord);
+}
+
+@grid.GetHtml(
+                tableStyle: "gridtable",
                  mode: WebGridPagerModes.All,
                  firstText: "<< First",
          previousText: "< Prev",
@@ -14,7 +14,6 @@
                 columns: new[] {  
                 grid.Column("JobName",header: "Job Title"),  
                 grid.Column("ProductionCompanyName",header: "Company Name"),  
-                grid.Column("NumberOfDays", header: "#Days"),  
                 grid.Column("Pay",header: "Pay"),
                 grid.Column("Gender",header: "Gender"),
                 grid.Column("RegionName",header: "Region"),
@@ -22,16 +21,19 @@
                 grid.Column("JobId", header: "Action", canSort:false,  
            
          format: @<text>
-         @Html.Raw("<i class='fa fa-plus-square' aria-hidden='true' onclick='GetTalentsForJob(" + item.JobId + ")' ></i>")
+@Html.Raw("<i class='fa fa-plus-square' aria-hidden='true' onclick='GetTalentsForJob(" + item.JobId + ")' ></i>")
 
-            @Html.ActionLink(" ", "CreateJob", "Admin", new { JobId = item.JobId }, new { aria_hidden = "true", @class = "fa fa-pencil",
+@Html.ActionLink(" ", "CreateJob", "Admin", new { JobId = item.JobId }, new { aria_hidden = "true", @class = "fa fa-pencil",
                                                                                           @style = "text-decoration:none;color: inherit"
        })
-            @Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteJob(" + item.JobId + ")' ></i>")
-            </text>  
+@Html.Raw("<i class='fa fa-trash' aria-hidden='true' onclick='DeleteJob(" + item.JobId + ")' ></i>")
+</text>  
         )  
                 }
                         )
- 
-        
-            
+
+<script type="text/javascript">
+    var jobmodel = @Html.Raw(Json.Encode(Model))
+</script>
+
+

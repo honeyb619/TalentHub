@@ -2,6 +2,7 @@
 var jobIdForTalentAssociation = 0;
 var jobTalentAssociationObj = {};
 var clickedJobId = "";
+var jobTalentRoles = "";
 
 $(document).ready(function () {
 
@@ -27,6 +28,7 @@ $(document).ready(function () {
 
     LoadjobTalentStatus();
 
+    
     $('#btnAdd').click(
                     function (e) {
                         $('#list1 option:selected').each(function () {
@@ -38,7 +40,8 @@ $(document).ready(function () {
                             var markup = "<tr id='row_" + talentId + "'>";
                             markup += "<td id='name_row_" + talentId + "'>" + name + "</td>";
                             markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
-                            markup += "<td id='name_row_" + talentId + "'><select id='select" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                            markup += "<td id='name_row_" + talentId + "'><select class='status' id='statusselect" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                            markup += "<td id='name_row_" + talentId + "'><select class='role' id='roleselect" + talentId + "'>" + jobTalentRoles + "</select></td>";
                             markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
                             markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
                             markup += "</tr>";
@@ -61,7 +64,8 @@ $(document).ready(function () {
                         var markup = "<tr id='row_" + talentId + "'>";
                         markup += "<td id='name_row_" + talentId + "'>" + name + "</td>";
                         markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
-                        markup += "<td id='name_row_" + talentId + "'><select id='select" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + talentId + "'><select class='status' id='statusselect" + talentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + talentId + "'><select class='role' id='roleselect" + talentId + "'>" + jobTalentRoles + "</select></td>";
                         markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
                         markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
 
@@ -118,6 +122,18 @@ $(document).ready(function () {
 
                });
 });
+
+function LoadJobRole(jobid) {
+    jobTalentRoles = "";
+    var roles = Enumerable.From(jobmodel.ListJobEntity).Where(function (job) { return job.JobId == jobid }).ToArray()[0].Role.split(',')
+
+    jobTalentRoles += '<option value="">--Please Select--</option>';
+    for (var i = 0, l = roles.length; i < l; i++) {
+
+        jobTalentRoles += '<option value="' + roles[i] + '">' + roles[i] + '</option>';
+    }
+}
+
 
 function QueryStringToJSON(list, params) {
     var pairs = location.search.slice(1).split('&');
@@ -227,6 +243,7 @@ function GetTalentsForJob(jobId) {
     else {
         jobId = clickedJobId;
     }
+    LoadJobRole(jobId);
 
     var url = advancedSearch(jobId);
 
@@ -262,15 +279,16 @@ function GetTalentsForJob(jobId) {
                         var markup = "<tr id='row_" + prop.TalentId + "'>";
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.Name + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.EmailId + "</td>";
-                        markup += "<td id='name_row_" + prop.TalentId + "'><select id='select" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'><select class='status' id='statusselect" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
+                        markup += "<td id='name_row_" + prop.TalentId + "'><select class='role' id='roleselect" + prop.TalentId + "'>" + jobTalentRoles + "</select></td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
                         markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);
 
-                        $("#select" + prop.TalentId).val(prop.StatusId);
-
+                        $("#statusselect" + prop.TalentId).val(prop.StatusId);
+                        $("#roleselect" + prop.TalentId).val(prop.Role);
                     }
                 }
 
@@ -327,20 +345,22 @@ function saveJobTalentAssociation() {
     jobTalentAssociationObj.TalentStatusIds = [];
 
     $('#tblAssignedTalents tbody tr').each(function () {
-        var obj = $(this).find("select");
-        var statusValue = $(obj).find(":selected").val();
-        var statustext = $(obj).find(":selected").text();
-
+        var statusobj = $(this).find(".status");
+        var roleobj = $(this).find(".role");
+        var statusValue = $(statusobj).find(":selected").val();
+        var statustext = $(statusobj).find(":selected").text();
+        var roleValue = $(roleobj).find(":selected").val();
+        var roletext = $(roleobj).find(":selected").text();
         if (statusValue == "" || statustext == "--Please Select--") {
             alert("Please select the status of " + $(this).find("td:first").text() + "(" + $(this).find("td:nth-child(1)").text() + ")");
-            $(obj).find("select").focus();
+            $(statusobj).find("select").focus();
             isSave = false;
             return false;
         }
         else {
 
             var talentId = $(this).attr('id').split('_')[1];
-            jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue });
+            jobTalentAssociationObj.TalentStatusIds.push({ TalentId: talentId, StatusId: statusValue, Role: roleValue });
             isSave = true;
         }
 

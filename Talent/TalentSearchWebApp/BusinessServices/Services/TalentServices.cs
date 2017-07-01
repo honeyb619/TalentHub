@@ -56,7 +56,7 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string experience = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
 
             List<Talent> talent;
@@ -76,6 +76,10 @@ namespace BusinessServices.Services
             if (!string.IsNullOrEmpty(EyeColor))
             {
                 talent = talent.Where(ent => ent.EyeColor.ToLower().Contains(EyeColor.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(experience))
+            {
+                talent = talent.Where(ent => ent.Hobbies.ToLower().Contains(experience.ToLower())).ToList();
             }
             if (!string.IsNullOrEmpty(Age))
             {

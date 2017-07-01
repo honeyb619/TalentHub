@@ -23,6 +23,7 @@ namespace DataModel
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
+        public string Role { get; set; }
     
         public virtual Job Job { get; set; }
         public virtual SubCategory SubCategory { get; set; }
