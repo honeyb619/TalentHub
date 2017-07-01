@@ -122,7 +122,7 @@
                         <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
 
-                            <div class="dropdown-menu dropdown-menu-right" style="background-color: whitesmoke; min-width: 15em; overflow:scroll; height:25em;" role="menu">
+                            <div class="dropdown-menu dropdown-menu-right" style="background-color: whitesmoke; min-width: 15em; overflow: scroll; height: 25em;" role="menu">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label for="contain">Region</label>
@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="contain">Min</label>
-                                        <input class="form-control" id="minconditiontxt" type="number" min="0"  />
+                                        <input class="form-control" id="minconditiontxt" type="number" min="0" />
                                     </div>
                                     <div class="form-group">
                                         <label for="contain">Max</label>
@@ -172,7 +172,7 @@
                         <button type="button" class="btn btn-primary" onclick="return ResetTalent()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
         <div class="col-sm-8 col-xs-12" style="padding: 7px 0;">
             <div class="row">
@@ -245,6 +245,8 @@
 
 <script>
 
+    var sendProfiles={};
+    sendProfiles.candidateList=[];
     $(document).ready(function(){
         $.get('/Admin/GetRegions',
                 function (data) {
@@ -310,11 +312,11 @@
         window.location = "/Admin/Talents";
     }
 
-    function sendTalent(){
-        var sendProfiles={};
-        sendProfiles.candidateList=[];
-        $('.profileSelect:checkbox:checked').each(function(){
-            var profileId=$(this).attr('data-label');
+    $('.profileSelect').click(function(){
+        var self=$(this)[0];
+        var profileId=$(self).attr('data-label');
+        if($(self)[0].checked){
+           
             var profile=Enumerable.From(profiles).Where(function(talent){
                 return talent.TalentId==profileId;
             }).ToArray();
@@ -332,8 +334,16 @@
             else
                 candidate.profilePicPath="";
             sendProfiles.candidateList.push(candidate);
-        });
-        if (sendProfiles.candidateList.length==0){
+        }
+        else{
+            sendProfiles.candidateList=Enumerable.From(sendProfiles.candidateList).Where(function(candidate){
+                return candidate.ProfileId!=profileId;
+            }).ToArray();
+        
+        }       
+    });
+    function sendTalent(){      
+        if (sendProfiles.candidateList){
             alert("Please select profiles..")
             return;
         }
