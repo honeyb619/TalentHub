@@ -139,7 +139,11 @@ header {
     }
 
     .transparent-bg {
-        background-image: none;
+        background-image: none!important;
+    }
+
+    #footer {
+        text-align: center!important;
     }
 }
 

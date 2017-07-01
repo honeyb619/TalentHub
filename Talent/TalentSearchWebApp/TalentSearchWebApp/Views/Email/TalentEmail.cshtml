@@ -3,10 +3,7 @@
     Layout = null;
     ViewBag.Title = "ProductionCompanyEmail";
 }
-
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -20,32 +17,53 @@
 
             <td>
 
-                <img src="http://jadetalent.co.nz/Images/TalentBack.png" width="90%" height="200px" />
-                <br />
-                <br />
-
                 <div style="border-top: 3px solid #22BCE5"></div>
 
                 <span style="font-family: Arial; font-size: 10pt"><b>Hello @Model.TalentName</b>,<br />
                     <br />
+                </span>
 
-                    <span>Greetings for the day!!!</span><br />
 
-                    Your Profile has been put forward to @Model.ProductionComanyName for below job.
-                    <br />
-                    <br />
-                   Job Name : @Model.JobName
+                <div id="Greetings" class="article demo">Greetings for the day!!!</div>
+
+                <br />
+
+                <div id="emailStart" class="article demo">Your Profile has been put forward to @Model.ProductionComanyName for the role as  @Model.Role .Please find the further details as below.</div>
+
+                <br />
+                <div id="JobDetails">
+                    Job Name : @Model.JobName
                     <br />
                     Job Description : @Model.JobDescription
                     <br />
                     Job Status : @Model.JobStatus
                     <br />
-                    <br />
-                    Thanks<br />
-                    Jade Admin
+                    Job Role : @Model.Role
+                </div>
+                <br />
+                <div id="otherInfo" class="article demo"></div>
+            </td>
 
-                </span></td>
+        </tr>
 
+        <tr>
+            <td style="white-space: normal">
+                <br />
+                <span>Thanks<br />
+                </span>
+                <div>
+                    <div>Stacey Jade Houkamau</div>
+                    <div><strong>Director</strong>&nbsp;&nbsp;Jade Talent Limited</div>
+                    <div><strong>m</strong>:&nbsp;<a style="word-break: break-all"></a><a dir="ltr" href="tel:+64211855321" style="word-break: break-all" target="_blank">+64211855321</a>&nbsp;</div>
+                    <div><strong>w</strong>:&nbsp;<a href="https://www.jadetalent.co.nz/" style="word-break: break-all" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.jadetalent.co.nz/&amp;source=gmail&amp;ust=1499014976720000&amp;usg=AFQjCNFYA7lSykV5LEx26442ZUg53w8hnQ">www.jadetalent.co.nz</a>&nbsp;</div>
+                    <div><strong>e</strong>:&nbsp;<a style="word-break: break-all">&nbsp;stacey@jadetalent.co.nz</a>&nbsp;</div>
+
+                </div>
+                <div>
+                    <img alt="" height="129" src="http://jadetalent.co.nz/Content/images/Signature_Logo.jpg" width="200" style="border-width: 0px; vertical-align: middle" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 152px; top: 605px;">
+                    </div>
+                </div>
+            </td>
         </tr>
 
     </table>

@@ -453,7 +453,7 @@ namespace TalentSearchWebApp.Controllers
 
             if (!String.IsNullOrEmpty(email.Message))
             {
-                JadeEmail.SendMessage(email.Message,email.Subject);
+                JadeEmail.SendMessage(email.Message, email.Subject);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
 
@@ -524,6 +524,7 @@ namespace TalentSearchWebApp.Controllers
             NotificationDetails["JobName"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobName;
             NotificationDetails["TalentId"] = Talent.TalentId.ToString();
             NotificationDetails["Region"] = Talent.RegionName;
+            NotificationDetails["Role"] = ObjJobService.GetRoleByJobTalentId(Talent.TalentId, objVmSaveJobTalentAssociation.JobId);
             return Json(NotificationDetails);
         }
 
@@ -550,6 +551,7 @@ namespace TalentSearchWebApp.Controllers
                 NotificationDetail["JobName"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).JobName;
                 NotificationDetail["TalentId"] = Talent.TalentId.ToString();
                 NotificationDetail["Region"] = Talent.RegionName;
+                NotificationDetail["Role"] = ObjJobService.GetRoleByJobTalentId(Talent.TalentId, objVmSaveJobTalentAssociation.JobId);
                 NotificationDetails.Add(NotificationDetail);
             }
             return Json(NotificationDetails);

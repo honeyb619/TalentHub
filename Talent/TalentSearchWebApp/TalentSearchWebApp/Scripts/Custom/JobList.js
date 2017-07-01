@@ -3,12 +3,13 @@ var jobIdForTalentAssociation = 0;
 var jobTalentAssociationObj = {};
 var clickedJobId = "";
 var jobTalentRoles = "";
-
+var EnquiryObj = {};
 $(document).ready(function () {
 
     $("#dialog").dialog({
         autoOpen: false,
         width: 1000,
+        height: 500,
         buttons: [
 		{
 		    text: "Save",
@@ -26,9 +27,32 @@ $(document).ready(function () {
         ]
     });
 
+    $("#htmldialog").dialog({
+        autoOpen: false,
+        width: 1000,
+        height: 500,
+        title: "Edit Email",
+        buttons: [
+		{
+		    text: "Send Notification",
+		    click: function () {
+		        sendEnquiry();
+		    }
+		},
+		{
+		    text: "Close",
+		    click: function () {
+		        $("#htmldialog").empty();
+		        $(this).dialog("close");
+		    }
+		}
+        ]
+    });
+
+
     LoadjobTalentStatus();
 
-    
+
     $('#btnAdd').click(
                     function (e) {
                         $('#list1 option:selected').each(function () {
@@ -448,7 +472,6 @@ function setAddNotificationObj(btnObj) {
         cache: false,
         success: function (data) {
             GetNotificationMessage(data, notificationType).then(function (response) {
-                alert("Your notification has been sent.")
             }, function (error) {
                 alert("Error while sending Notification.")
             });
@@ -461,7 +484,7 @@ function setAddNotificationObj(btnObj) {
 
 function GetNotificationMessage(notifyData, notificationType) {
     var url = "";
-    var EnquiryObj = {};
+    EnquiryObj = {};
     if (notificationType == 'company') {
         url = "/Email/ProductionCompanyEmail"
         EnquiryObj["EmailId"] = notifyData[0]["ProductionEmail"];
@@ -480,11 +503,13 @@ function GetNotificationMessage(notifyData, notificationType) {
         processData: false,
         cache: false,
         success: function (response) {
-            EnquiryObj["Message"] = response;
-            sendEnquiry(EnquiryObj).then(function () {
-            }, function (error) {
-                console.log(error);
-            });
+            $("#htmldialog").append(response);
+            makeContentEditable(notificationType);
+            $("#htmldialog").dialog("open");
+            //sendEnquiry(EnquiryObj).then(function () {
+            //}, function (error) {
+            //    console.log(error);
+            //});
         },
         error: function (xhr) {
             console.log(xhr);
@@ -492,16 +517,41 @@ function GetNotificationMessage(notifyData, notificationType) {
     });
 
 }
-function sendEnquiry(messageObj) {
+
+function createEditor(controlid, placeholder) {
+    new Medium({
+        element: document.getElementById(controlid),
+        placeholder: placeholder,
+        autofocus: true,
+        autoHR: true,
+        mode: Medium.richMode,
+        tags: null,
+        pasteAsText: false
+    });
+}
+
+function makeContentEditable(notificationType) {
+    createEditor('emailStart', 'Add...');
+    createEditor('otherInfo', 'Add...');
+    if (notificationType != 'company') {
+        createEditor('JobDetails', 'Add...');
+    }
+    createEditor('Greetings', 'Add...');
+}
+
+function sendEnquiry() {
+    EnquiryObj["Message"] = $("#htmldialog").html();
     return $.ajax({
         url: '/Email/SendBulkEmail',
         type: "POST",
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(messageObj),
+        data: JSON.stringify(EnquiryObj),
         processData: false,
         cache: false,
         success: function (data) {
-
+            $("#htmldialog").empty();
+            $("#htmldialog").dialog("close");
+            alert("Your notification has been sent.")
         },
         error: function (xhr) {
             alert('Please try after some time.');

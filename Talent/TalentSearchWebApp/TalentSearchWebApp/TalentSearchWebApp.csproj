@@ -157,6 +157,7 @@
     <Content Include="Content\css\Form.css" />
     <Content Include="Content\css\Jadestyle.css" />
     <Content Include="Content\css\jqueryui.css" />
+    <Content Include="Content\css\medium.css" />
     <Content Include="Content\css\skel.css" />
     <Content Include="Content\css\style-large.css" />
     <Content Include="Content\css\style-medium.css" />
@@ -182,6 +183,7 @@
     <Content Include="Content\images\pic01.jpg" />
     <Content Include="Content\images\pic02.jpg" />
     <Content Include="Content\images\pic03.jpg" />
+    <Content Include="Content\images\Signature_Logo.jpg" />
     <Content Include="Content\images\stacey.jpg" />
     <Content Include="Content\images\sunny.jpg" />
     <Content Include="Content\images\walter.jpg" />
@@ -192,8 +194,12 @@
     <Content Include="Content\JS\jquery-ui.min.js" />
     <Content Include="Content\JS\jquery.min.js" />
     <Content Include="Content\JS\linq.js" />
+    <Content Include="Content\JS\medium.js" />
+    <Content Include="Content\JS\rangy-classapplier.js" />
+    <Content Include="Content\JS\rangy-core.js" />
     <Content Include="Content\JS\skel-layers.min.js" />
     <Content Include="Content\JS\skel.min.js" />
+    <Content Include="Content\JS\undo.js" />
     <Content Include="Content\JS\UploadFiles.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

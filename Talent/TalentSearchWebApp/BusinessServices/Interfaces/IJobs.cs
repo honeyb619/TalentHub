@@ -18,5 +18,6 @@ namespace BusinessServices.Interfaces
         bool DeleteJob(long jobId);
         bool SaveJobTalentAssociation(VmSaveJobTalentAssociation objVmSaveJobTalentAssociation);
         List<JobEntity> GetJobsByTalentId(long TalentId);
+        string GetRoleByJobTalentId(long TalentId, long JobId);
     }
 }

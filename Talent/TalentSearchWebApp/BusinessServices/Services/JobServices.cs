@@ -38,6 +38,15 @@ namespace BusinessServices.Services
                 Join(_unitOfWork.SubCategoryRepository.GetAll(), job => job.Status, category => category.SubCategoryId, (job, sub) => new JobEntity { JobName = job.Job.JobName + " : " + job.Job.JobDescription, JobStatus = sub.SubCategoryName }).ToList();
         }
 
+        public string GetRoleByJobTalentId(long TalentId, long JobId)
+        {
+            var result = _unitOfWork.JobTalentAssociationRepository.GetAll().Where(obj => obj.JobId == JobId && obj.TalentId == TalentId).First();
+            if (result != null)
+                return result.Role;
+            return "";
+
+        }
+
         public VmInsertJob GetJobById(long jobId)
         {
             VmInsertJob objVmInsertJob = new VmInsertJob();
@@ -139,7 +148,7 @@ namespace BusinessServices.Services
                     .ForMember(x => x.RegionName, opt =>
                     opt.MapFrom(src => src.Region.RegionName));
 
-                objGridVmJobsList.ListJobEntity = Mapper.Map<List<Job>, List<JobEntity>>(jobs).OrderBy(x=>x.JobName).ToList();
+                objGridVmJobsList.ListJobEntity = Mapper.Map<List<Job>, List<JobEntity>>(jobs).OrderBy(x => x.JobName).ToList();
             }
 
             return objGridVmJobsList;
