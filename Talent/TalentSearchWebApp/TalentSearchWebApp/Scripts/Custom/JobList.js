@@ -532,7 +532,17 @@ function createEditor(controlid, placeholder) {
 
 function makeContentEditable(notificationType) {
     createEditor('emailStart', 'Add...');
-    createEditor('otherInfo', 'Add...');
+    $(".addcomment").each(function () {
+        new Medium({
+            element: document.getElementById(this.id),
+            placeholder: 'Add...',
+            autofocus: true,
+            autoHR: true,
+            mode: Medium.richMode,
+            tags: null,
+            pasteAsText: false
+        });
+    });
     if (notificationType != 'company') {
         createEditor('JobDetails', 'Add...');
     }
@@ -540,6 +550,11 @@ function makeContentEditable(notificationType) {
 }
 
 function sendEnquiry() {
+    $(".Medium-placeholder").each(function () {
+        if ($(this).html().indexOf('Add...')!=-1) {
+            $(this).remove();
+        }
+    });
     EnquiryObj["Message"] = $("#htmldialog").html();
     return $.ajax({
         url: '/Email/SendBulkEmail',

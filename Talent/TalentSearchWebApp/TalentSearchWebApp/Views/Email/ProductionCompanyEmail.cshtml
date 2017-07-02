@@ -46,10 +46,11 @@
                     @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + obj.TalentId + "'>" + obj.TalentName + "</a> ")
                     <br />
                     <br />
+                    @Html.Raw("<div id='otherInfo"+obj.TalentName+"' class='article demo addcomment'></div>");
                     }
                 }
                 <br />
-                <div id="otherInfo" class="article demo"></div>
+                
             </td>
         </tr>
         <tr>
