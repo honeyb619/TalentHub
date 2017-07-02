@@ -47,6 +47,19 @@ namespace BusinessServices.Services
 
         }
 
+
+        public bool DeleteJobTalentAssociation(long TalentId, long JobId) {
+            var result = _unitOfWork.JobTalentAssociationRepository.GetAll().Where(obj => obj.JobId == JobId && obj.TalentId == TalentId).First();
+            if (result != null)
+            {
+                _unitOfWork.JobTalentAssociationRepository.Delete(result);
+                _unitOfWork.Save();
+                return true;
+            }
+            return true;
+        }
+
+
         public VmInsertJob GetJobById(long jobId)
         {
             VmInsertJob objVmInsertJob = new VmInsertJob();

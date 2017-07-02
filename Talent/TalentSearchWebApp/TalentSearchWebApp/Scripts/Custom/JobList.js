@@ -4,6 +4,7 @@ var jobTalentAssociationObj = {};
 var clickedJobId = "";
 var jobTalentRoles = "";
 var EnquiryObj = {};
+var JobId = "";
 $(document).ready(function () {
 
     $("#dialog").dialog({
@@ -23,10 +24,19 @@ $(document).ready(function () {
 		        ResetSearch();
 		        $(this).dialog("close");
 		    }
-		}
+		},
+        {
+            text: "",
+            id: "companyNotify",
+            label: "Company",
+            click: function () {
+                var self = $("#companyNotify");
+                setAddNotificationObj(self);
+            }
+        },
         ]
     });
-
+    $("#companyNotify").append("<span class='fa fa-envelope'> Company</span>")
     $("#htmldialog").dialog({
         autoOpen: false,
         width: 1000,
@@ -66,8 +76,8 @@ $(document).ready(function () {
                             markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
                             markup += "<td id='name_row_" + talentId + "'><select class='status' id='statusselect" + talentId + "'>" + jobTalentStatus + "</select></td>";
                             markup += "<td id='name_row_" + talentId + "'><select class='role' id='roleselect" + talentId + "'>" + jobTalentRoles + "</select></td>";
-                            markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
-                            markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
+                            markup += "<td><button data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> Talent</span></button>"
+                            markup += "<a  onclick='deleteAssociation(" + talentId + "," + JobId + ",this)' style='margin-left:1em;'><span class='fa fa-trash'></span></a></td>"
                             markup += "</tr>";
 
                             $("#tblAssignedTalents tbody").append(markup);
@@ -90,9 +100,8 @@ $(document).ready(function () {
                         markup += "<td id='name_row_" + talentId + "'>" + email + "</td>";
                         markup += "<td id='name_row_" + talentId + "'><select class='status' id='statusselect" + talentId + "'>" + jobTalentStatus + "</select></td>";
                         markup += "<td id='name_row_" + talentId + "'><select class='role' id='roleselect" + talentId + "'>" + jobTalentRoles + "</select></td>";
-                        markup += "<td id='name_row_" + talentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
-                        markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
-
+                        markup += "<td><button data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> Talent</span></button>"
+                        markup += "<a  onclick='deleteAssociation(" + talentId + "," + JobId + ",this)' style='margin-left:1em;'><span class='fa fa-trash'></span></a></td>"
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);
@@ -267,6 +276,7 @@ function GetTalentsForJob(jobId) {
     else {
         jobId = clickedJobId;
     }
+    JobId = jobId;
     LoadJobRole(jobId);
 
     var url = advancedSearch(jobId);
@@ -305,8 +315,8 @@ function GetTalentsForJob(jobId) {
                         markup += "<td id='name_row_" + prop.TalentId + "'>" + prop.EmailId + "</td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'><select class='status' id='statusselect" + prop.TalentId + "'>" + jobTalentStatus + "</select></td>";
                         markup += "<td id='name_row_" + prop.TalentId + "'><select class='role' id='roleselect" + prop.TalentId + "'>" + jobTalentRoles + "</select></td>";
-                        markup += "<td id='name_row_" + prop.TalentId + "'><a data-label='Company' onclick='setAddNotificationObj(this)'><span class='fa fa-envelope'> C</span></a>"
-                        markup += "<a data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> T</span></a></td>"
+                        markup += "<td><button data-label='Talent' onclick='setAddNotificationObj(this)' style='margin-left:1em;'><span class='fa fa-envelope'> Talent</span></button>"
+                        markup += "<a  onclick='deleteAssociation(" + prop.TalentId + "," + jobId + ",this)' style='margin-left:1em;'><span class='fa fa-trash'></span></a></td>"
                         markup += "</tr>";
 
                         $("#tblAssignedTalents tbody").append(markup);
@@ -316,6 +326,7 @@ function GetTalentsForJob(jobId) {
                     }
                 }
 
+           
                 $("#dialog").dialog("open");
             }
         },
@@ -423,7 +434,7 @@ function setAddNotificationObj(btnObj) {
         return;
     }
 
-    if ($(btnObj).attr('data-label') == 'Company') {
+    if ($(btnObj).attr('label') == 'Company') {
         notificationType = 'company';
     }
     else {
@@ -551,7 +562,7 @@ function makeContentEditable(notificationType) {
 
 function sendEnquiry() {
     $(".Medium-placeholder").each(function () {
-        if ($(this).html().indexOf('Add...')!=-1) {
+        if ($(this).html().indexOf('Add...') != -1) {
             $(this).remove();
         }
     });
@@ -573,4 +584,22 @@ function sendEnquiry() {
         }
     });
 
+}
+
+function deleteAssociation(talentId, JobId, object) {
+    console.log(talentId + "," + JobId + "," + object);
+    return $.ajax({
+        url: '/Admin/DeleteJobTalentAssociation?talentId=' + talentId + '&jobId=' + JobId,
+        type: "GET",
+        dataType: 'json',
+        processData: false,
+        cache: false,
+        success: function (data) {
+            var deleteRow = $(object).closest('tr');
+            $(deleteRow).remove();
+        },
+        error: function (xhr) {
+            alert('Please try after some time.');
+        }
+    });
 }

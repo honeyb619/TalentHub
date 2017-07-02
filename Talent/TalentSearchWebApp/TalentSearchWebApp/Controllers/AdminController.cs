@@ -476,6 +476,18 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
+        public JsonResult DeleteJobTalentAssociation(long talentId, long jobId)
+        {
+            IJobs objJob = new JobServices();
+            if (objJob.DeleteJobTalentAssociation(talentId, jobId))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
+        [AuthorizeWithSessionAttribute]
+        [HttpGet]
         public JsonResult GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             ITalentServices objTalentServices = new TalentServices();
