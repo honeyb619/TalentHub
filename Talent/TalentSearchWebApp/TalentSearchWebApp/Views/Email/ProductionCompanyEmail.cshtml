@@ -31,26 +31,36 @@
 
                 <div id="emailStart" class="article demo">Your Job " @Model[0].JobName "  has been found new matches. Please find below the details.</div>
 
+                <table style="width: 80%!important; border-collapse: separate; border-spacing: 1em;">
+                    @{
+                   
+                        foreach (var obj in @Model)
+                        {
+                        <tr>
 
-                @{
-                        
-                    foreach (var obj in @Model)
-                    {
-                    <br />
-                    @Html.Raw("Talent Name : " + obj.TalentName)
-                    <br />
-                    @Html.Raw("Region : " + obj.Region)
-                    <br />
-                    @Html.Raw("Please click the below link to see the profile.")
-                    <br />
-                    @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + obj.TalentId + "'>" + obj.TalentName + "</a> ")
-                    <br />
-                    <br />
-                    @Html.Raw("<div id='otherInfo"+obj.TalentName+"' class='article demo addcomment'></div>");
+                            <td>
+                                @Html.Raw("<a href='http://jadetalent.co.nz/Home/Profile?ProfileId=" + obj.TalentId + "'><img src='" + obj.PicUrl + "' alternate='" + obj.TalentName + "' height='100px' width='100px' /></a>")
+                            </td>
+                            <td>
+                                @Html.Raw("Talent Name : " + obj.TalentName)
+                                <br />
+                                <br />
+                                @Html.Raw("Region : " + obj.Region)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.Raw("<div id='otherInfo" + obj.TalentName + "' class='article demo addcomment'></div>")
+                            </td>
+                        </tr>
+
+
+                        }
+                   
                     }
-                }
+                </table>
                 <br />
-                
             </td>
         </tr>
         <tr>

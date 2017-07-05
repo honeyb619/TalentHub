@@ -19,6 +19,7 @@ namespace TalentSearchWebApp.Models
         public string Region { get; set; }
         public string Role { get; set; }
         public string Pay { get; set; }
+        public string PicUrl { get; set; }
 
     }
 

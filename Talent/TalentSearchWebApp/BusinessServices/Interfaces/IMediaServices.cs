@@ -10,7 +10,7 @@ namespace BusinessServices.Interfaces
     public interface IMediaServices
     {
         VmMedias GetMediaById(long mediaId);
-        IEnumerable<MediaEntity> GetAllMedias();
+        IEnumerable<MediaEntity> GetMediaByTalentId(long TalentId);
         long CreateMedia(VmMedias mediaEntity);
         bool TalentMediaProfileUpdate(VmMedias mediaModel);
         bool DeleteMedia(long mediaId);

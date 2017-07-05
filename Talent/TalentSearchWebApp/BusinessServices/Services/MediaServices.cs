@@ -40,9 +40,12 @@ namespace BusinessServices.Services
 
         }
 
-        public IEnumerable<MediaEntity> GetAllMedias()
+        public IEnumerable<MediaEntity> GetMediaByTalentId(long talentId)
         {
-            throw new NotImplementedException();
+            var medias= _unitOfWork.MediaRepository.GetAll().Where(media=>media.TalentId==talentId).ToList();
+            Mapper.CreateMap<Medium, MediaEntity>();
+            var mediaModel = Mapper.Map<List<Medium>, List<MediaEntity>>(medias);
+            return mediaModel;
         }
 
         public long CreateMedia(VmMedias mediaModel)

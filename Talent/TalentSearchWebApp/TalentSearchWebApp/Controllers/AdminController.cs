@@ -551,6 +551,7 @@ namespace TalentSearchWebApp.Controllers
             ITalentServices ObjTalentService = new TalentServices();
             IProductionCompanyServices ObjProductionCompany = new ProductionCompanyServices();
             ISubCategory ObjSubCategory = new SubCategoryServices();
+            IMediaServices ObjMediaService = new MediaServices();
             foreach (var TalentObj in objVmSaveJobTalentAssociation.TalentStatusIds)
             {
                 Dictionary<string, string> NotificationDetail = new Dictionary<string, string>();
@@ -565,6 +566,11 @@ namespace TalentSearchWebApp.Controllers
                 NotificationDetail["TalentId"] = Talent.TalentId.ToString();
                 NotificationDetail["Region"] = Talent.RegionName;
                 NotificationDetail["Role"] = ObjJobService.GetRoleByJobTalentId(Talent.TalentId, objVmSaveJobTalentAssociation.JobId);
+                MediaEntity Objmedia = ObjMediaService.GetMediaByTalentId(TalentObj.TalentId).Where(media => media.MediaType == "Image").First();
+                if (Objmedia != null)
+                {
+                    NotificationDetail["PicUrl"] = "http://jadetalent.co.nz/Content/Files/Image/" + Objmedia.FilePath.TrimStart('.');
+                }
                 NotificationDetails.Add(NotificationDetail);
             }
             return Json(NotificationDetails);
