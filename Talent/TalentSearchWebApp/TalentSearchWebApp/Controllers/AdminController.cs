@@ -537,6 +537,7 @@ namespace TalentSearchWebApp.Controllers
             NotificationDetails["TalentId"] = Talent.TalentId.ToString();
             NotificationDetails["Region"] = Talent.RegionName;
             NotificationDetails["Role"] = ObjJobService.GetRoleByJobTalentId(Talent.TalentId, objVmSaveJobTalentAssociation.JobId);
+            NotificationDetails["Pay"] = ObjJobService.GetJobById(objVmSaveJobTalentAssociation.JobId).Pay;
             return Json(NotificationDetails);
         }
 

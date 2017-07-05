@@ -18,6 +18,7 @@ namespace TalentSearchWebApp.Models
         public string TalentId { get; set; }
         public string Region { get; set; }
         public string Role { get; set; }
+        public string Pay { get; set; }
 
     }
 
