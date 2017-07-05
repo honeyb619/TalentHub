@@ -151,11 +151,12 @@
     }
 
     .carousel-inner > .item > a > img, .carousel-inner > .item > img {
-    height:27em;
-    width:21em;
+        height: 27em;
+        width: 21em;
     }
+
     .carousel-indicators {
-    left:10em;
+        left: 10em;
     }
 </style>
 
@@ -167,7 +168,7 @@
     <div class="container">
         <div class="row" style="background-color: rgba(0,0,0,0.7); color: whitesmoke;">
             <div class="col-xs-12 text-center">
-                <h3 style="color:#de291e">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
+                <h3 style="color: #de291e">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
             </div>
         </div>
     </div>
@@ -353,7 +354,7 @@
                                 </div>
                             </div>
                         </div>
-                          <div class="row">
+                        <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-stronglabel col-xs-6">
                                     @Html.DisplayNameFor(model => model.Nationality)
@@ -367,8 +368,8 @@
                     <div id="skills" class="tabdiv" style="display: none;">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 profile-info">
-                            <h3>Experiences</h3>
-                                </div>
+                                <h3>Experiences</h3>
+                            </div>
                         </div>
                         @{
                             if (Model != null && Model.vmMainSkills != null)
@@ -377,14 +378,14 @@
                                 {
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12 profile-info">
-                                   @* <h3>@Html.Raw(element.MainSkil)</h3>*@
+                                    @* <h3>@Html.Raw(element.MainSkil)</h3>*@
                                     @if (element.Skills != null)
                                     {
 
                                         foreach (var childelement in element.Skills)
                                         {
                                
-                                        @*<p>@Html.Raw(childelement.SkillName)
+@*<p>@Html.Raw(childelement.SkillName)
                                         </p>*@
                                             if (!string.IsNullOrEmpty(childelement.Description))
                                             {
@@ -420,7 +421,17 @@
                         <div class="row">
                             <div class="col-xs-12 profile-info">
                                 <h3>Training and life skills</h3>
-                                @Html.DisplayFor(model => model.Hobbies)
+                                @{
+                                    if (Model != null)
+                                    {
+                                        Model.Hobbies = Model.Hobbies ?? "";
+                                        foreach (var exp in Model.Hobbies.Split(','))
+                                        {
+                                    @Html.Raw("<p>" + exp + "</p>");
+                                        }
+                                    }
+                                    
+                                }
                             </div>
 
                         </div>
