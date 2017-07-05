@@ -168,11 +168,11 @@ namespace JADE_TALENT.Controllers
             return View((object)message);
         }
 
-        public ActionResult SearchCategory(string category, string subCategory)
+        public ActionResult SearchCategory(string category, string subCategory,string searchText)
         {
             ITalentServices objTalentServices = new TalentServices();
             ViewBag.SubCategory = subCategory;
-            return View(objTalentServices.GetPublicTalents(category, subCategory, User.Identity.IsAuthenticated));
+            return View(objTalentServices.GetPublicTalents(category, subCategory, User.Identity.IsAuthenticated, searchText));
         }
     }
 }

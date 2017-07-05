@@ -16,6 +16,6 @@ namespace BusinessServices.Interfaces
         long UpdateTalent(VmInsertTalent talentEntity);
         bool DeleteTalent(long talentId);
         List<VmTalentsForJob> GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null);
-        List<VmPublicTalent> GetPublicTalents(string category, string subCategory, bool isAdmin = false);
+        List<VmPublicTalent> GetPublicTalents(string category, string subCategory, bool isAdmin = false,string searchTxt="");
     }
 }

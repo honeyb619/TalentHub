@@ -412,12 +412,20 @@ namespace BusinessServices.Services
             return success;
         }
 
-        public List<VmPublicTalent> GetPublicTalents(string category, string subCategory, bool isAdmin = false)
+        public List<VmPublicTalent> GetPublicTalents(string category, string subCategory, bool isAdmin = false, string SearchTxt = "")
         {
             var categoryName = new SqlParameter("@Category", category.Trim());
             var subCategoryName = new SqlParameter("@SubCategory", subCategory.Trim());
             var isAdminParam = new SqlParameter("@isAdmin", isAdmin);
-            var publicTalents = _unitOfWork.Usp_GetPublicTalent_ResultRepository.GetWithRawSql("exec usp_GetPublicTalent @Category, @SubCategory", categoryName, subCategoryName).ToList();
+            var searchParam = new SqlParameter("@SearchContext", SearchTxt);
+            List<usp_GetPublicTalent_Result> publicTalents;
+            if (!String.IsNullOrEmpty(SearchTxt))
+            {
+                publicTalents = _unitOfWork.Usp_GetPublicTalent_ResultRepository.GetWithRawSql("exec usp_GetPublicTalent @Category, @SubCategory,@SearchContext", categoryName, subCategoryName, searchParam).ToList();
+            }
+            else
+                publicTalents = _unitOfWork.Usp_GetPublicTalent_ResultRepository.GetWithRawSql("exec usp_GetPublicTalent @Category, @SubCategory", categoryName, subCategoryName).ToList();
+
 
             if (publicTalents != null)
             {
