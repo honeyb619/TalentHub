@@ -508,7 +508,7 @@ namespace BusinessServices.Services
                     }
 
                 }
-
+                publicTalentsModel = publicTalentsModel.OrderBy(talent => talent.Name).ToList();
                 return publicTalentsModel;
             }
 
