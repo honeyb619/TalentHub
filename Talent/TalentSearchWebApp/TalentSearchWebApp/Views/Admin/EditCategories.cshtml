@@ -50,11 +50,8 @@
                                         @Html.ValidationMessageFor(model => model.SubCategoryName)
                                     </div>
 
-                                    <div class="col-xs-12 form-group">
-                                        <label>Value</label>
-                                    </div>
-                                    <div class="col-xs-12 form-group">
-                                        @Html.TextBoxFor(model => model.SubCategoryValue, new { required = "" })
+                                    <div class="col-xs-12 form-group" style = "display: none;">
+                                        @Html.TextBoxFor(model => model.SubCategoryValue, new { required = ""})
                                         @Html.ValidationMessageFor(model => model.SubCategoryValue)
                                     </div>
 

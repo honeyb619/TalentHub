@@ -191,7 +191,8 @@ namespace BusinessServices.Services
                     VmSkills objVmSkills = new VmSkills();
                     objVmSkills.ParentId = a.SubCategoryId;
                     objVmSkills.SkillId = b.SubCategoryId;
-                    objVmSkills.SkillName = b.SubCategoryValue;
+                    objVmSkills.SkillName = b.SubCategoryName;
+                    objVmSkills.SkillValue = b.SubCategoryValue;
 
                     objVmMainSkills.Skills.Add(objVmSkills);
                 }
