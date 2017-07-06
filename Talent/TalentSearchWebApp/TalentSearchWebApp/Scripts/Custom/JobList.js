@@ -256,6 +256,9 @@ function advancedSearch(jobId) {
     if ($("#ethicitytxt").val()) {
         advancedsearchparam = advancedsearchparam + "Ethicity=" + $("#ethicitytxt").val() + "&";
     }
+    if ($("#gendertxt").val()) {
+        advancedsearchparam = advancedsearchparam + "Gender=" + $("#gendertxt").val() + "&";
+    }
     if ($("#searchcondition").val() && $("#conditiontxt").val()) {
         advancedsearchparam = advancedsearchparam + $("#searchcondition").val() + "=" + $("#conditiontxt").val();
     }

@@ -22,5 +22,7 @@ namespace BusinessEntities.ViewModel
         public long HipSize { get; set; }
         public long ChestSize { get; set; }
         public string Role { get; set; }
+        public string Gender { get; set; }
+        public string Hobbies { get; set; }
     }
 }

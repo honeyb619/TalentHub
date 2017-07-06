@@ -397,12 +397,12 @@ namespace TalentSearchWebApp.Controllers
         }
 
         [AuthorizeWithSessionAttribute]
-        public ActionResult Talents(string search = null, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string experience = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
+        public ActionResult Talents(string search = null, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string Gender = null, string HairColor = null, string EyeColor = null, string experience = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
             ITalentServices talentObj = new TalentServices();
             if (AdvancedSearch)
             {
-                var talents = talentObj.GetAllTalentsbyAdvancedSearch(Region, Ethicity, HairColor, EyeColor, experience, Age, Waist, Hip, ChestBust);
+                var talents = talentObj.GetAllTalentsbyAdvancedSearch(Region, Ethicity,Gender, HairColor, EyeColor, experience, Age, Waist, Hip, ChestBust);
                 return View(talents);
 
             }
@@ -488,12 +488,12 @@ namespace TalentSearchWebApp.Controllers
 
         [AuthorizeWithSessionAttribute]
         [HttpGet]
-        public JsonResult GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
+        public JsonResult GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null,string Gender=null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null,string Experience=null)
         {
             ITalentServices objTalentServices = new TalentServices();
             if (AdvancedSearch)
             {
-                return Json(objTalentServices.GetTalentsForJob(jobId, AdvancedSearch, Region, Ethicity, HairColor, EyeColor, Age, Waist, Hip, ChestBust), JsonRequestBehavior.AllowGet);
+                return Json(objTalentServices.GetTalentsForJob(jobId, AdvancedSearch, Region, Ethicity, Gender, HairColor, EyeColor, Age, Waist, Hip, ChestBust, Experience), JsonRequestBehavior.AllowGet);
             }
             return Json(objTalentServices.GetTalentsForJob(jobId), JsonRequestBehavior.AllowGet);
         }

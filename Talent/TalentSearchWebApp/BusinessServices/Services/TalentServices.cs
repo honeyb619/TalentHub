@@ -56,7 +56,7 @@ namespace BusinessServices.Services
             return null;
         }
 
-        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string experience = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
+        public List<BusinessEntities.ViewModel.VmTalentEntity> GetAllTalentsbyAdvancedSearch(string Region = null, string Ethicity = null, string Gender = null, string HairColor = null, string EyeColor = null, string experience = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
         {
 
             List<Talent> talent;
@@ -77,6 +77,13 @@ namespace BusinessServices.Services
             {
                 talent = talent.Where(ent => ent.EyeColor.ToLower().Contains(EyeColor.ToLower())).ToList();
             }
+
+            if (!(String.IsNullOrEmpty(Gender)))
+            {
+                talent = talent.Where(ent => ent.Gender.ToLower().Contains(Gender.ToLower())).ToList();
+            }
+
+
             if (!string.IsNullOrEmpty(experience))
             {
                 talent = talent.Where(ent => ent.Hobbies.ToLower().Contains(experience.ToLower())).ToList();
@@ -438,7 +445,7 @@ namespace BusinessServices.Services
         }
 
 
-        public List<VmTalentsForJob> GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null)
+        public List<VmTalentsForJob> GetTalentsForJob(long jobId, bool AdvancedSearch = false, string Region = null, string Ethicity = null, string Gender = null, string HairColor = null, string EyeColor = null, string Age = null, string Waist = null, string Hip = null, string ChestBust = null,string Skill=null)
         {
             var jobIdForTalent = new SqlParameter("@JobId", jobId);
             var publicTalents = _unitOfWork.Usp_GetTalentsForJob_ResultRepository.GetWithRawSql("exec usp_GetTalentsForJob @JobId", jobIdForTalent).ToList();
@@ -466,6 +473,15 @@ namespace BusinessServices.Services
                     {
                         publicTalentsModel = publicTalentsModel.Where(talent => (talent.EyeColor != null ? talent.EyeColor.ToLower().Contains(EyeColor.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
                     }
+                    if (!(String.IsNullOrEmpty(Gender)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.Gender != null ? talent.Gender.ToLower().Contains(Gender.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+                    if (!(String.IsNullOrEmpty(Skill)))
+                    {
+                        publicTalentsModel = publicTalentsModel.Where(talent => (talent.Hobbies != null ? talent.Hobbies.ToLower().Contains(Skill.ToLower()) : false) || talent.IsAssigned.Equals("Assigned")).ToList();
+                    }
+
                     if (!(String.IsNullOrEmpty(Age)))
                     {
                         var min = Int32.Parse(Age.Split('-')[0]);

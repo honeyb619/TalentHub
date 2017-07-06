@@ -131,6 +131,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="contain">Gender</label>
+                                        <select class="form-control" id="gendertxt">
+                                            <option value="">--select--</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="contain">Ethicity</label>
                                         <input class="form-control" id="ethicitytxt" type="text" />
                                     </div>
@@ -298,9 +306,14 @@
         if($("#ethicitytxt").val()){
             advancedsearchparam =advancedsearchparam+"Ethicity="+$("#ethicitytxt").val()+"&";
         }
+        if($("#gendertxt").val()){
+            advancedsearchparam =advancedsearchparam+"Gender="+$("#gendertxt").val()+"&";
+        }
+
         if($("#searchcondition").val()&& $("#conditiontxt").val()){
             advancedsearchparam =advancedsearchparam+$("#searchcondition").val()+"="+$("#conditiontxt").val();
         }
+
         if($("#rangesearchcondition").val()&& $("#minconditiontxt").val() && $("#maxconditiontxt").val()){
             advancedsearchparam =advancedsearchparam+$("#rangesearchcondition").val()+"="+$("#minconditiontxt").val()+'-'+$("#maxconditiontxt").val();
         }
