@@ -569,7 +569,7 @@ namespace TalentSearchWebApp.Controllers
                 MediaEntity Objmedia = ObjMediaService.GetMediaByTalentId(TalentObj.TalentId).Where(media => media.MediaType == "Image").First();
                 if (Objmedia != null)
                 {
-                    NotificationDetail["PicUrl"] = "http://jadetalent.co.nz/Content/Files/Image/" + Objmedia.FilePath.TrimStart('.');
+                    NotificationDetail["PicUrl"] = "http://jadetalent.co.nz" + Objmedia.FilePath.TrimStart('.');
                 }
                 NotificationDetails.Add(NotificationDetail);
             }
