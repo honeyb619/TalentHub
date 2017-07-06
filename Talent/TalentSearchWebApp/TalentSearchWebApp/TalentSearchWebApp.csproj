@@ -173,6 +173,9 @@
     <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\Collage1.JPG" />
     <Content Include="Content\images\Collage2.JPG" />
+    <Content Include="Content\images\Collage3.jpg" />
+    <Content Include="Content\images\Collage4.jpg" />
+    <Content Include="Content\images\Collage5.jpg" />
     <Content Include="Content\images\favicon_03.png" />
     <Content Include="Content\images\JADE-Logo.gif" />
     <Content Include="Content\images\logo.jpg" />
