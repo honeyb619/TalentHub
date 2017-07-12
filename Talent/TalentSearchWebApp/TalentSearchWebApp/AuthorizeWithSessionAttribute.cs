@@ -8,13 +8,13 @@ namespace TalentSearchWebApp
 {
     public class AuthorizeWithSessionAttribute : AuthorizeAttribute
     {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
-            if (httpContext.Session == null || httpContext.Session["UserInfo"] == null)
-                return false;
+        //protected override bool AuthorizeCore(HttpContextBase httpContext)
+        //{
+        //    if (httpContext.Session == null || httpContext.Session["UserInfo"] == null)
+        //        return false;
 
-            return base.AuthorizeCore(httpContext);
-        }
+        //    return base.AuthorizeCore(httpContext);
+        //}
 
     }
 }
